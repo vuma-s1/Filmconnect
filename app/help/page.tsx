@@ -61,7 +61,7 @@ export default function HelpPage() {
       description: "Get help via email",
       icon: Mail,
       action: "Send Email",
-      href: "mailto:support@filmlinked.com"
+              href: "mailto:support@24crafts.com"
     },
     {
       title: "Live Chat",
@@ -75,7 +75,7 @@ export default function HelpPage() {
       description: "Call us directly",
       icon: Phone,
       action: "Call Now",
-      href: "tel:+1-800-FILMLINKED"
+              href: "tel:+1-800-24CRAFTS"
     }
   ];
 
@@ -214,8 +214,8 @@ export default function HelpPage() {
           <Separator className="mb-8" />
           <p className="text-muted-foreground">
             Still need help? Contact our support team at{' '}
-            <a href="mailto:support@filmlinked.com" className="text-primary hover:underline">
-              support@filmlinked.com
+                    <a href="mailto:support@24crafts.com" className="text-primary hover:underline">
+          support@24crafts.com
             </a>
           </p>
         </div>

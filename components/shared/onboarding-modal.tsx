@@ -24,7 +24,7 @@ const OnboardingModal = ({ isOpen, onClose }: OnboardingModalProps) => {
 
   const steps = [
     {
-      title: "Welcome to FilmConnect!",
+      title: "Welcome to 24 Crafts!",
       description: "Let's get your profile set up to connect with the film industry",
       content: (
         <div className="text-center py-8">
@@ -88,7 +88,7 @@ const OnboardingModal = ({ isOpen, onClose }: OnboardingModalProps) => {
     },
     {
       title: "You're All Set!",
-      description: "Welcome to the FilmConnect community",
+      description: "Welcome to the 24 Crafts community",
       content: (
         <div className="text-center py-8">
           <div className="w-20 h-20 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">

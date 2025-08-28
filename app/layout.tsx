@@ -7,7 +7,7 @@ import { ToastProvider } from '@/components/ui/toast-provider';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'FilmConnect - Professional Networking for Film Industry',
+  title: '24 Crafts - Professional Networking for Film Industry',
   description: 'Connect with film industry professionals, discover opportunities, and showcase your work on the leading platform for cinema professionals.',
 };
 

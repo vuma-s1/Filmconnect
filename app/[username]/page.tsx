@@ -512,7 +512,7 @@ const ProfilePage = ({ params }: ProfilePageProps) => {
                   <div className="flex items-start space-x-3">
                     <div className="w-2 h-2 bg-muted-foreground rounded-full mt-2"></div>
                     <div>
-                      <p className="font-medium">Joined FilmConnect</p>
+                      <p className="font-medium">Joined 24 Crafts</p>
                       <p className="text-muted-foreground text-xs">6 months ago</p>
                     </div>
                   </div>

@@ -30,7 +30,7 @@ const LoginPage = () => {
         <div className="text-center">
           <Link href="/" className="inline-flex items-center space-x-2">
             <Film className="h-10 w-10 text-primary" />
-            <span className="text-2xl font-bold text-white">FilmConnect</span>
+            <span className="text-2xl font-bold text-white">24 Crafts</span>
           </Link>
           <h2 className="mt-6 text-3xl font-bold text-white">Welcome back</h2>
           <p className="mt-2 text-muted-foreground">

@@ -45,7 +45,7 @@ export default function AuthPage() {
             <div className="h-12 w-12 rounded bg-blue-600 flex items-center justify-center">
               <Film className="h-6 w-6 text-white" />
             </div>
-            <span className="font-bold text-2xl">FilmLinked</span>
+            <span className="font-bold text-2xl">24 Crafts</span>
           </div>
           <p className="text-muted-foreground">
             Connect with film industry professionals
@@ -54,7 +54,7 @@ export default function AuthPage() {
 
         <Card>
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl text-center">Welcome to FilmLinked</CardTitle>
+            <CardTitle className="text-2xl text-center">Welcome to 24 Crafts</CardTitle>
             <p className="text-center text-muted-foreground">
               Join the leading platform for film industry professionals
             </p>
@@ -288,7 +288,7 @@ export default function AuthPage() {
         </Card>
 
         <p className="text-center text-sm text-muted-foreground mt-6">
-          By continuing, you agree to FilmLinked's{" "}
+          By continuing, you agree to 24 Crafts'{" "}
           <Link href="/terms" className="text-primary hover:underline">
             Terms of Service
           </Link>{" "}

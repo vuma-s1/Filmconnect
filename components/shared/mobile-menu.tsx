@@ -114,7 +114,7 @@ export function MobileMenu() {
           {/* Footer */}
           <div className="p-4 border-t">
             <div className="flex items-center justify-between text-sm text-muted-foreground">
-              <span>FilmLinked v1.0</span>
+              <span>24 Crafts v1.0</span>
               <span>© 2024</span>
             </div>
           </div>

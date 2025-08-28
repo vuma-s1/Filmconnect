@@ -34,7 +34,7 @@ export function Navbar() {
               <div className="h-8 w-8 rounded bg-blue-600 flex items-center justify-center">
                 <span className="text-white font-bold text-sm">F</span>
               </div>
-              <span className="font-semibold text-xl">FilmLinked</span>
+              <span className="font-semibold text-xl">24 Crafts</span>
             </Link>
           </div>
 

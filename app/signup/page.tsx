@@ -63,9 +63,9 @@ const SignUpPage = () => {
           <div className="text-center">
             <Link href="/" className="inline-flex items-center space-x-2">
               <Film className="h-10 w-10 text-primary" />
-              <span className="text-2xl font-bold text-white">FilmConnect</span>
+              <span className="text-2xl font-bold text-white">24 Crafts</span>
             </Link>
-            <h2 className="mt-6 text-3xl font-bold text-white">Join FilmConnect</h2>
+            <h2 className="mt-6 text-3xl font-bold text-white">Join 24 Crafts</h2>
             <p className="mt-2 text-muted-foreground">
               Connect with film industry professionals
             </p>
