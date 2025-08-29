@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -20,12 +21,35 @@ import {
   Crown, 
   Shield,
   HelpCircle,
-  MessageSquare
+  MessageSquare,
+  LogIn
 } from 'lucide-react';
 
 export function UserMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  
+  // Mock authentication state - you can replace this with your actual auth logic
+  const isAuthenticated = pathname === '/login' || pathname === '/onboarding' ? false : (localStorage.getItem('isAuthenticated') === 'true' && localStorage.getItem('onboardingCompleted') === 'true');
 
+  // Don't show auth buttons on auth pages and onboarding
+  const isAuthPage = pathname === '/login' || pathname === '/signup' || pathname === '/onboarding';
+
+  // If user is not authenticated, show sign in/sign up buttons
+  if (!isAuthenticated) {
+    return (
+      <div className="flex items-center space-x-2">
+        <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground" asChild>
+          <Link href="/login">Sign In</Link>
+        </Button>
+        <Button size="sm" className="bg-primary hover:bg-primary/90 text-black" asChild>
+          <Link href="/signup">Sign Up</Link>
+        </Button>
+      </div>
+    );
+  }
+
+  // If user is authenticated, show user menu
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>

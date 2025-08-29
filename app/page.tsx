@@ -1,551 +1,281 @@
 "use client";
 
-import { useState, useRef, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
-import { mockUsers } from '@/data/mock-data';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
 import { 
-  Search, 
-  UserPlus, 
-  MessageCircle, 
-  Heart, 
-  Share2, 
-  MoreHorizontal,
-  FileText, 
-  ImageIcon, 
-  Award, 
+  Eye, 
+  EyeOff, 
+  Mail, 
+  Lock, 
+  User, 
   Camera, 
-  Video, 
-  Send,
-  ThumbsUp,
-  MessageSquare,
-  Bookmark,
-  X,
-  TrendingUp,
-  Calendar,
-  MapPin,
-  Building,
+  Film, 
+  X, 
+  Plus, 
+  Briefcase, 
+  Users, 
+  Calendar, 
+  Bell, 
+  Settings, 
+  HelpCircle,
+  Play,
   Star,
-  Eye,
-  Users,
-  Briefcase,
-  Globe,
-  Plus,
-  ChevronRight,
-  Bell,
-  Settings,
-  HelpCircle
+  Award,
+  TrendingUp,
+  MapPin,
+  Clock,
+  Heart,
+  MessageCircle,
+  Share2,
+  Bookmark,
+  Sparkles,
+  Crown,
+  Zap,
+  Target,
+  Lightbulb
 } from 'lucide-react';
+import Link from 'next/link';
+import FeedPost from '@/components/features/feed/feed-post';
+import { mockPosts, mockUsers } from '@/data/mock-data';
 
-const HomePage = () => {
-  const [showCreatePost, setShowCreatePost] = useState(false);
-  const [postType, setPostType] = useState<'text' | 'image' | 'achievement' | 'job_share'>('text');
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [newPost, setNewPost] = useState('');
-  const fileInputRef = useRef<HTMLInputElement>(null);
+// Enhanced mock data for cinema industry
+const trendingTopics = [
+  { id: 1, topic: 'Film Festival Season', posts: 1240, trending: 'up', category: 'Events' },
+  { id: 2, topic: 'Independent Cinema', posts: 890, trending: 'up', category: 'Industry' },
+  { id: 3, topic: 'Streaming Platforms', posts: 567, trending: 'down', category: 'Technology' },
+  { id: 4, topic: 'Film Awards 2024', posts: 2340, trending: 'up', category: 'Awards' },
+  { id: 5, topic: 'Cinematography Trends', posts: 456, trending: 'up', category: 'Technical' }
+];
 
-  // Mock feed posts
-  const feedPosts = [
-    {
-      id: '1',
-      user: mockUsers[0],
-      content: 'Just wrapped up filming on my latest short film "Echoes of Tomorrow". The entire crew was incredible and I can\'t wait to share the final cut with everyone! 🎬✨',
-      timestamp: '2 hours ago',
-      likes: 24,
-      comments: 8,
-      shares: 3,
-      isLiked: false,
-      type: 'text' as const,
-      tags: ['filmmaking', 'shortfilm', 'cinema']
-    },
-    {
-      id: '2',
-      user: mockUsers[1],
-      content: 'Excited to announce that I\'ll be directing my first feature film next year! After years of working in commercials and music videos, this feels like a dream come true. Thank you to everyone who believed in my vision. 🙏',
-      timestamp: '5 hours ago',
-      likes: 156,
-      comments: 23,
-      shares: 12,
-      isLiked: true,
-      type: 'achievement' as const,
-      tags: ['director', 'featurefilm', 'achievement']
-    },
-    {
-      id: '3',
-      user: mockUsers[2],
-      content: 'Looking for a talented cinematographer for an upcoming documentary project. Must have experience with nature photography and be available for 3 months starting January. DM me for details!',
-      timestamp: '1 day ago',
-      likes: 8,
-      comments: 15,
-      shares: 5,
-      isLiked: false,
-      type: 'job_share' as const,
-      tags: ['hiring', 'cinematographer', 'documentary']
-    },
-    {
-      id: '4',
-      user: mockUsers[3],
-      content: 'Just finished casting for our upcoming thriller "Shadows in the Night". The chemistry between our lead actors is absolutely electric! Can\'t wait to start production next month. 🎭',
-      timestamp: '1 day ago',
-      likes: 89,
-      comments: 12,
-      shares: 7,
-      isLiked: false,
-      type: 'text' as const,
-      tags: ['casting', 'thriller', 'production']
-    },
-    {
-      id: '5',
-      user: mockUsers[4],
-      content: 'Proud to announce that our indie film "The Last Light" has been selected for the Sundance Film Festival! This has been a 3-year journey and I\'m overwhelmed with gratitude. 🏆',
-      timestamp: '2 days ago',
-      likes: 342,
-      comments: 45,
-      shares: 28,
-      isLiked: true,
-      type: 'achievement' as const,
-      tags: ['sundance', 'indiefilm', 'festival']
-    },
-    {
-      id: '6',
-      user: mockUsers[5],
-      content: 'Behind the scenes of our latest music video shoot. The lighting setup was absolutely perfect today! Sometimes the simplest setups create the most beautiful shots. 📸',
-      timestamp: '2 days ago',
-      likes: 67,
-      comments: 9,
-      shares: 4,
-      isLiked: false,
-      type: 'text' as const,
-      tags: ['musicvideo', 'cinematography', 'lighting']
-    },
-    {
-      id: '7',
-      user: mockUsers[6],
-      content: 'Seeking experienced film editors for a documentary series about climate change. Must be proficient in Premiere Pro and After Effects. Remote work available. Contact for details!',
-      timestamp: '3 days ago',
-      likes: 15,
-      comments: 8,
-      shares: 3,
-      isLiked: false,
-      type: 'job_share' as const,
-      tags: ['hiring', 'editor', 'documentary']
-    },
-    {
-      id: '8',
-      user: mockUsers[7],
-      content: 'Just completed the final edit of my debut feature film! 18 months of hard work, countless sleepless nights, and here we are. The journey has been incredible. 🎬',
-      timestamp: '3 days ago',
-      likes: 234,
-      comments: 31,
-      shares: 18,
-      isLiked: true,
-      type: 'achievement' as const,
-      tags: ['featurefilm', 'editing', 'debut']
-    },
-    {
-      id: '9',
-      user: mockUsers[0],
-      content: 'Working on a new screenplay that explores the complexities of human relationships in the digital age. The first draft is complete and I\'m excited to start revisions! ✍️',
-      timestamp: '4 days ago',
-      likes: 45,
-      comments: 7,
-      shares: 2,
-      isLiked: false,
-      type: 'text' as const,
-      tags: ['screenwriting', 'digitalage', 'relationships']
-    },
-    {
-      id: '10',
-      user: mockUsers[1],
-      content: 'Amazing workshop today with young filmmakers! Teaching the next generation about storytelling and visual narrative. The passion in the room was inspiring. 📚',
-      timestamp: '4 days ago',
-      likes: 123,
-      comments: 19,
-      shares: 6,
-      isLiked: false,
-      type: 'text' as const,
-      tags: ['workshop', 'teaching', 'filmmaking']
-    },
-    {
-      id: '11',
-      user: mockUsers[2],
-      content: 'Just wrapped a 12-hour shoot for a commercial. The client was thrilled with the results! Sometimes the most challenging shoots produce the best work. 💪',
-      timestamp: '5 days ago',
-      likes: 78,
-      comments: 11,
-      shares: 4,
-      isLiked: true,
-      type: 'text' as const,
-      tags: ['commercial', 'shoot', 'client']
-    },
-    {
-      id: '12',
-      user: mockUsers[3],
-      content: 'Looking for talented background actors for a period drama set in the 1920s. Must be available for 2 weeks starting next month. Great opportunity for experience!',
-      timestamp: '5 days ago',
-      likes: 23,
-      comments: 15,
-      shares: 8,
-      isLiked: false,
-      type: 'job_share' as const,
-      tags: ['casting', 'background', 'perioddrama']
-    },
-    {
-      id: '13',
-      user: mockUsers[4],
-      content: 'Our documentary "Voices of the Ocean" just won Best Documentary at the International Film Festival! This project was a labor of love and I\'m so proud of our team. 🌊',
-      timestamp: '6 days ago',
-      likes: 456,
-      comments: 52,
-      shares: 34,
-      isLiked: true,
-      type: 'achievement' as const,
-      tags: ['documentary', 'award', 'ocean']
-    },
-    {
-      id: '14',
-      user: mockUsers[5],
-      content: 'Experimenting with new camera techniques for our upcoming sci-fi project. The results are mind-blowing! Can\'t wait to share some behind-the-scenes footage. 🚀',
-      timestamp: '6 days ago',
-      likes: 156,
-      comments: 22,
-      shares: 9,
-      isLiked: false,
-      type: 'text' as const,
-      tags: ['scifi', 'cameratechniques', 'experiment']
-    },
-    {
-      id: '15',
-      user: mockUsers[6],
-      content: 'Just finished the sound design for our horror film. The atmosphere we created is absolutely terrifying! Sound is such an underrated aspect of filmmaking. 🔊',
-      timestamp: '7 days ago',
-      likes: 89,
-      comments: 13,
-      shares: 5,
-      isLiked: true,
-      type: 'text' as const,
-      tags: ['sounddesign', 'horror', 'filmmaking']
-    },
-    {
-      id: '16',
-      user: mockUsers[7],
-      content: 'Seeking experienced production designers for a fantasy film. Must have experience with large-scale sets and creative problem-solving. Competitive rates!',
-      timestamp: '7 days ago',
-      likes: 34,
-      comments: 6,
-      shares: 2,
-      isLiked: false,
-      type: 'job_share' as const,
-      tags: ['hiring', 'productiondesign', 'fantasy']
-    },
-    {
-      id: '17',
-      user: mockUsers[0],
-      content: 'Working with an amazing stunt coordinator on our action sequence. The choreography is incredible and the safety measures are top-notch. Action films are a whole different beast! 💥',
-      timestamp: '8 days ago',
-      likes: 234,
-      comments: 28,
-      shares: 12,
-      isLiked: false,
-      type: 'text' as const,
-      tags: ['stunts', 'action', 'safety']
-    },
-    {
-      id: '18',
-      user: mockUsers[1],
-      content: 'Just completed a masterclass on visual storytelling. The techniques I learned will completely change how I approach directing. Never stop learning! 📖',
-      timestamp: '8 days ago',
-      likes: 167,
-      comments: 24,
-      shares: 8,
-      isLiked: true,
-      type: 'text' as const,
-      tags: ['masterclass', 'storytelling', 'learning']
-    },
-    {
-      id: '19',
-      user: mockUsers[2],
-      content: 'Behind the scenes of our drone cinematography session. The aerial shots we captured are absolutely breathtaking! Technology is revolutionizing how we tell stories. 🚁',
-      timestamp: '9 days ago',
-      likes: 198,
-      comments: 31,
-      shares: 15,
-      isLiked: false,
-      type: 'text' as const,
-      tags: ['drone', 'aerial', 'technology']
-    },
-    {
-      id: '20',
-      user: mockUsers[3],
-      content: 'Looking for experienced makeup artists for a horror film. Must be skilled in special effects makeup and prosthetics. This is going to be an amazing project!',
-      timestamp: '9 days ago',
-      likes: 45,
-      comments: 12,
-      shares: 7,
-      isLiked: false,
-      type: 'job_share' as const,
-      tags: ['hiring', 'makeup', 'horror']
-    },
-    {
-      id: '21',
-      user: mockUsers[4],
-      content: 'Our short film "The Last Goodbye" has been accepted into 15 film festivals worldwide! The response has been overwhelming and I\'m so grateful for this journey. 🌍',
-      timestamp: '10 days ago',
-      likes: 567,
-      comments: 67,
-      shares: 42,
-      isLiked: true,
-      type: 'achievement' as const,
-      tags: ['shortfilm', 'festivals', 'success']
-    },
-    {
-      id: '22',
-      user: mockUsers[5],
-      content: 'Working on the color grading for our latest project. The mood we\'re creating is exactly what we envisioned. Color is such a powerful storytelling tool! 🎨',
-      timestamp: '10 days ago',
-      likes: 134,
-      comments: 18,
-      shares: 6,
-      isLiked: false,
-      type: 'text' as const,
-      tags: ['colorgrading', 'mood', 'storytelling']
-    },
-    {
-      id: '23',
-      user: mockUsers[6],
-      content: 'Just wrapped filming on our documentary about street artists. The stories we captured are incredible and the visuals are stunning. Can\'t wait to share the final cut! 🎨',
-      timestamp: '11 days ago',
-      likes: 289,
-      comments: 35,
-      shares: 19,
-      isLiked: true,
-      type: 'text' as const,
-      tags: ['documentary', 'streetart', 'filming']
-    },
-    {
-      id: '24',
-      user: mockUsers[7],
-      content: 'Seeking experienced costume designers for a period drama. Must have knowledge of historical fashion and attention to detail. This is a major production!',
-      timestamp: '11 days ago',
-      likes: 67,
-      comments: 9,
-      shares: 4,
-      isLiked: false,
-      type: 'job_share' as const,
-      tags: ['hiring', 'costumedesign', 'perioddrama']
-    },
-    {
-      id: '25',
-      user: mockUsers[0],
-      content: 'Just finished the script for my next feature film. 6 months of writing, rewriting, and refining. The story feels ready to come to life! 📝',
-      timestamp: '12 days ago',
-      likes: 345,
-      comments: 41,
-      shares: 23,
-      isLiked: false,
-      type: 'achievement' as const,
-      tags: ['script', 'writing', 'featurefilm']
-    }
-  ];
+const upcomingEvents = [
+  { id: 1, title: 'Sundance Film Festival', date: 'Jan 25', attendees: 45000, type: 'Festival', location: 'Park City, UT' },
+  { id: 2, title: 'Cinematography Masterclass', date: 'Jan 28', attendees: 23, type: 'Workshop', location: 'Los Angeles, CA' },
+  { id: 3, title: 'Screenwriting Seminar', date: 'Feb 2', attendees: 67, type: 'Seminar', location: 'New York, NY' },
+  { id: 4, title: 'Film Industry Mixer', date: 'Feb 5', attendees: 120, type: 'Networking', location: 'London, UK' }
+];
 
-  // Mock trending topics
-  const trendingTopics = [
-    { id: 1, topic: 'Film Festival Season', posts: 1240, trending: 'up' },
-    { id: 2, topic: 'Independent Cinema', posts: 890, trending: 'up' },
-    { id: 3, topic: 'Streaming Platforms', posts: 567, trending: 'down' },
-    { id: 4, topic: 'Film Awards 2024', posts: 2340, trending: 'up' },
-    { id: 5, topic: 'Cinematography Trends', posts: 456, trending: 'up' }
-  ];
-
-  // Mock recent activity
   const recentActivity = [
-    { id: 1, user: mockUsers[3], action: 'posted a new project', time: '1h ago' },
-    { id: 2, user: mockUsers[4], action: 'joined a new group', time: '2h ago' },
-    { id: 3, user: mockUsers[5], action: 'shared a job opportunity', time: '3h ago' },
-    { id: 4, user: mockUsers[6], action: 'updated their profile', time: '4h ago' }
-  ];
+  { id: 1, user: mockUsers[3], action: 'posted a new showreel', time: '1h ago', type: 'showreel' },
+  { id: 2, user: mockUsers[4], action: 'joined Cinematographers Guild', time: '2h ago', type: 'group' },
+  { id: 3, user: mockUsers[5], action: 'shared a casting call', time: '3h ago', type: 'job' },
+  { id: 4, user: mockUsers[6], action: 'updated their filmography', time: '4h ago', type: 'profile' }
+];
 
-  // Mock suggested connections
   const suggestedConnections = mockUsers.slice(2, 6);
 
-  // Mock upcoming events
-  const upcomingEvents = [
-    { id: 1, title: 'Film Industry Meetup', date: 'Jan 25', attendees: 45 },
-    { id: 2, title: 'Cinematography Workshop', date: 'Jan 28', attendees: 23 },
-    { id: 3, title: 'Screenwriting Seminar', date: 'Feb 2', attendees: 67 }
-  ];
+const industryStats = [
+  { label: 'Active Projects', value: '2,847', change: '+12%', icon: Film },
+  { label: 'Job Opportunities', value: '156', change: '+8%', icon: Briefcase },
+  { label: 'Industry Events', value: '23', change: '+5%', icon: Calendar },
+  { label: 'New Connections', value: '1,234', change: '+15%', icon: Users }
+];
 
-  const handleCreatePost = () => {
-    if (!newPost.trim()) return;
-    
-    const post = {
-      id: `p${Date.now()}`,
-      content: newPost.trim(),
-      imageUrl: selectedImage || undefined,
-      timestamp: new Date().toISOString(),
-      likes: 0,
-      comments: [],
-      shares: 0,
-      isLiked: false,
-      type: postType,
-      tags: []
-    };
-    
-    setNewPost('');
-    setSelectedImage(null);
-    setShowCreatePost(false);
-    setPostType('text');
-  };
+const premiumFeatures = [
+  { title: 'Advanced Analytics', description: 'Track your profile views and engagement', icon: TrendingUp },
+  { title: 'Priority Support', description: 'Get help when you need it most', icon: Crown },
+  { title: 'Exclusive Events', description: 'Access to premium networking events', icon: Sparkles },
+  { title: 'Enhanced Search', description: 'Find the perfect collaborators', icon: Target }
+];
 
-  const handleImageUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setSelectedImage(e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
+export default function HomePage() {
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState('login');
+  const [loginData, setLoginData] = useState({ email: '', password: '' });
+
+  // FORCE modal on every visit - no access without authentication
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+    const isOnboarding = window.location.pathname === '/onboarding';
+    const hasCompletedOnboarding = localStorage.getItem('onboardingCompleted') === 'true';
+    
+    // ALWAYS show modal if not fully authenticated (logged in + completed onboarding)
+    if (!isAuthenticated || !hasCompletedOnboarding) {
+      if (!isOnboarding) {
+        setShowAuthModal(true);
+      }
     }
   }, []);
 
-  const PostCard = ({ post }: { post: any }) => (
-    <Card className="mb-6">
-      <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <Avatar className="h-10 w-10">
-              <AvatarImage src={post.user.profilePictureUrl} alt={post.user.name} />
-              <AvatarFallback>{post.user.name.split(' ').map((n: string) => n[0]).join('')}</AvatarFallback>
-            </Avatar>
-            <div>
-              <div className="flex items-center space-x-2">
-                <h3 className="font-semibold text-sm">{post.user.name}</h3>
-                {post.user.isVerified && (
-                  <Badge variant="verified" className="text-xs">Verified</Badge>
-                )}
-              </div>
-              <p className="text-xs text-muted-foreground">{post.user.role} • {post.timestamp}</p>
-            </div>
-          </div>
-          <Button variant="ghost" size="sm">
-            <MoreHorizontal className="h-4 w-4" />
-          </Button>
-        </div>
-      </CardHeader>
-      <CardContent className="pt-0">
-        <p className="text-sm mb-4">{post.content}</p>
-        
-        {post.tags.length > 0 && (
-          <div className="flex flex-wrap gap-1 mb-4">
-            {post.tags.map((tag: string) => (
-              <Badge key={tag} variant="secondary" className="text-xs">
-                #{tag}
-              </Badge>
-            ))}
-          </div>
-        )}
-        
-        <div className="flex items-center justify-between pt-4 border-t">
-          <div className="flex items-center space-x-6">
-            <Button variant="ghost" size="sm" className="flex items-center space-x-2">
-              <Heart className={`h-4 w-4 ${post.isLiked ? 'text-red-500 fill-current' : ''}`} />
-              <span className="text-sm">{post.likes}</span>
-            </Button>
-            <Button variant="ghost" size="sm" className="flex items-center space-x-2">
-              <MessageSquare className="h-4 w-4" />
-              <span className="text-sm">{post.comments}</span>
-            </Button>
-            <Button variant="ghost" size="sm" className="flex items-center space-x-2">
-              <Share2 className="h-4 w-4" />
-              <span className="text-sm">{post.shares}</span>
-            </Button>
-          </div>
-          <Button variant="ghost" size="sm">
-            <Bookmark className="h-4 w-4" />
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    
+    // Validate form data
+    if (!loginData.email || !loginData.password) {
+      alert('Please fill in all fields');
+      setIsLoading(false);
+      return;
+    }
+    
+    // Simulate API call
+    setTimeout(() => {
+      setIsLoading(false);
+      // Set authentication state
+      localStorage.setItem('isAuthenticated', 'true');
+      // Redirect to 4-step process after login
+      window.location.href = '/onboarding';
+    }, 2000);
+  };
+
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    // Simulate API call
+    setTimeout(() => {
+      setIsLoading(false);
+      setShowAuthModal(false);
+      // Handle signup logic here
+    }, 2000);
+  };
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <div className={`min-h-screen bg-gradient-to-br from-background via-background to-muted/20 ${showAuthModal ? 'blur-sm' : ''}`}>
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
           {/* Left Sidebar */}
           <div className="md:col-span-2 space-y-6">
             {/* Profile Card */}
-            <Card>
+              <Card className="border-0 shadow-lg bg-card/80 backdrop-blur-sm">
               <CardContent className="p-6">
                 <div className="text-center">
-                  <Avatar className="h-16 w-16 mx-auto mb-4">
+                    <div className="relative inline-block">
+                      <Avatar className="h-20 w-20 mx-auto mb-4 ring-4 ring-primary/20">
                     <AvatarImage src={mockUsers[0].profilePictureUrl} alt="Your profile" />
-                    <AvatarFallback>JD</AvatarFallback>
+                        <AvatarFallback className="bg-gradient-to-br from-primary to-primary/80 text-white text-lg font-bold">
+                          JD
+                        </AvatarFallback>
                   </Avatar>
+                      <div className="absolute -bottom-1 -right-1">
+                        <Badge variant="secondary" className="bg-green-500 text-white">
+                          <div className="w-2 h-2 bg-white rounded-full mr-1"></div>
+                          Online
+                        </Badge>
+                      </div>
+                    </div>
                   <h3 className="font-semibold text-lg mb-1">John Doe</h3>
-                  <p className="text-sm text-muted-foreground mb-3">Film Director</p>
+                    <p className="text-sm text-muted-foreground mb-2">Film Director</p>
+                    <div className="flex items-center justify-center mb-3">
+                      <Badge variant="outline" className="mr-2">
+                        <Award className="h-3 w-3 mr-1" />
+                        Award Winner
+                      </Badge>
+                      <Badge variant="outline">
+                        <Crown className="h-3 w-3 mr-1" />
+                        Premium
+                      </Badge>
+                    </div>
                   <div className="space-y-2 text-sm">
                     <div className="flex items-center justify-between">
                       <span>Profile Views</span>
-                      <span className="font-medium">1,240</span>
+                        <span className="font-medium text-primary">1,240</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span>Connections</span>
-                      <span className="font-medium">847</span>
+                        <span className="font-medium text-primary">847</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span>Projects</span>
+                        <span className="font-medium text-primary">23</span>
+                      </div>
                     </div>
                   </div>
+                </CardContent>
+              </Card>
+
+              {/* Industry Stats */}
+              <Card className="border-0 shadow-lg bg-card/80 backdrop-blur-sm">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-base flex items-center">
+                    <TrendingUp className="h-4 w-4 mr-2 text-primary" />
+                    Industry Stats
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {industryStats.map((stat, index) => {
+                    const Icon = stat.icon;
+                    return (
+                      <div key={index} className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2">
+                          <Icon className="h-4 w-4 text-muted-foreground" />
+                          <span className="text-sm">{stat.label}</span>
+                        </div>
+                        <div className="text-right">
+                          <div className="font-medium text-sm">{stat.value}</div>
+                          <div className="text-xs text-green-600">{stat.change}</div>
+                  </div>
                 </div>
+                    );
+                  })}
               </CardContent>
             </Card>
 
             {/* Quick Actions */}
-            <Card>
+              <Card className="border-0 shadow-lg bg-card/80 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle className="text-base">Quick Actions</CardTitle>
+                  <CardTitle className="text-base flex items-center">
+                    <Zap className="h-4 w-4 mr-2 text-primary" />
+                    Quick Actions
+                  </CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
-                <Button variant="outline" className="w-full justify-start">
+                  <Button variant="outline" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors">
                   <Plus className="h-4 w-4 mr-2" />
                   Create Post
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
+                  <Button variant="outline" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors">
                   <Briefcase className="h-4 w-4 mr-2" />
                   Post a Job
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
+                  <Button variant="outline" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors">
                   <Users className="h-4 w-4 mr-2" />
                   Find Connections
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
+                  <Button variant="outline" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors">
                   <Calendar className="h-4 w-4 mr-2" />
                   Create Event
+                </Button>
+                  <Button variant="outline" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors">
+                    <Film className="h-4 w-4 mr-2" />
+                    Upload Showreel
                 </Button>
               </CardContent>
             </Card>
 
             {/* Recent Activity */}
-            <Card>
+              <Card className="border-0 shadow-lg bg-card/80 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle className="text-base">Recent Activity</CardTitle>
+                  <CardTitle className="text-base flex items-center">
+                    <Bell className="h-4 w-4 mr-2 text-primary" />
+                    Recent Activity
+                  </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 {recentActivity.map((activity) => (
                   <div key={activity.id} className="flex items-start space-x-3">
                     <Avatar className="h-8 w-8">
                       <AvatarImage src={activity.user.profilePictureUrl} alt={activity.user.name} />
-                      <AvatarFallback>{activity.user.name.split(' ').map((n: string) => n[0]).join('')}</AvatarFallback>
+                        <AvatarFallback className="text-xs">{activity.user.name.split(' ').map((n: string) => n[0]).join('')}</AvatarFallback>
                     </Avatar>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm">
                         <span className="font-medium">{activity.user.name}</span> {activity.action}
                       </p>
-                      <p className="text-xs text-muted-foreground">{activity.time}</p>
+                        <p className="text-xs text-muted-foreground flex items-center">
+                          <Clock className="h-3 w-3 mr-1" />
+                          {activity.time}
+                        </p>
                     </div>
                   </div>
                 ))}
@@ -555,21 +285,19 @@ const HomePage = () => {
 
           {/* Main Feed */}
           <div className="md:col-span-8">
-            {/* Create Post Section */}
-            <Card className="mb-6">
-              <CardContent className="p-4">
-                <div className="flex items-start space-x-3">
-                  <Avatar className="h-10 w-10">
-                    <AvatarImage src={mockUsers[0].profilePictureUrl} alt="Your profile" />
-                    <AvatarFallback>JD</AvatarFallback>
-                  </Avatar>
-                  <div className="flex-1">
-                    <Button
-                      variant="outline"
-                      className="w-full justify-start text-muted-foreground"
-                      onClick={() => setShowCreatePost(true)}
-                    >
-                      Start a post...
+              <div className="space-y-6">
+                {/* Welcome Banner */}
+                <Card className="border-0 shadow-lg bg-gradient-to-r from-primary/10 to-primary/5 backdrop-blur-sm">
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h2 className="text-xl font-bold mb-2">Welcome back, John! 🎬</h2>
+                        <p className="text-muted-foreground">Discover new opportunities and connect with industry professionals.</p>
+                      </div>
+                      <div className="hidden md:flex">
+                        <Button className="bg-primary hover:bg-primary/90">
+                          <Plus className="h-4 w-4 mr-2" />
+                          Share Update
                     </Button>
                   </div>
                 </div>
@@ -577,9 +305,8 @@ const HomePage = () => {
             </Card>
 
             {/* Feed Posts */}
-            <div className="space-y-6">
-              {feedPosts.map(post => (
-                <PostCard key={post.id} post={post} />
+                {mockPosts.map((post) => (
+                  <FeedPost key={post.id} post={post} onLike={() => {}} />
               ))}
             </div>
           </div>
@@ -587,192 +314,449 @@ const HomePage = () => {
           {/* Right Sidebar */}
           <div className="md:col-span-2 space-y-6">
             {/* Trending Topics */}
-            <Card>
+              <Card className="border-0 shadow-lg bg-card/80 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle className="text-base">Trending Topics</CardTitle>
+                  <CardTitle className="text-base flex items-center">
+                    <TrendingUp className="h-4 w-4 mr-2 text-primary" />
+                    Trending Topics
+                  </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 {trendingTopics.map((topic) => (
                   <div key={topic.id} className="flex items-center justify-between">
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium truncate">#{topic.topic}</p>
+                        <div className="flex items-center space-x-2">
                       <p className="text-xs text-muted-foreground">{topic.posts} posts</p>
+                          <Badge variant="outline" className="text-xs">
+                            {topic.category}
+                          </Badge>
+                        </div>
+                      </div>
+                      <div className={`text-xs px-2 py-1 rounded ${
+                        topic.trending === 'up' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                      }`}>
+                        {topic.trending === 'up' ? '↗' : '↘'}
+                      </div>
                     </div>
-                    <TrendingUp className={`h-4 w-4 ${topic.trending === 'up' ? 'text-green-500' : 'text-red-500'}`} />
+                  ))}
+                </CardContent>
+              </Card>
+
+              {/* Upcoming Events */}
+              <Card className="border-0 shadow-lg bg-card/80 backdrop-blur-sm">
+                <CardHeader>
+                  <CardTitle className="text-base flex items-center">
+                    <Calendar className="h-4 w-4 mr-2 text-primary" />
+                    Upcoming Events
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {upcomingEvents.map((event) => (
+                    <div key={event.id} className="flex items-start justify-between">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium truncate">{event.title}</p>
+                        <div className="flex items-center space-x-2 text-xs text-muted-foreground">
+                          <MapPin className="h-3 w-3" />
+                          <span>{event.location}</span>
+                        </div>
+                        <div className="flex items-center space-x-2 text-xs text-muted-foreground">
+                          <Clock className="h-3 w-3" />
+                          <span>{event.date} • {event.attendees} attending</span>
+                        </div>
+                        <Badge variant="outline" className="text-xs mt-1">
+                          {event.type}
+                        </Badge>
+                      </div>
+                      <Button variant="outline" size="sm" className="ml-2">
+                        Join
+                      </Button>
                   </div>
                 ))}
               </CardContent>
             </Card>
 
             {/* Suggested Connections */}
-            <Card>
+              <Card className="border-0 shadow-lg bg-card/80 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle className="text-base">People You May Know</CardTitle>
+                  <CardTitle className="text-base flex items-center">
+                    <Users className="h-4 w-4 mr-2 text-primary" />
+                    People You May Know
+                  </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 {suggestedConnections.map((user) => (
                   <div key={user.id} className="flex items-center space-x-3">
                     <Avatar className="h-10 w-10">
                       <AvatarImage src={user.profilePictureUrl} alt={user.name} />
-                      <AvatarFallback>{user.name.split(' ').map((n: string) => n[0]).join('')}</AvatarFallback>
+                        <AvatarFallback className="text-xs">{user.name.split(' ').map((n: string) => n[0]).join('')}</AvatarFallback>
                     </Avatar>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium truncate">{user.name}</p>
                       <p className="text-xs text-muted-foreground truncate">{user.role}</p>
                     </div>
                     <Button variant="outline" size="sm">
-                      <UserPlus className="h-3 w-3" />
+                        <Users className="h-3 w-3" />
                     </Button>
                   </div>
                 ))}
-                <Button variant="ghost" className="w-full text-sm">
-                  See all suggestions
-                  <ChevronRight className="h-3 w-3 ml-1" />
-                </Button>
               </CardContent>
             </Card>
 
-            {/* Upcoming Events */}
-            <Card>
+              {/* Premium Features */}
+              <Card className="border-0 shadow-lg bg-gradient-to-r from-yellow-500/10 to-orange-500/10 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle className="text-base">Upcoming Events</CardTitle>
+                  <CardTitle className="text-base flex items-center">
+                    <Crown className="h-4 w-4 mr-2 text-yellow-600" />
+                    Premium Features
+                  </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                {upcomingEvents.map((event) => (
-                  <div key={event.id} className="flex items-center justify-between">
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium truncate">{event.title}</p>
-                      <p className="text-xs text-muted-foreground">{event.date} • {event.attendees} attending</p>
+                  {premiumFeatures.map((feature, index) => {
+                    const Icon = feature.icon;
+                    return (
+                      <div key={index} className="flex items-start space-x-2">
+                        <Icon className="h-4 w-4 text-yellow-600 mt-0.5" />
+                        <div>
+                          <p className="text-sm font-medium">{feature.title}</p>
+                          <p className="text-xs text-muted-foreground">{feature.description}</p>
                     </div>
-                    <Button variant="outline" size="sm">
-                      Join
-                    </Button>
                   </div>
-                ))}
-                <Button variant="ghost" className="w-full text-sm">
-                  See all events
-                  <ChevronRight className="h-3 w-3 ml-1" />
+                    );
+                  })}
+                  <Button variant="outline" className="w-full mt-3 border-yellow-500/50 text-yellow-600 hover:bg-yellow-500/10">
+                    <Crown className="h-4 w-4 mr-2" />
+                    Upgrade to Premium
                 </Button>
               </CardContent>
             </Card>
 
             {/* Quick Links */}
-            <Card>
+              <Card className="border-0 shadow-lg bg-card/80 backdrop-blur-sm">
               <CardContent className="p-4 space-y-2">
-                <Button variant="ghost" className="w-full justify-start">
+                  <Button variant="ghost" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors">
                   <Settings className="h-4 w-4 mr-2" />
                   Settings
                 </Button>
-                <Button variant="ghost" className="w-full justify-start">
+                  <Button variant="ghost" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors">
                   <HelpCircle className="h-4 w-4 mr-2" />
                   Help Center
                 </Button>
-                <Button variant="ghost" className="w-full justify-start">
+                  <Button variant="ghost" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors">
                   <Bell className="h-4 w-4 mr-2" />
                   Notifications
                 </Button>
+                  <Button variant="ghost" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors">
+                    <Lightbulb className="h-4 w-4 mr-2" />
+                    Suggestions
+                </Button>
               </CardContent>
             </Card>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Create Post Modal */}
-      <Dialog open={showCreatePost} onOpenChange={setShowCreatePost}>
-        <DialogContent className="max-w-2xl">
-          <DialogHeader>
-            <DialogTitle>Create a post</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <div className="flex space-x-2 mb-4">
+      {/* Enhanced Auth Modal Overlay */}
+              {showAuthModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <Card className="w-full max-w-md relative border-0 shadow-2xl bg-card/95 backdrop-blur-sm">
+              {/* REMOVED CLOSE BUTTON - NO ESCAPE */}
+            
+            <CardHeader className="space-y-1 text-center">
+              <div className="flex items-center justify-center mb-4">
+                <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg">
+                  <Film className="h-6 w-6 text-white" />
+                </div>
+              </div>
+              <CardTitle className="text-2xl bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+                Welcome to 24 Crafts
+              </CardTitle>
+              <p className="text-center text-muted-foreground">
+                Join the leading platform for film industry professionals
+              </p>
+            </CardHeader>
+            
+            <CardContent>
+              <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="login">Sign In</TabsTrigger>
+                  <TabsTrigger value="signup" onClick={() => window.location.href = '/signup'}>Sign Up</TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="login" className="space-y-4">
+                  <form onSubmit={handleLogin} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email</Label>
+                      <div className="relative">
+                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          id="email"
+                          type="email"
+                          placeholder="Enter your email"
+                          className="pl-10 border-border/50 focus:border-primary"
+                          value={loginData.email}
+                          onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="password">Password</Label>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          id="password"
+                          type={showPassword ? "text" : "password"}
+                          placeholder="Enter your password"
+                          className="pl-10 pr-10 border-border/50 focus:border-primary"
+                          value={loginData.password}
+                          onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+                          required
+                        />
               <Button
-                variant={postType === 'text' ? 'primary' : 'outline'}
+                          type="button"
+                          variant="ghost"
                 size="sm"
-                onClick={() => setPostType('text')}
-              >
-                <FileText className="h-4 w-4 mr-2" />
-                Text
+                          className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? (
+                            <EyeOff className="h-4 w-4" />
+                          ) : (
+                            <Eye className="h-4 w-4" />
+                          )}
               </Button>
-              <Button
-                variant={postType === 'image' ? 'primary' : 'outline'}
-                size="sm"
-                onClick={() => setPostType('image')}
-              >
-                <ImageIcon className="h-4 w-4 mr-2" />
-                Photo
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <label className="flex items-center space-x-2 cursor-pointer">
+                        <Checkbox id="remember" />
+                        <span className="text-sm text-muted-foreground">Remember me</span>
+                      </label>
+                      <Link 
+                        href="/forgot-password" 
+                        className="text-sm text-primary hover:text-primary/80"
+                      >
+                        Forgot password?
+                      </Link>
+                    </div>
+
+                    <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isLoading}>
+                      {isLoading ? "Signing in..." : "Sign In"}
+                    </Button>
+                  </form>
+
+                  <div className="relative">
+                    <div className="absolute inset-0 flex items-center">
+                      <Separator className="w-full" />
+                    </div>
+                    <div className="relative flex justify-center text-xs uppercase">
+                      <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <Button variant="outline" className="w-full hover:bg-muted/50">
+                      <svg className="h-4 w-4 mr-2" viewBox="0 0 24 24">
+                        <path
+                          d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                          fill="#4285F4"
+                        />
+                        <path
+                          d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                          fill="#34A853"
+                        />
+                        <path
+                          d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                          fill="#FBBC05"
+                        />
+                        <path
+                          d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                          fill="#EA4335"
+                        />
+                      </svg>
+                      Google
+                    </Button>
+                    <Button variant="outline" className="w-full hover:bg-muted/50">
+                      <svg className="h-4 w-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                      </svg>
+                      Facebook
               </Button>
-              <Button
-                variant={postType === 'achievement' ? 'primary' : 'outline'}
-                size="sm"
-                onClick={() => setPostType('achievement')}
-              >
-                <Award className="h-4 w-4 mr-2" />
-                Achievement
-              </Button>
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="signup" className="space-y-4">
+                  <form onSubmit={handleSignup} className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="firstName">First Name</Label>
+                        <div className="relative">
+                          <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                          <Input
+                            id="firstName"
+                            placeholder="First name"
+                            className="pl-10 border-border/50 focus:border-primary"
+                            required
+                          />
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="lastName">Last Name</Label>
+                        <Input
+                          id="lastName"
+                          placeholder="Last name"
+                          className="border-border/50 focus:border-primary"
+                          required
+                        />
+                      </div>
             </div>
 
-            <Textarea
-              placeholder="What's on your mind?"
-              value={newPost}
-              onChange={(e) => setNewPost(e.target.value)}
-              className="min-h-[120px] resize-none"
-            />
+                    <div className="space-y-2">
+                      <Label htmlFor="signupEmail">Email</Label>
+                      <div className="relative">
+                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          id="signupEmail"
+                          type="email"
+                          placeholder="Enter your email"
+                          className="pl-10 border-border/50 focus:border-primary"
+                          required
+                        />
+                      </div>
+                    </div>
 
-            {selectedImage && (
+                    <div className="space-y-2">
+                      <Label htmlFor="signupPassword">Password</Label>
               <div className="relative">
-                <img
-                  src={selectedImage}
-                  alt="Selected"
-                  className="w-full h-48 object-cover rounded-lg"
+                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          id="signupPassword"
+                          type={showPassword ? "text" : "password"}
+                          placeholder="Create a password"
+                          className="pl-10 pr-10 border-border/50 focus:border-primary"
+                          required
                 />
                 <Button
+                          type="button"
                   variant="ghost"
-                  size="icon"
-                  className="absolute top-2 right-2 bg-black/50 hover:bg-black/70"
-                  onClick={() => setSelectedImage(null)}
-                >
-                  <X className="h-4 w-4 text-white" />
+                          size="sm"
+                          className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? (
+                            <EyeOff className="h-4 w-4" />
+                          ) : (
+                            <Eye className="h-4 w-4" />
+                          )}
                 </Button>
               </div>
-            )}
+                    </div>
 
-            <div className="flex items-center justify-between">
-              <div className="flex space-x-2">
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  onChange={handleImageUpload}
-                  accept="image/*"
-                  className="hidden"
+                    <div className="space-y-2">
+                      <Label htmlFor="confirmPassword">Confirm Password</Label>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          id="confirmPassword"
+                          type={showConfirmPassword ? "text" : "password"}
+                          placeholder="Confirm your password"
+                          className="pl-10 pr-10 border-border/50 focus:border-primary"
+                          required
                 />
                 <Button
+                          type="button"
                   variant="ghost"
                   size="sm"
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  <Camera className="h-4 w-4 mr-2" />
-                  Photo
-                </Button>
-                <Button variant="ghost" size="sm">
-                  <Video className="h-4 w-4 mr-2" />
-                  Video
+                          className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        >
+                          {showConfirmPassword ? (
+                            <EyeOff className="h-4 w-4" />
+                          ) : (
+                            <Eye className="h-4 w-4" />
+                          )}
                 </Button>
               </div>
-              <div className="flex space-x-2">
-                <Button variant="outline" onClick={() => setShowCreatePost(false)}>
-                  Cancel
+                    </div>
+
+                    <div className="flex items-center space-x-2">
+                      <Checkbox id="terms" required />
+                      <Label htmlFor="terms" className="text-sm">
+                        I agree to the{" "}
+                        <Link href="/terms" className="text-primary hover:text-primary/80">
+                          Terms of Service
+                        </Link>{" "}
+                        and{" "}
+                        <Link href="/privacy" className="text-primary hover:text-primary/80">
+                          Privacy Policy
+                        </Link>
+                      </Label>
+                    </div>
+
+                    <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isLoading}>
+                      {isLoading ? "Creating account..." : "Create Account"}
                 </Button>
-                <Button onClick={handleCreatePost} disabled={!newPost.trim()}>
-                  <Send className="h-4 w-4 mr-2" />
-                  Post
-                </Button>
+                  </form>
+
+                  <div className="relative">
+                    <div className="absolute inset-0 flex items-center">
+                      <Separator className="w-full" />
+                    </div>
+                    <div className="relative flex justify-center text-xs uppercase">
+                      <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
               </div>
             </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-    </div>
-  );
-};
 
-export default HomePage;
+                  <div className="grid grid-cols-2 gap-4">
+                    <Button variant="outline" className="w-full hover:bg-muted/50">
+                      <svg className="h-4 w-4 mr-2" viewBox="0 0 24 24">
+                        <path
+                          d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                          fill="#4285F4"
+                        />
+                        <path
+                          d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                          fill="#34A853"
+                        />
+                        <path
+                          d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                          fill="#FBBC05"
+                        />
+                        <path
+                          d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                          fill="#EA4335"
+                        />
+                      </svg>
+                      Google
+                    </Button>
+                    <Button variant="outline" className="w-full hover:bg-muted/50">
+                      <svg className="h-4 w-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                      </svg>
+                      Facebook
+                    </Button>
+                  </div>
+
+                  {/* Skip Button */}
+                  <div className="text-center mt-4">
+                    <Button
+                      variant="ghost"
+                      onClick={() => setShowAuthModal(false)}
+                      className="text-muted-foreground hover:text-foreground text-sm"
+                    >
+                      Skip for now
+                    </Button>
+          </div>
+                </TabsContent>
+              </Tabs>
+            </CardContent>
+          </Card>
+    </div>
+      )}
+    </>
+  );
+}

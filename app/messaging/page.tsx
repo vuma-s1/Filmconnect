@@ -217,11 +217,17 @@ const MessagingPage = () => {
                   <div
                     className={`p-3 rounded-lg ${
                       isCurrentUser
-                        ? 'bg-primary text-black'
+                        ? 'bg-primary !text-black'
                         : 'bg-muted'
                     }`}
+                    style={isCurrentUser ? { color: 'black' } : {}}
                   >
-                    <p className="text-sm">{message.content}</p>
+                    <p 
+                      className={`text-sm ${isCurrentUser ? '!text-black' : ''}`}
+                      style={isCurrentUser ? { color: 'black' } : {}}
+                    >
+                      {message.content}
+                    </p>
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">
                     {formatTime(message.timestamp)}
