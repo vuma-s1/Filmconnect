@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -30,7 +30,14 @@ export function UserMenu() {
   const pathname = usePathname();
   
   // Mock authentication state - you can replace this with your actual auth logic
-  const isAuthenticated = pathname === '/login' || pathname === '/onboarding' ? false : (localStorage.getItem('isAuthenticated') === 'true' && localStorage.getItem('onboardingCompleted') === 'true');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const auth = pathname === '/login' || pathname === '/onboarding' ? false : (localStorage.getItem('isAuthenticated') === 'true' && localStorage.getItem('onboardingCompleted') === 'true');
+      setIsAuthenticated(auth);
+    }
+  }, [pathname]);
 
   // Don't show auth buttons on auth pages and onboarding
   const isAuthPage = pathname === '/login' || pathname === '/signup' || pathname === '/onboarding';

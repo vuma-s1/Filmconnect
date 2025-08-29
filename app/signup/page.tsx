@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Progress } from '@/components/ui/progress';
+// import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { 
@@ -789,7 +789,12 @@ const SignUpPage = () => {
             <span>Step {currentStep + 1} of {steps.length}</span>
             <span>{Math.round(((currentStep + 1) / steps.length) * 100)}% Complete</span>
           </div>
-          <Progress value={((currentStep + 1) / steps.length) * 100} className="h-2" />
+                      <div className="w-full bg-muted rounded-full h-2">
+              <div 
+                className="bg-primary h-2 rounded-full transition-all duration-300" 
+                style={{ width: `${Math.round(((currentStep + 1) / steps.length) * 100)}%` }}
+              />
+            </div>
         </div>
 
         {/* Step Indicator */}

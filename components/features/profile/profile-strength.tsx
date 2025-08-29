@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
+// import { Progress } from '@/components/ui/progress';
 import { CheckCircle, Circle, Plus } from 'lucide-react';
 
 interface ProfileStrengthProps {
@@ -48,7 +48,12 @@ const ProfileStrength = ({ currentStrength }: ProfileStrengthProps) => {
             <span className="text-muted-foreground">Completion</span>
             <span className="font-medium">{currentStrength}%</span>
           </div>
-          <Progress value={currentStrength} className="h-2" />
+          <div className="w-full bg-muted rounded-full h-2">
+          <div 
+            className="bg-primary h-2 rounded-full transition-all duration-300" 
+            style={{ width: `${currentStrength}%` }}
+          />
+        </div>
         </div>
 
         {nextItem && (
