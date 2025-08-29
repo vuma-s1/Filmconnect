@@ -65,61 +65,62 @@ const NetworkPage = () => {
 
   const ConnectionCard = ({ user, variant = 'suggestion' }: { user: User; variant?: 'suggestion' | 'request' | 'connected' }) => (
     <Card className="hover:bg-card/50 transition-colors">
-      <CardContent className="p-6">
-        <div className="flex items-start space-x-4">
+      <CardContent className="p-4 sm:p-6">
+        <div className="flex items-start space-x-3 sm:space-x-4">
           <div className="relative">
             <img
               src={user.profilePictureUrl}
               alt={user.name}
-              className="w-16 h-16 rounded-full object-cover"
+              className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover"
             />
             {user.isVerified && (
-              <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-primary rounded-full flex items-center justify-center">
-                <Check className="h-3 w-3 text-black" />
+              <div className="absolute -bottom-1 -right-1 w-4 h-4 sm:w-6 sm:h-6 bg-primary rounded-full flex items-center justify-center">
+                <Check className="h-2 w-2 sm:h-3 sm:w-3 text-black" />
               </div>
             )}
           </div>
           
-          <div className="flex-1">
-            <h3 className="font-semibold hover:text-primary cursor-pointer">{user.name}</h3>
-            <div className="flex items-center space-x-2 mt-1">
-              <Badge variant="secondary">{user.role}</Badge>
+          <div className="flex-1 min-w-0">
+            <h3 className="font-semibold hover:text-primary cursor-pointer text-sm sm:text-base">{user.name}</h3>
+            <div className="flex items-center space-x-2 mt-1 flex-wrap gap-1">
+              <Badge variant="secondary" className="text-xs">{user.role}</Badge>
               {user.isVerified && (
                 <Badge variant="verified" className="text-xs">Verified</Badge>
               )}
             </div>
-            <p className="text-sm text-muted-foreground mt-1">{user.location}</p>
-            <p className="text-sm text-muted-foreground">{user.connections} connections</p>
+            <p className="text-xs sm:text-sm text-muted-foreground mt-1">{user.location}</p>
+            <p className="text-xs sm:text-sm text-muted-foreground">{user.connections} connections</p>
             
-            <p className="text-sm text-muted-foreground mt-2 line-clamp-2">{user.bio}</p>
+            <p className="text-xs sm:text-sm text-muted-foreground mt-2 line-clamp-2">{user.bio}</p>
             
             <div className="flex flex-wrap gap-1 mt-2">
-              {user.skills.slice(0, 3).map(skill => (
+              {user.skills.slice(0, 2).map(skill => (
                 <Badge key={skill} variant="skill" className="text-xs">
                   {skill}
                 </Badge>
               ))}
-              {user.skills.length > 3 && (
+              {user.skills.length > 2 && (
                 <Badge variant="skill" className="text-xs">
-                  +{user.skills.length - 3}
+                  +{user.skills.length - 2}
                 </Badge>
               )}
             </div>
           </div>
         </div>
         
-        <div className="flex space-x-2 mt-4">
+        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 mt-4">
           {variant === 'suggestion' && (
             <>
               <Button
                 className="flex-1"
                 onClick={() => handleConnect(user.id)}
                 disabled={connectedUsers.includes(user.id)}
+                size="sm"
               >
                 <UserPlus className="h-4 w-4 mr-2" />
                 {connectedUsers.includes(user.id) ? 'Request Sent' : 'Connect'}
               </Button>
-              <Button variant="outline">
+              <Button variant="outline" size="sm">
                 <MessageCircle className="h-4 w-4" />
               </Button>
             </>
@@ -130,6 +131,7 @@ const NetworkPage = () => {
               <Button
                 className="flex-1"
                 onClick={() => handleAcceptRequest(user.id)}
+                size="sm"
               >
                 <Check className="h-4 w-4 mr-2" />
                 Accept
@@ -137,6 +139,7 @@ const NetworkPage = () => {
               <Button
                 variant="outline"
                 onClick={() => handleRejectRequest(user.id)}
+                size="sm"
               >
                 <X className="h-4 w-4" />
               </Button>
@@ -145,11 +148,11 @@ const NetworkPage = () => {
           
           {variant === 'connected' && (
             <>
-              <Button variant="outline" className="flex-1">
+              <Button variant="outline" className="flex-1" size="sm">
                 <MessageCircle className="h-4 w-4 mr-2" />
                 Message
               </Button>
-              <Button variant="ghost">
+              <Button variant="ghost" size="sm">
                 View Profile
               </Button>
             </>
@@ -161,15 +164,15 @@ const NetworkPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">My Network</h1>
-          <p className="text-muted-foreground">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">My Network</h1>
+          <p className="text-sm sm:text-base text-muted-foreground">
             Manage your professional connections and discover new opportunities to collaborate
           </p>
         </div>
 
-        <Tabs defaultValue="connections" className="space-y-6">
+        <Tabs defaultValue="connections" className="space-y-4 sm:space-y-6">
           <TabsList className="grid w-full grid-cols-3 lg:w-auto lg:grid-cols-3">
             <TabsTrigger value="connections" className="flex items-center space-x-2">
               <Users className="h-4 w-4" />
@@ -185,12 +188,12 @@ const NetworkPage = () => {
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="connections" className="space-y-6">
+          <TabsContent value="connections" className="space-y-4 sm:space-y-6">
             <Card>
-              <CardHeader>
-                <CardTitle>My Connections ({connections.length})</CardTitle>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-lg sm:text-xl">My Connections ({connections.length})</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-4 sm:p-6">
                 <div className="mb-4">
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />

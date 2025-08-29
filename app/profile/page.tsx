@@ -35,24 +35,24 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
         {/* Breadcrumb */}
-        <BreadcrumbNav className="mb-6" />
+        <BreadcrumbNav className="mb-4 sm:mb-6" />
 
         {/* Profile Header */}
-        <Card className="mb-8">
-          <CardContent className="p-8">
-            <div className="flex flex-col md:flex-row items-start md:items-center space-y-6 md:space-y-0 md:space-x-8">
+        <Card className="mb-6 sm:mb-8">
+          <CardContent className="p-4 sm:p-8">
+            <div className="flex flex-col md:flex-row items-start md:items-center space-y-4 sm:space-y-6 md:space-y-0 md:space-x-8">
               <div className="relative">
-                <Avatar className="h-32 w-32">
+                <Avatar className="h-24 w-24 sm:h-32 sm:w-32">
                   <AvatarImage src={user.profilePictureUrl} />
-                  <AvatarFallback className="text-3xl">
+                  <AvatarFallback className="text-2xl sm:text-3xl">
                     {user.name.split(' ').map(n => n[0]).join('')}
                   </AvatarFallback>
                 </Avatar>
                 {user.isVerified && (
-                  <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                    <CheckCircle className="h-4 w-4 text-black" />
+                  <div className="absolute -bottom-1 -right-1 sm:-bottom-2 sm:-right-2 w-6 h-6 sm:w-8 sm:h-8 bg-primary rounded-full flex items-center justify-center">
+                    <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-black" />
                   </div>
                 )}
               </div>
@@ -60,9 +60,9 @@ export default function ProfilePage() {
               <div className="flex-1">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
                   <div>
-                    <h1 className="text-3xl font-bold text-white mb-2">{user.name}</h1>
-                    <p className="text-xl text-primary font-medium mb-2">{user.role}</p>
-                    <div className="flex items-center space-x-4 text-sm text-muted-foreground mb-2">
+                    <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">{user.name}</h1>
+                    <p className="text-lg sm:text-xl text-primary font-medium mb-2">{user.role}</p>
+                    <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 text-sm text-muted-foreground mb-2">
                       <div className="flex items-center space-x-1">
                         <MapPin className="h-4 w-4" />
                         <span>{user.location}</span>
@@ -72,36 +72,36 @@ export default function ProfilePage() {
                         <span>{user.rating} ({user.reviews} reviews)</span>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-2">
-                      <Badge variant="secondary">{user.profileStrength}% Complete</Badge>
+                    <div className="flex items-center space-x-2 flex-wrap gap-2">
+                      <Badge variant="secondary" className="text-xs sm:text-sm">{user.profileStrength}% Complete</Badge>
                       {user.isVerified && (
-                        <Badge variant="outline">Verified</Badge>
+                        <Badge variant="outline" className="text-xs sm:text-sm">Verified</Badge>
                       )}
                     </div>
                   </div>
 
-                  <div className="flex space-x-3 mt-4 sm:mt-0">
-                    <Button variant="outline">
+                  <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 mt-4 sm:mt-0">
+                    <Button variant="outline" size="sm" className="sm:size-auto">
                       <Edit className="h-4 w-4 mr-2" />
                       Edit Profile
                     </Button>
-                    <Button>
+                    <Button size="sm" className="sm:size-auto">
                       <MessageCircle className="h-4 w-4 mr-2" />
                       Message
                     </Button>
                   </div>
                 </div>
 
-                <p className="text-muted-foreground leading-relaxed">{user.bio}</p>
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{user.bio}</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2">
-            <Tabs defaultValue="about" className="space-y-6">
+            <Tabs defaultValue="about" className="space-y-4 sm:space-y-6">
               <TabsList className="grid w-full grid-cols-4">
                 <TabsTrigger value="about">About</TabsTrigger>
                 <TabsTrigger value="experience">Experience</TabsTrigger>
@@ -109,13 +109,13 @@ export default function ProfilePage() {
                 <TabsTrigger value="skills">Skills</TabsTrigger>
               </TabsList>
 
-              <TabsContent value="about" className="space-y-6">
+              <TabsContent value="about" className="space-y-4 sm:space-y-6">
                 <Card>
                   <CardHeader>
                     <CardTitle>About</CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground leading-relaxed">{user.bio}</p>
+                  <CardContent className="p-4 sm:p-6">
+                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{user.bio}</p>
                   </CardContent>
                 </Card>
 
@@ -123,34 +123,34 @@ export default function ProfilePage() {
                   <CardHeader>
                     <CardTitle>Contact Information</CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-4">
+                  <CardContent className="p-4 sm:p-6 space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="flex items-center space-x-3">
                         <Mail className="h-5 w-5 text-muted-foreground" />
                         <div>
-                          <p className="font-medium">Email</p>
-                          <p className="text-sm text-muted-foreground">{user.email}</p>
+                          <p className="font-medium text-sm sm:text-base">Email</p>
+                          <p className="text-xs sm:text-sm text-muted-foreground">{user.email}</p>
                         </div>
                       </div>
                       <div className="flex items-center space-x-3">
                         <Phone className="h-5 w-5 text-muted-foreground" />
                         <div>
-                          <p className="font-medium">Phone</p>
-                          <p className="text-sm text-muted-foreground">{user.phone || 'Not provided'}</p>
+                          <p className="font-medium text-sm sm:text-base">Phone</p>
+                          <p className="text-xs sm:text-sm text-muted-foreground">{user.phone || 'Not provided'}</p>
                         </div>
                       </div>
                       <div className="flex items-center space-x-3">
                         <Globe className="h-5 w-5 text-muted-foreground" />
                         <div>
-                          <p className="font-medium">Website</p>
-                          <p className="text-sm text-muted-foreground">{user.website || 'Not provided'}</p>
+                          <p className="font-medium text-sm sm:text-base">Website</p>
+                          <p className="text-xs sm:text-sm text-muted-foreground">{user.website || 'Not provided'}</p>
                         </div>
                       </div>
                       <div className="flex items-center space-x-3">
                         <MapPin className="h-5 w-5 text-muted-foreground" />
                         <div>
-                          <p className="font-medium">Location</p>
-                          <p className="text-sm text-muted-foreground">{user.location}</p>
+                          <p className="font-medium text-sm sm:text-base">Location</p>
+                          <p className="text-xs sm:text-sm text-muted-foreground">{user.location}</p>
                         </div>
                       </div>
                     </div>

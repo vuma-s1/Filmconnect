@@ -48,7 +48,7 @@ export function Navbar() {
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
       <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-14 sm:h-16 items-center justify-between">
           {/* Logo and Mobile Menu */}
           <div className="flex items-center space-x-4">
             <MobileMenu />
@@ -62,10 +62,10 @@ export function Navbar() {
                 </div>
               </div>
               <div className="flex flex-col">
-                <span className="font-bold text-xl bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+                <span className="font-bold text-lg sm:text-xl bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
                   24 Crafts
                 </span>
-                <span className="text-xs text-muted-foreground -mt-1">
+                <span className="text-xs text-muted-foreground -mt-1 hidden sm:block">
                   Cinema Network
                 </span>
               </div>
@@ -73,7 +73,7 @@ export function Navbar() {
           </div>
 
           {/* Search Bar */}
-          <div className="hidden md:flex flex-1 max-w-md mx-8">
+          <div className="hidden lg:flex flex-1 max-w-md mx-8">
             <SearchDropdown />
           </div>
 
@@ -125,9 +125,9 @@ export function Navbar() {
           </div>
 
           {/* Right Side Actions */}
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 sm:space-x-3">
             {/* Mobile Sidebar Buttons - Only visible on mobile */}
-            <div className="flex items-center space-x-2 md:hidden">
+            <div className="flex items-center space-x-1 sm:space-x-2 md:hidden">
               <MobileLeftSidebar />
               <MobileRightSidebar />
             </div>
@@ -141,7 +141,9 @@ export function Navbar() {
             </div>
 
             {/* Notifications */}
-            <NotificationsDropdown />
+            <div className="hidden sm:block">
+              <NotificationsDropdown />
+            </div>
 
             {/* Profile */}
             <UserMenu />

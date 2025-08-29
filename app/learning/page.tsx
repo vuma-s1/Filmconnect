@@ -393,20 +393,20 @@ const LearningPage = () => {
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-background">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,193,7,0.1),transparent_50%)]" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16">
           <div className="text-center">
-            <div className="flex items-center justify-center mb-6">
-              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center mr-6 shadow-2xl shadow-primary/25">
-                <BookOpen className="h-8 w-8 text-black" />
+            <div className="flex flex-col sm:flex-row items-center justify-center mb-6 gap-4">
+              <div className="h-12 w-12 sm:h-16 sm:w-16 rounded-2xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-2xl shadow-primary/25">
+                <BookOpen className="h-6 w-6 sm:h-8 sm:w-8 text-black" />
               </div>
-              <div>
-                <h1 className="text-5xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+              <div className="text-center sm:text-left">
+                <h1 className="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
                   Cinema Learning
                 </h1>
-                <p className="text-lg text-muted-foreground mt-1">Master Your Craft</p>
+                <p className="text-base sm:text-lg text-muted-foreground mt-1">Master Your Craft</p>
               </div>
             </div>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Learn from industry legends and master the art of filmmaking with expert-led courses, 
               hands-on tutorials, and comprehensive learning paths designed for cinema professionals.
             </p>

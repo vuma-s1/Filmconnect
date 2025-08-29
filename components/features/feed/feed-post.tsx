@@ -25,16 +25,16 @@ const FeedPost = ({ post, onLike }: FeedPostProps) => {
 
   return (
     <Card className="hover:bg-card/50 transition-colors">
-      <CardContent className="p-6">
-        <div className="flex items-start space-x-3">
+      <CardContent className="p-4 sm:p-6">
+        <div className="flex items-start space-x-2 sm:space-x-3">
           <div className="relative">
             <img
               src={post.author.profilePictureUrl}
               alt={post.author.name}
-              className="w-12 h-12 rounded-full object-cover"
+              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover"
             />
             {post.author.isVerified && (
-              <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-primary rounded-full flex items-center justify-center">
+              <div className="absolute -bottom-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 bg-primary rounded-full flex items-center justify-center">
                 <span className="text-black text-xs font-bold">✓</span>
               </div>
             )}
@@ -42,24 +42,24 @@ const FeedPost = ({ post, onLike }: FeedPostProps) => {
           <div className="flex-1">
             <div className="flex items-center justify-between">
               <div>
-                <h4 className="font-semibold">{post.author.name}</h4>
-                <p className="text-sm text-muted-foreground">
+                <h4 className="font-semibold text-sm sm:text-base">{post.author.name}</h4>
+                <p className="text-xs sm:text-sm text-muted-foreground">
                   {post.author.role} • {formatTimeAgo(post.timestamp)}
                 </p>
               </div>
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" className="hidden sm:flex">
                 <MoreHorizontal className="h-4 w-4" />
               </Button>
             </div>
             
-            <p className="mt-3 whitespace-pre-wrap">{post.content}</p>
+            <p className="mt-3 whitespace-pre-wrap text-sm sm:text-base leading-relaxed line-clamp-3 sm:line-clamp-none">{post.content}</p>
             
             {post.imageUrl && (
               <div className="mt-4">
                 <img
                   src={post.imageUrl}
                   alt="Post image"
-                  className="w-full rounded-lg object-cover max-h-80"
+                  className="w-full rounded-lg object-cover max-h-60 sm:max-h-80"
                 />
               </div>
             )}
@@ -77,18 +77,21 @@ const FeedPost = ({ post, onLike }: FeedPostProps) => {
                 variant="ghost"
                 size="sm"
                 onClick={() => onLike(post.id)}
-                className={post.isLiked ? 'text-red-500 hover:text-red-600' : ''}
+                className={`${post.isLiked ? 'text-red-500 hover:text-red-600' : ''} text-xs sm:text-sm`}
               >
                 <Heart className={`h-4 w-4 mr-1 ${post.isLiked ? 'fill-current' : ''}`} />
-                {post.likes}
+                <span className="hidden sm:inline">{post.likes}</span>
+                <span className="sm:hidden">{post.likes > 999 ? `${(post.likes/1000).toFixed(1)}k` : post.likes}</span>
               </Button>
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" className="text-xs sm:text-sm">
                 <MessageCircle className="h-4 w-4 mr-1" />
-                {post.comments.length}
+                <span className="hidden sm:inline">{post.comments.length}</span>
+                <span className="sm:hidden">{post.comments.length > 999 ? `${(post.comments.length/1000).toFixed(1)}k` : post.comments.length}</span>
               </Button>
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" className="text-xs sm:text-sm">
                 <Share className="h-4 w-4 mr-1" />
-                {post.shares}
+                <span className="hidden sm:inline">{post.shares}</span>
+                <span className="sm:hidden">{post.shares > 999 ? `${(post.shares/1000).toFixed(1)}k` : post.shares}</span>
               </Button>
             </div>
           </div>

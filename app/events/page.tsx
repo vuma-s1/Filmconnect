@@ -202,16 +202,16 @@ const EventsPage = () => {
     <Card className="group relative overflow-hidden bg-gradient-to-br from-card to-card/50 border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10">
       <div className="relative">
         {/* Event Image/Background */}
-        <div className="h-56 bg-gradient-to-br from-primary/10 via-primary/5 to-background/80 relative overflow-hidden">
+        <div className="h-40 sm:h-56 bg-gradient-to-br from-primary/10 via-primary/5 to-background/80 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative">
-              <Film className="h-20 w-20 text-primary/30 group-hover:text-primary/50 transition-colors duration-500" />
-              <div className="absolute inset-0 animate-pulse">
-                <Sparkles className="h-6 w-6 text-primary/20 absolute top-2 right-2" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+              <div className="relative">
+                <Film className="h-12 w-12 sm:h-20 sm:w-20 text-primary/30 group-hover:text-primary/50 transition-colors duration-500" />
+                <div className="absolute inset-0 animate-pulse">
+                  <Sparkles className="h-4 w-4 sm:h-6 sm:w-6 text-primary/20 absolute top-2 right-2" />
+                </div>
               </div>
             </div>
-          </div>
         </div>
 
         {/* Badges */}
@@ -253,10 +253,10 @@ const EventsPage = () => {
         </Button>
       </div>
       
-      <CardContent className="p-6 space-y-4">
+      <CardContent className="p-4 sm:p-6 space-y-3 sm:space-y-4">
         {/* Event Title & Rating */}
         <div className="space-y-2">
-          <h3 className="font-bold text-xl group-hover:text-primary transition-colors duration-300 line-clamp-2">
+          <h3 className="font-bold text-lg sm:text-xl group-hover:text-primary transition-colors duration-300 line-clamp-2">
             {event.title}
           </h3>
           <div className="flex items-center space-x-2">
@@ -269,7 +269,7 @@ const EventsPage = () => {
         </div>
 
         {/* Description */}
-        <p className="text-muted-foreground text-sm line-clamp-2 leading-relaxed">
+        <p className="text-muted-foreground text-xs sm:text-sm line-clamp-2 leading-relaxed">
           {event.description}
         </p>
 
@@ -343,20 +343,20 @@ const EventsPage = () => {
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-background">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,193,7,0.1),transparent_50%)]" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16">
           <div className="text-center">
-            <div className="flex items-center justify-center mb-6">
-              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center mr-6 shadow-2xl shadow-primary/25">
-                <Calendar className="h-8 w-8 text-black" />
+            <div className="flex flex-col sm:flex-row items-center justify-center mb-6 gap-4">
+              <div className="h-12 w-12 sm:h-16 sm:w-16 rounded-2xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-2xl shadow-primary/25">
+                <Calendar className="h-6 w-6 sm:h-8 sm:w-8 text-black" />
               </div>
-              <div>
-                <h1 className="text-5xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+              <div className="text-center sm:text-left">
+                <h1 className="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
                   Cinema Events
                 </h1>
-                <p className="text-lg text-muted-foreground mt-1">Discover & Connect</p>
+                <p className="text-base sm:text-lg text-muted-foreground mt-1">Discover & Connect</p>
               </div>
             </div>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Immerse yourself in the world of cinema through exclusive festivals, masterclasses, 
               networking events, and industry gatherings curated for film professionals.
             </p>
@@ -364,16 +364,16 @@ const EventsPage = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
         {/* Stats Section */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
           <Card className="text-center bg-gradient-to-br from-card to-card/50 border-border/50">
-            <CardContent className="p-6">
-              <div className="h-12 w-12 rounded-xl bg-primary/20 flex items-center justify-center mx-auto mb-3">
-                <Calendar className="h-6 w-6 text-primary" />
+            <CardContent className="p-4 sm:p-6">
+              <div className="h-8 w-8 sm:h-12 sm:w-12 rounded-xl bg-primary/20 flex items-center justify-center mx-auto mb-2 sm:mb-3">
+                <Calendar className="h-4 w-4 sm:h-6 sm:w-6 text-primary" />
               </div>
-              <h3 className="text-2xl font-bold mb-1">150+</h3>
-              <p className="text-muted-foreground text-sm">Upcoming Events</p>
+              <h3 className="text-lg sm:text-2xl font-bold mb-1">150+</h3>
+              <p className="text-muted-foreground text-xs sm:text-sm">Upcoming Events</p>
             </CardContent>
           </Card>
           <Card className="text-center bg-gradient-to-br from-card to-card/50 border-border/50">

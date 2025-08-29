@@ -20,10 +20,18 @@ import {
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [loginData, setLoginData] = useState({ email: '', password: '' });
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    
+    // Validate form data
+    if (!loginData.email || !loginData.password) {
+      alert('Please fill in all fields');
+      setIsLoading(false);
+      return;
+    }
     
     // Simulate API call
     setTimeout(() => {
@@ -63,6 +71,8 @@ export default function LoginPage() {
                   type="email"
                   placeholder="Enter your email"
                   className="pl-10 border-border/50 focus:border-primary"
+                  value={loginData.email}
+                  onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
                   required
                 />
               </div>
@@ -77,6 +87,8 @@ export default function LoginPage() {
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   className="pl-10 pr-10 border-border/50 focus:border-primary"
+                  value={loginData.password}
+                  onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
                   required
                 />
                 <Button

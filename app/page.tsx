@@ -86,7 +86,7 @@ const premiumFeatures = [
 ];
 
 export default function HomePage() {
-  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -95,13 +95,18 @@ export default function HomePage() {
 
   // FORCE modal on every visit - no access without authentication
   useEffect(() => {
-    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
-    const isOnboarding = window.location.pathname === '/onboarding';
-    const hasCompletedOnboarding = localStorage.getItem('onboardingCompleted') === 'true';
-    
-    // ALWAYS show modal if not fully authenticated (logged in + completed onboarding)
-    if (!isAuthenticated || !hasCompletedOnboarding) {
-      if (!isOnboarding) {
+    // Check if we're on the client side
+    if (typeof window !== 'undefined') {
+      const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+      const isOnboarding = window.location.pathname === '/onboarding';
+      const hasCompletedOnboarding = localStorage.getItem('onboardingCompleted') === 'true';
+      
+      console.log('Auth Debug:', { isAuthenticated, isOnboarding, hasCompletedOnboarding, showAuthModal });
+      
+      // Hide modal only if fully authenticated and not on onboarding
+      if (isAuthenticated && hasCompletedOnboarding && !isOnboarding) {
+        setShowAuthModal(false);
+      } else {
         setShowAuthModal(true);
       }
     }
@@ -142,13 +147,13 @@ export default function HomePage() {
   return (
     <>
       <div className={`min-h-screen bg-gradient-to-br from-background via-background to-muted/20 ${showAuthModal ? 'blur-sm' : ''}`}>
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
           {/* Left Sidebar */}
-          <div className="md:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-4 sm:space-y-6 order-2 lg:order-1">
             {/* Profile Card */}
               <Card className="border-0 shadow-lg bg-card/80 backdrop-blur-sm">
-              <CardContent className="p-6">
+              <CardContent className="p-4 sm:p-6">
                 <div className="text-center">
                     <div className="relative inline-block">
                       <Avatar className="h-20 w-20 mx-auto mb-4 ring-4 ring-primary/20">
@@ -166,12 +171,12 @@ export default function HomePage() {
                     </div>
                   <h3 className="font-semibold text-lg mb-1">John Doe</h3>
                     <p className="text-sm text-muted-foreground mb-2">Film Director</p>
-                    <div className="flex items-center justify-center mb-3">
-                      <Badge variant="outline" className="mr-2">
+                    <div className="flex items-center justify-center mb-3 flex-wrap gap-2">
+                      <Badge variant="outline" className="text-xs">
                         <Award className="h-3 w-3 mr-1" />
                         Award Winner
                       </Badge>
-                      <Badge variant="outline">
+                      <Badge variant="outline" className="text-xs">
                         <Crown className="h-3 w-3 mr-1" />
                         Premium
                       </Badge>
@@ -223,30 +228,30 @@ export default function HomePage() {
 
             {/* Quick Actions */}
               <Card className="border-0 shadow-lg bg-card/80 backdrop-blur-sm">
-              <CardHeader>
+              <CardHeader className="pb-3">
                   <CardTitle className="text-base flex items-center">
                     <Zap className="h-4 w-4 mr-2 text-primary" />
                     Quick Actions
                   </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-2">
-                  <Button variant="outline" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors">
+              <CardContent className="space-y-2 p-4 sm:p-6">
+                  <Button variant="outline" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors text-sm">
                   <Plus className="h-4 w-4 mr-2" />
                   Create Post
                 </Button>
-                  <Button variant="outline" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors">
+                  <Button variant="outline" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors text-sm">
                   <Briefcase className="h-4 w-4 mr-2" />
                   Post a Job
                 </Button>
-                  <Button variant="outline" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors">
+                  <Button variant="outline" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors text-sm">
                   <Users className="h-4 w-4 mr-2" />
                   Find Connections
                 </Button>
-                  <Button variant="outline" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors">
+                  <Button variant="outline" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors text-sm">
                   <Calendar className="h-4 w-4 mr-2" />
                   Create Event
                 </Button>
-                  <Button variant="outline" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors">
+                  <Button variant="outline" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors text-sm">
                     <Film className="h-4 w-4 mr-2" />
                     Upload Showreel
                 </Button>
@@ -284,20 +289,26 @@ export default function HomePage() {
           </div>
 
           {/* Main Feed */}
-          <div className="md:col-span-8">
-              <div className="space-y-6">
+          <div className="lg:col-span-8 order-1 lg:order-2">
+              <div className="space-y-4 sm:space-y-6">
                 {/* Welcome Banner */}
                 <Card className="border-0 shadow-lg bg-gradient-to-r from-primary/10 to-primary/5 backdrop-blur-sm">
-                  <CardContent className="p-6">
-                    <div className="flex items-center justify-between">
+                  <CardContent className="p-4 sm:p-6">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                       <div>
-                        <h2 className="text-xl font-bold mb-2">Welcome back, John! 🎬</h2>
-                        <p className="text-muted-foreground">Discover new opportunities and connect with industry professionals.</p>
+                        <h2 className="text-lg sm:text-xl font-bold mb-2">Welcome back, John! 🎬</h2>
+                        <p className="text-sm sm:text-base text-muted-foreground">Discover new opportunities and connect with industry professionals.</p>
                       </div>
-                      <div className="hidden md:flex">
-                        <Button className="bg-primary hover:bg-primary/90">
-                          <Plus className="h-4 w-4 mr-2" />
-                          Share Update
+                                              <div className="flex sm:hidden">
+                          <Button className="bg-primary hover:bg-primary/90 w-full">
+                            <Plus className="h-4 w-4 mr-2" />
+                            Share Update
+                      </Button>
+                        </div>
+                        <div className="hidden sm:flex">
+                          <Button className="bg-primary hover:bg-primary/90">
+                            <Plus className="h-4 w-4 mr-2" />
+                            Share Update
                     </Button>
                   </div>
                 </div>
@@ -312,7 +323,7 @@ export default function HomePage() {
           </div>
 
           {/* Right Sidebar */}
-          <div className="md:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-4 sm:space-y-6 order-3">
             {/* Trending Topics */}
               <Card className="border-0 shadow-lg bg-card/80 backdrop-blur-sm">
               <CardHeader>
@@ -579,7 +590,7 @@ export default function HomePage() {
                         />
                       </svg>
                       Google
-                    </Button>
+              </Button>
                     <Button variant="outline" className="w-full hover:bg-muted/50">
                       <svg className="h-4 w-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
