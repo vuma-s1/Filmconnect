@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Progress } from '@/components/ui/progress';
+
 import { 
   TrendingUp, 
   DollarSign, 
@@ -578,7 +578,9 @@ export default function FundingPage() {
                           <span>Revenue Share:</span>
                           <span className="font-medium text-primary">75%</span>
                         </div>
-                        <Progress value={75} className="mt-2" />
+                        <div className="w-full bg-muted rounded-full h-2 mt-2">
+                          <div className="bg-primary h-2 rounded-full" style={{ width: '75%' }}></div>
+                        </div>
                       </div>
                     </div>
 
