@@ -17,7 +17,10 @@ import {
   ExternalLink,
   Bookmark,
   Share2,
-  Eye
+  Eye,
+  Bell,
+  Mail,
+  Newspaper
 } from 'lucide-react';
 
 interface NewsArticle {
@@ -232,15 +235,15 @@ export default function NewsPage() {
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-6">
+        <div className="mb-6 sm:mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6 space-y-3 sm:space-y-0">
             <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+              <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
                 Film Industry News
               </h1>
-              <p className="text-muted-foreground mt-2">Stay updated with the latest happenings in cinema</p>
+              <p className="text-muted-foreground mt-1 sm:mt-2 text-sm sm:text-base">Stay updated with the latest happenings in cinema</p>
             </div>
-            <Badge className="bg-red-500 text-white animate-pulse">
+            <Badge className="bg-red-500 text-white animate-pulse self-start sm:self-auto">
               <div className="w-2 h-2 bg-white rounded-full mr-2"></div>
               Live Updates
             </Badge>
@@ -258,9 +261,9 @@ export default function NewsPage() {
               />
             </div>
             <Tabs value={selectedCategory} onValueChange={setSelectedCategory} className="w-full sm:w-auto">
-              <TabsList className="grid grid-cols-3 sm:grid-cols-5 w-full sm:w-auto">
+              <TabsList className="grid grid-cols-3 sm:grid-cols-6 w-full sm:w-auto h-auto">
                 {categories.map((category) => (
-                  <TabsTrigger key={category} value={category} className="text-xs">
+                  <TabsTrigger key={category} value={category} className="text-xs sm:text-sm px-2 sm:px-3 py-2">
                     {category === 'all' ? 'All' : category}
                   </TabsTrigger>
                 ))}
@@ -269,9 +272,9 @@ export default function NewsPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-6">
           {/* Main News Content */}
-          <div className="lg:col-span-3 space-y-6">
+          <div className="lg:col-span-3 space-y-6 lg:space-y-8">
             {/* Breaking News */}
             {filteredNews.filter(article => article.isBreaking).length > 0 && (
               <div className="mb-8">
@@ -283,51 +286,52 @@ export default function NewsPage() {
                   {filteredNews.filter(article => article.isBreaking).map((article) => (
                     <Card key={article.id} className="border-l-4 border-l-red-500 hover:shadow-lg transition-shadow">
                       <CardContent className="p-6">
-                        <div className="flex items-start space-x-4">
-                          <img
-                            src={article.imageUrl}
-                            alt={article.title}
-                            className="w-24 h-24 rounded-lg object-cover flex-shrink-0"
-                          />
-                          <div className="flex-1">
-                            <div className="flex items-start justify-between mb-2">
-                              <Badge className="bg-red-500 text-white mb-2">Breaking</Badge>
-                              <div className="flex items-center space-x-2">
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  onClick={() => handleSaveArticle(article.id)}
-                                  className={savedArticles.includes(article.id) ? 'text-primary' : 'text-muted-foreground'}
-                                >
-                                  <Bookmark className={`h-4 w-4 ${savedArticles.includes(article.id) ? 'fill-current' : ''}`} />
-                                </Button>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  onClick={() => handleShareArticle(article)}
-                                >
-                                  <Share2 className="h-4 w-4" />
-                                </Button>
-                              </div>
-                            </div>
-                            <h3 className="text-lg font-semibold mb-2 hover:text-primary cursor-pointer transition-colors">
-                              {article.title}
-                            </h3>
-                            <p className="text-muted-foreground mb-3 line-clamp-2">{article.summary}</p>
-                            <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                              <span>{article.source}</span>
-                              <div className="flex items-center space-x-1">
-                                <Clock className="h-3 w-3" />
-                                <span>{formatTimeAgo(article.publishedAt)}</span>
-                              </div>
-                              <div className="flex items-center space-x-1">
-                                <Eye className="h-3 w-3" />
-                                <span>{article.views.toLocaleString()}</span>
-                              </div>
-                              <span>{article.readTime}</span>
+                        <div className="flex flex-col sm:flex-row items-start space-y-3 sm:space-y-0 sm:space-x-4">
+                        <img
+                          src={article.imageUrl}
+                          alt={article.title}
+                          className="w-full sm:w-24 h-48 sm:h-24 rounded-lg object-cover flex-shrink-0"
+                        />
+                        <div className="flex-1 w-full">
+                          <div className="flex items-start justify-between mb-2">
+                            <Badge className="bg-red-500 text-white mb-2">Breaking</Badge>
+                            <div className="flex items-center space-x-1 sm:space-x-2">
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => handleSaveArticle(article.id)}
+                                className={`h-8 w-8 sm:h-10 sm:w-10 ${savedArticles.includes(article.id) ? 'text-primary' : 'text-muted-foreground'}`}
+                              >
+                                <Bookmark className={`h-3 w-3 sm:h-4 sm:w-4 ${savedArticles.includes(article.id) ? 'fill-current' : ''}`} />
+                              </Button>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => handleShareArticle(article)}
+                                className="h-8 w-8 sm:h-10 sm:w-10"
+                              >
+                                <Share2 className="h-3 w-3 sm:h-4 sm:w-4" />
+                              </Button>
                             </div>
                           </div>
+                          <h3 className="text-base sm:text-lg font-semibold mb-2 hover:text-primary cursor-pointer transition-colors line-clamp-2">
+                            {article.title}
+                          </h3>
+                          <p className="text-muted-foreground mb-3 text-sm sm:text-base line-clamp-2">{article.summary}</p>
+                          <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
+                            <span className="font-medium">{article.source}</span>
+                            <div className="flex items-center space-x-1">
+                              <Clock className="h-3 w-3" />
+                              <span>{formatTimeAgo(article.publishedAt)}</span>
+                            </div>
+                            <div className="flex items-center space-x-1">
+                              <Eye className="h-3 w-3" />
+                              <span>{article.views.toLocaleString()}</span>
+                            </div>
+                            <span>{article.readTime}</span>
+                          </div>
                         </div>
+                      </div>
                       </CardContent>
                     </Card>
                   ))}
@@ -337,69 +341,59 @@ export default function NewsPage() {
 
             {/* Regular News */}
             <div>
-              <h2 className="text-xl font-semibold mb-4 flex items-center">
-                <Film className="h-5 w-5 mr-2 text-primary" />
+              <h2 className="text-lg sm:text-xl font-semibold mb-4 flex items-center">
+                <Newspaper className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                 Latest News
               </h2>
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 {filteredNews.filter(article => !article.isBreaking).map((article) => (
                   <Card key={article.id} className="hover:shadow-lg transition-shadow">
-                    <CardContent className="p-6">
-                      <div className="flex items-start space-x-4">
+                    <CardContent className="p-4 sm:p-6">
+                      <div className="flex flex-col sm:flex-row items-start space-y-3 sm:space-y-0 sm:space-x-4">
                         <img
                           src={article.imageUrl}
                           alt={article.title}
-                          className="w-32 h-24 rounded-lg object-cover flex-shrink-0"
+                          className="w-full sm:w-32 h-48 sm:h-32 rounded-lg object-cover flex-shrink-0"
                         />
-                        <div className="flex-1">
+                        <div className="flex-1 w-full">
                           <div className="flex items-start justify-between mb-2">
-                            <Badge variant="outline">{article.category}</Badge>
-                            <div className="flex items-center space-x-2">
+                            <Badge variant={article.category === 'Awards' ? 'default' : 'secondary'} className="text-xs">
+                              {article.category}
+                            </Badge>
+                            <div className="flex items-center space-x-1 sm:space-x-2">
                               <Button
                                 variant="ghost"
                                 size="icon"
                                 onClick={() => handleSaveArticle(article.id)}
-                                className={savedArticles.includes(article.id) ? 'text-primary' : 'text-muted-foreground'}
+                                className={`h-8 w-8 sm:h-10 sm:w-10 ${savedArticles.includes(article.id) ? 'text-primary' : 'text-muted-foreground'}`}
                               >
-                                <Bookmark className={`h-4 w-4 ${savedArticles.includes(article.id) ? 'fill-current' : ''}`} />
+                                <Bookmark className={`h-3 w-3 sm:h-4 sm:w-4 ${savedArticles.includes(article.id) ? 'fill-current' : ''}`} />
                               </Button>
                               <Button
                                 variant="ghost"
                                 size="icon"
                                 onClick={() => handleShareArticle(article)}
+                                className="h-8 w-8 sm:h-10 sm:w-10"
                               >
-                                <Share2 className="h-4 w-4" />
+                                <Share2 className="h-3 w-3 sm:h-4 sm:w-4" />
                               </Button>
                             </div>
                           </div>
-                          <h3 className="text-xl font-semibold mb-2 hover:text-primary cursor-pointer transition-colors">
+                          <h3 className="text-base sm:text-xl font-semibold mb-2 hover:text-primary cursor-pointer transition-colors line-clamp-2">
                             {article.title}
                           </h3>
-                          <p className="text-muted-foreground mb-3">{article.summary}</p>
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                              <span className="font-medium">{article.source}</span>
-                              <div className="flex items-center space-x-1">
-                                <Clock className="h-3 w-3" />
-                                <span>{formatTimeAgo(article.publishedAt)}</span>
-                              </div>
-                              <div className="flex items-center space-x-1">
-                                <Eye className="h-3 w-3" />
-                                <span>{article.views.toLocaleString()}</span>
-                              </div>
-                              <span>{article.readTime}</span>
+                          <p className="text-muted-foreground mb-3 text-sm sm:text-base line-clamp-2">{article.summary}</p>
+                          <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
+                            <span className="font-medium">{article.source}</span>
+                            <div className="flex items-center space-x-1">
+                              <Clock className="h-3 w-3" />
+                              <span>{formatTimeAgo(article.publishedAt)}</span>
                             </div>
-                            <Button variant="outline" size="sm">
-                              Read More
-                              <ExternalLink className="h-3 w-3 ml-1" />
-                            </Button>
-                          </div>
-                          <div className="flex flex-wrap gap-1 mt-3">
-                            {article.tags.map((tag) => (
-                              <Badge key={tag} variant="secondary" className="text-xs">
-                                #{tag}
-                              </Badge>
-                            ))}
+                            <div className="flex items-center space-x-1">
+                              <Eye className="h-3 w-3" />
+                              <span>{article.views.toLocaleString()}</span>
+                            </div>
+                            <span>{article.readTime}</span>
                           </div>
                         </div>
                       </div>
@@ -411,23 +405,23 @@ export default function NewsPage() {
           </div>
 
           {/* Right Sidebar */}
-          <div className="lg:col-span-1 space-y-6">
+          <div className="lg:col-span-1 space-y-4 lg:space-y-6">
             {/* Trending Topics */}
             <Card className="border-0 shadow-lg bg-card/80 backdrop-blur-sm">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base flex items-center">
+              <CardHeader className="pb-3 px-4 sm:px-6">
+                <CardTitle className="text-sm sm:text-base flex items-center">
                   <TrendingUp className="h-4 w-4 mr-2 text-primary" />
                   Trending Topics
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
+              <CardContent className="space-y-2 sm:space-y-3 px-4 sm:px-6">
                 {trendingTopics.map((topic, index) => (
                   <div key={index} className="flex items-center justify-between hover:bg-muted/50 p-2 rounded-lg cursor-pointer transition-colors">
                     <div>
-                      <p className="font-medium text-sm">{topic.topic}</p>
+                      <p className="font-medium text-xs sm:text-sm">{topic.topic}</p>
                       <p className="text-xs text-muted-foreground">{topic.count} posts</p>
                     </div>
-                    <TrendingUp className="h-4 w-4 text-primary" />
+                    <TrendingUp className="h-3 w-3 sm:h-4 sm:w-4 text-primary" />
                   </div>
                 ))}
               </CardContent>
@@ -435,50 +429,50 @@ export default function NewsPage() {
 
             {/* Quick Stats */}
             <Card className="border-0 shadow-lg bg-card/80 backdrop-blur-sm">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base flex items-center">
+              <CardHeader className="pb-3 px-4 sm:px-6">
+                <CardTitle className="text-sm sm:text-base flex items-center">
                   <Award className="h-4 w-4 mr-2 text-primary" />
-                  Industry Stats
+                  This Week
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm">Active Projects</span>
-                  <span className="font-medium text-primary">2,847</span>
+              <CardContent className="space-y-3 sm:space-y-4 px-4 sm:px-6">
+                <div className="text-center">
+                  <div className="text-xl sm:text-2xl font-bold text-primary">127</div>
+                  <p className="text-xs text-muted-foreground">New Articles</p>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm">Box Office This Week</span>
-                  <span className="font-medium text-primary">₹500Cr+</span>
+                <div className="text-center">
+                  <div className="text-xl sm:text-2xl font-bold text-primary">2.4M</div>
+                  <p className="text-xs text-muted-foreground">Total Views</p>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm">New Releases</span>
-                  <span className="font-medium text-primary">23</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm">Upcoming Events</span>
-                  <span className="font-medium text-primary">12</span>
+                <div className="text-center">
+                  <div className="text-xl sm:text-2xl font-bold text-primary">45</div>
+                  <p className="text-xs text-muted-foreground">Breaking Stories</p>
                 </div>
               </CardContent>
             </Card>
 
             {/* Newsletter Signup */}
             <Card className="border-0 shadow-lg bg-gradient-to-br from-primary/10 to-primary/5 backdrop-blur-sm">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base flex items-center">
+              <CardHeader className="pb-3 px-4 sm:px-6">
+                <CardTitle className="text-sm sm:text-base flex items-center">
                   <Calendar className="h-4 w-4 mr-2 text-primary" />
                   Daily Digest
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
+              <CardContent className="px-4 sm:px-6">
+                <p className="text-xs sm:text-sm text-muted-foreground mb-4">
                   Get the latest film industry news delivered to your inbox every morning.
                 </p>
                 <div className="space-y-3">
-                  <Input placeholder="Enter your email" />
-                  <Button className="w-full bg-primary hover:bg-primary/90 text-black">
+                  <Input placeholder="Enter your email" type="email" className="text-sm" />
+                  <Button className="w-full bg-primary hover:bg-primary/90 text-sm">
+                    <Mail className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
                     Subscribe
                   </Button>
                 </div>
+                <p className="text-xs text-muted-foreground mt-3 text-center">
+                  Join 50,000+ industry professionals
+                </p>
               </CardContent>
             </Card>
           </div>

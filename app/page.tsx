@@ -876,10 +876,10 @@ export default function HomePage() {
 
       {/* Share Update Modal */}
       {showShareModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 overflow-hidden">
-          <div className="w-full max-w-4xl h-full max-h-[95vh] flex flex-col">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-2 sm:p-4 overflow-hidden">
+          <div className="w-full max-w-4xl h-full max-h-[98vh] sm:max-h-[95vh] flex flex-col">
             <Card className="border-0 shadow-2xl bg-card/95 backdrop-blur-sm flex flex-col h-full">
-              <CardHeader className="flex-shrink-0 flex items-center justify-between border-b border-border p-4">
+              <CardHeader className="flex-shrink-0 flex items-center justify-between border-b border-border p-3 sm:p-4">
                 <CardTitle className="flex items-center space-x-2">
                   <Film className="h-5 w-5 text-primary" />
                   <span>Share Update</span>
@@ -895,12 +895,12 @@ export default function HomePage() {
               </CardHeader>
               
               <div className="flex-1 overflow-y-auto">
-                <CardContent className="p-6">
+                <CardContent className="p-4 sm:p-6">
                 <form onSubmit={handleShareSubmit} className="space-y-6">
                   {/* Post Type Selection */}
                   <div className="space-y-3">
                     <Label className="text-sm font-medium">Post Type</Label>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {[
                         { value: 'update', label: 'General Update', icon: MessageCircle, desc: 'Share industry insights or personal updates' },
                         { value: 'showreel', label: 'Showreel/Work', icon: Film, desc: 'Showcase your latest creative work' },
@@ -916,7 +916,7 @@ export default function HomePage() {
                             key={type.value}
                             type="button"
                             variant={isSelected ? "secondary" : "outline"}
-                            className={`justify-start h-auto p-4 flex-col items-start space-y-1 ${isSelected ? 'bg-primary border-primary' : 'hover:bg-muted/50'}`}
+                            className={`justify-start h-auto p-3 sm:p-4 flex-col items-start space-y-1 ${isSelected ? 'bg-primary border-primary' : 'hover:bg-muted/50'}`}
                             onClick={() => setShareData({ ...shareData, postType: type.value })}
                           >
                             <div className="flex items-center space-x-2 w-full">
@@ -965,22 +965,22 @@ export default function HomePage() {
                     </div>
                     
                     {/* Media Upload Options */}
-                    <div className="flex items-center space-x-4 p-3 bg-muted/30 rounded-lg">
-                      <Button type="button" variant="ghost" size="sm" className="flex items-center space-x-2">
+                    <div className="grid grid-cols-2 sm:flex sm:items-center gap-2 sm:gap-4 p-3 bg-muted/30 rounded-lg">
+                      <Button type="button" variant="ghost" size="sm" className="flex items-center justify-center sm:justify-start space-x-1 sm:space-x-2 h-10">
                         <Video className="h-4 w-4 text-primary" />
-                        <span className="text-sm">Add Video</span>
+                        <span className="text-xs sm:text-sm">Add Video</span>
                       </Button>
-                      <Button type="button" variant="ghost" size="sm" className="flex items-center space-x-2">
+                      <Button type="button" variant="ghost" size="sm" className="flex items-center justify-center sm:justify-start space-x-1 sm:space-x-2 h-10">
                         <Camera className="h-4 w-4 text-primary" />
-                        <span className="text-sm">Add Photos</span>
+                        <span className="text-xs sm:text-sm">Add Photos</span>
                       </Button>
-                      <Button type="button" variant="ghost" size="sm" className="flex items-center space-x-2">
+                      <Button type="button" variant="ghost" size="sm" className="flex items-center justify-center sm:justify-start space-x-1 sm:space-x-2 h-10">
                         <FileText className="h-4 w-4 text-primary" />
-                        <span className="text-sm">Add Document</span>
+                        <span className="text-xs sm:text-sm">Add Document</span>
                       </Button>
-                      <Button type="button" variant="ghost" size="sm" className="flex items-center space-x-2">
+                      <Button type="button" variant="ghost" size="sm" className="flex items-center justify-center sm:justify-start space-x-1 sm:space-x-2 h-10">
                         <LinkIcon className="h-4 w-4 text-primary" />
-                        <span className="text-sm">Add Link</span>
+                        <span className="text-xs sm:text-sm">Add Link</span>
                       </Button>
                     </div>
                   </div>
@@ -1183,14 +1183,14 @@ export default function HomePage() {
                       placeholder="#filmmaking #cinematography #networking"
                       className="border-border/50 focus:border-primary"
                     />
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1 sm:gap-2">
                       {['#filmmaking', '#cinematography', '#directing', '#casting', '#production', '#vfx', '#editing', '#screenwriting', '#postproduction', '#documentary'].map((tag) => (
                         <Button
                           key={tag}
                           type="button"
                           variant="outline"
                           size="sm"
-                          className="h-7 px-3 text-xs hover:bg-primary hover:text-black"
+                          className="h-6 sm:h-7 px-2 sm:px-3 text-xs hover:bg-primary hover:text-black"
                           onClick={() => {
                             const currentTags = shareData.hashtags.split(' ').filter(t => t.trim());
                             if (!currentTags.includes(tag)) {
@@ -1287,7 +1287,7 @@ export default function HomePage() {
                   {/* Audience Targeting */}
                   <div className="space-y-3">
                     <Label className="text-sm font-medium">Target Audience</Label>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
                       {[
                         { value: 'all', label: 'All Professionals', icon: Globe, desc: 'Visible to all film industry professionals' },
                         { value: 'connections', label: 'My Network', icon: Users, desc: 'Only your connections and followers' },
@@ -1301,14 +1301,14 @@ export default function HomePage() {
                             key={audience.value}
                             type="button"
                             variant={isSelected ? "secondary" : "outline"}
-                            className={`justify-start h-auto p-3 flex-col items-start space-y-1 ${isSelected ? 'bg-primary border-primary' : 'hover:bg-muted/50'}`}
+                            className={`justify-start h-auto p-2 sm:p-3 flex-col items-start space-y-1 ${isSelected ? 'bg-primary border-primary' : 'hover:bg-muted/50'}`}
                             onClick={() => setShareData({ ...shareData, privacy: audience.value })}
                           >
                             <div className="flex items-center space-x-2 w-full">
                               <Icon className={`h-4 w-4 ${isSelected ? 'text-black' : 'text-primary'}`} />
-                              <span className={`font-medium text-sm ${isSelected ? 'text-black' : ''}`}>{audience.label}</span>
+                              <span className={`font-medium text-xs sm:text-sm ${isSelected ? 'text-black' : ''}`}>{audience.label}</span>
                             </div>
-                            <p className={`text-xs text-left ${isSelected ? 'text-black/80' : 'text-muted-foreground'}`}>
+                            <p className={`text-xs text-left ${isSelected ? 'text-black/80' : 'text-muted-foreground'} hidden sm:block`}>
                               {audience.desc}
                             </p>
                           </Button>
@@ -1318,17 +1318,18 @@ export default function HomePage() {
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex justify-end space-x-3 pt-4 border-t border-border">
+                  <div className="flex flex-col sm:flex-row justify-end gap-3 sm:space-x-3 pt-4 border-t border-border">
                     <Button
                       type="button"
                       variant="outline"
                       onClick={() => setShowShareModal(false)}
+                      className="w-full sm:w-auto"
                     >
                   Cancel
                 </Button>
                     <Button
                       type="submit"
-                      className="bg-primary hover:bg-primary/90"
+                      className="bg-primary hover:bg-primary/90 w-full sm:w-auto"
                       style={{ color: 'black' }}
                       disabled={isSharing || !shareData.content.trim()}
                     >

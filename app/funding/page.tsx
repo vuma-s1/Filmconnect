@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -40,8 +40,12 @@ interface FundingSource {
   maxAmount: string;
   description: string;
   requirements: string[];
-  timeline: string;
-  successRate: number;
+  timeline: string | {
+    application: string;
+    review: string;
+    decision: string;
+  };
+  successRate: string;
   contactInfo: {
     email?: string;
     phone?: string;
@@ -65,7 +69,7 @@ const fundingSources: FundingSource[] = [
       'Distribution strategy'
     ],
     timeline: '4-6 months',
-    successRate: 15,
+    successRate: '15%',
     contactInfo: {
       email: 'info@nfdcindia.com',
       phone: '+91-11-2338-9876',
@@ -87,7 +91,7 @@ const fundingSources: FundingSource[] = [
       'Completion guarantee'
     ],
     timeline: '2-3 months',
-    successRate: 8,
+    successRate: '85%',
     contactInfo: {
       email: 'submissions@relianceentertainment.com',
       phone: '+91-22-3038-6000',
@@ -109,7 +113,7 @@ const fundingSources: FundingSource[] = [
       'Professional materials'
     ],
     timeline: '1-3 months',
-    successRate: 70,
+    successRate: '70%',
     contactInfo: {
       email: 'support@wishberry.in',
       phone: '+91-22-6123-4567',
@@ -117,6 +121,13 @@ const fundingSources: FundingSource[] = [
     },
     tags: ['Independent Films', 'Community Funded']
   }
+];
+
+const budgetBreakdown = [
+  { category: 'Pre-Production', percentage: '15%' },
+  { category: 'Production', percentage: '60%' },
+  { category: 'Post-Production', percentage: '15%' },
+  { category: 'Marketing & Distribution', percentage: '10%' }
 ];
 
 export default function FundingPage() {
@@ -132,83 +143,165 @@ export default function FundingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent mb-4">
+        <div className="text-center mb-8 sm:mb-12 px-4 sm:px-0">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent mb-3 sm:mb-4">
             Professional Film Funding Hub
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto px-2 sm:px-0">
             Comprehensive funding resources, expert guidance, and direct access to investors
           </p>
-          <div className="flex items-center justify-center mt-6 space-x-6">
-            <Badge className="bg-primary text-black px-4 py-2">
-              <CheckCircle className="h-4 w-4 mr-2" />
-              ₹500+ Cr Funded
-            </Badge>
-            <Badge className="bg-black text-primary px-4 py-2">
-              <Users className="h-4 w-4 mr-2" />
-              1000+ Projects
-            </Badge>
-            <Badge className="bg-primary text-black px-4 py-2">
-              <Award className="h-4 w-4 mr-2" />
-              85% Success Rate
-            </Badge>
-          </div>
         </div>
 
-        <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-5">
-            <TabsTrigger value="digital-rights">Digital Rights</TabsTrigger>
-            <TabsTrigger value="sources">Funding Sources</TabsTrigger>
-            <TabsTrigger value="calculator">Calculator</TabsTrigger>
-            <TabsTrigger value="resources">Resources</TabsTrigger>
-            <TabsTrigger value="overview">Overview</TabsTrigger>
+        <div className="flex flex-col sm:flex-row items-center justify-center mt-4 sm:mt-6 gap-2 sm:gap-4 px-2 sm:px-0">
+          <Badge className="bg-primary text-black px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-base w-full sm:w-auto text-center">
+            <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+            ₹500+ Cr Funded
+          </Badge>
+          <Badge className="bg-black text-primary px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-base w-full sm:w-auto text-center">
+            <Users className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+            1000+ Projects
+          </Badge>
+          <Badge className="bg-primary text-black px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-base w-full sm:w-auto text-center">
+            <Award className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+            85% Success Rate
+          </Badge>
+        </div>
+
+        <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full mt-6 sm:mt-8">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-1 h-auto p-1">
+            <TabsTrigger value="digital-rights" className="text-xs sm:text-sm px-1 sm:px-3 py-2 whitespace-nowrap">Digital Rights</TabsTrigger>
+            <TabsTrigger value="sources" className="text-xs sm:text-sm px-1 sm:px-3 py-2 whitespace-nowrap">Sources</TabsTrigger>
+            <TabsTrigger value="calculator" className="text-xs sm:text-sm px-1 sm:px-3 py-2 whitespace-nowrap">Calculator</TabsTrigger>
+            <TabsTrigger value="resources" className="text-xs sm:text-sm px-1 sm:px-3 py-2 whitespace-nowrap">Resources</TabsTrigger>
+            <TabsTrigger value="overview" className="text-xs sm:text-sm px-1 sm:px-3 py-2 col-span-2 sm:col-span-1 whitespace-nowrap">Overview</TabsTrigger>
           </TabsList>
 
+          {/* Digital Rights Tab */}
+          <TabsContent value="digital-rights" className="mt-4 sm:mt-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
+              <div className="lg:col-span-2 space-y-4 lg:space-y-6">
+                <Card className="bg-black border-primary/20">
+                  <CardHeader className="px-4 sm:px-6">
+                    <CardTitle className="text-primary text-lg sm:text-xl">Digital Rights Management</CardTitle>
+                    <CardDescription className="text-gray-300 text-sm sm:text-base">
+                      Comprehensive digital rights solutions for your film projects
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4 px-4 sm:px-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                      <div className="p-3 sm:p-4 bg-primary/10 rounded-lg border border-primary/20">
+                        <h4 className="font-semibold text-primary mb-2 text-sm sm:text-base">OTT Platform Rights</h4>
+                        <p className="text-xs sm:text-sm text-gray-300">Secure distribution deals with major streaming platforms</p>
+                      </div>
+                      <div className="p-3 sm:p-4 bg-primary/10 rounded-lg border border-primary/20">
+                        <h4 className="font-semibold text-primary mb-2 text-sm sm:text-base">International Sales</h4>
+                        <p className="text-xs sm:text-sm text-gray-300">Global distribution and international market access</p>
+                      </div>
+                      <div className="p-3 sm:p-4 bg-primary/10 rounded-lg border border-primary/20">
+                        <h4 className="font-semibold text-primary mb-2 text-sm sm:text-base">Theatrical Rights</h4>
+                        <p className="text-xs sm:text-sm text-gray-300">Cinema chain partnerships and theatrical releases</p>
+                      </div>
+                      <div className="p-3 sm:p-4 bg-primary/10 rounded-lg border border-primary/20">
+                        <h4 className="font-semibold text-primary mb-2 text-sm sm:text-base">Satellite Rights</h4>
+                        <p className="text-xs sm:text-sm text-gray-300">Television broadcast rights and satellite partnerships</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="space-y-6">
+                <Card className="border-l-4 border-l-primary">
+                  <CardHeader className="px-4 sm:px-6">
+                    <CardTitle className="text-base sm:text-lg">Quick Actions</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3 px-4 sm:px-6">
+                    <Button className="w-full justify-start text-sm">
+                      <Download className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
+                      Pitch Template
+                    </Button>
+                    <Button variant="outline" className="w-full justify-start text-sm">
+                      <Calculator className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
+                      Budget Calculator
+                    </Button>
+                    <Button variant="outline" className="w-full justify-start text-sm">
+                      <Video className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
+                      Training Videos
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-0 shadow-lg bg-card/80 backdrop-blur-sm">
+                  <CardHeader className="pb-3 px-4 sm:px-6">
+                    <CardTitle className="text-sm sm:text-base flex items-center">
+                      <TrendingUp className="h-4 w-4 mr-2 text-primary" />
+                      Funding Trends
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3 sm:space-y-4 px-4 sm:px-6">
+                    <div className="text-center">
+                      <div className="text-xl sm:text-2xl font-bold text-primary">₹2.5 Cr</div>
+                      <p className="text-xs text-muted-foreground">Avg. Funding Amount</p>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-xl sm:text-2xl font-bold text-primary">45 Days</div>
+                      <p className="text-xs text-muted-foreground">Avg. Processing Time</p>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-xl sm:text-2xl font-bold text-primary">85%</div>
+                      <p className="text-xs text-muted-foreground">Success Rate</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </TabsContent>
+
           {/* Overview Tab */}
-          <TabsContent value="overview" className="mt-6">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <TabsContent value="overview" className="mt-4 sm:mt-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
               <div className="lg:col-span-2">
                 <Card className="border-l-4 border-l-primary bg-gradient-to-r from-primary/10 to-primary/5">
-                  <CardHeader>
-                    <CardTitle className="flex items-center text-xl">
-                      <Target className="h-6 w-6 mr-3 text-primary" />
+                  <CardHeader className="px-4 sm:px-6">
+                    <CardTitle className="flex items-center text-lg sm:text-xl">
+                      <Target className="h-5 w-5 sm:h-6 sm:w-6 mr-2 sm:mr-3 text-primary" />
                       Professional Funding Strategy
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-4">
+                  <CardContent className="px-4 sm:px-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+                      <div className="space-y-3 sm:space-y-4">
                         {[
                           { step: 1, title: 'Project Development', desc: 'Script, budget, team assembly' },
                           { step: 2, title: 'Market Research', desc: 'Audience analysis, revenue projections' },
                           { step: 3, title: 'Pitch Preparation', desc: 'Deck creation, financial models' }
                         ].map((item) => (
                           <div key={item.step} className="flex items-start space-x-3">
-                            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                              <span className="text-black font-bold text-sm">{item.step}</span>
+                            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                              <span className="text-black font-bold text-xs sm:text-sm">{item.step}</span>
                             </div>
                             <div>
-                              <h4 className="font-semibold">{item.title}</h4>
-                              <p className="text-sm text-white">{item.desc}</p>
+                              <h4 className="font-semibold text-sm sm:text-base">{item.title}</h4>
+                              <p className="text-xs sm:text-sm text-muted-foreground">{item.desc}</p>
                             </div>
                           </div>
                         ))}
                       </div>
-                      <div className="space-y-4">
+                      <div className="space-y-3 sm:space-y-4">
                         {[
                           { step: 4, title: 'Investor Outreach', desc: 'Targeted approach, networking' },
                           { step: 5, title: 'Due Diligence', desc: 'Legal documentation, contracts' },
                           { step: 6, title: 'Production & Delivery', desc: 'Milestone-based releases' }
                         ].map((item) => (
                           <div key={item.step} className="flex items-start space-x-3">
-                            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                              <span className="text-black font-bold text-sm">{item.step}</span>
+                            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                              <span className="text-black font-bold text-xs sm:text-sm">{item.step}</span>
                             </div>
                             <div>
-                              <h4 className="font-semibold">{item.title}</h4>
-                              <p className="text-sm text-white">{item.desc}</p>
+                              <h4 className="font-semibold text-sm sm:text-base">{item.title}</h4>
+                              <p className="text-xs sm:text-sm text-muted-foreground">{item.desc}</p>
                             </div>
                           </div>
                         ))}
@@ -220,42 +313,44 @@ export default function FundingPage() {
 
               <div className="space-y-6">
                 <Card className="border-l-4 border-l-primary">
-                  <CardHeader>
-                    <CardTitle className="text-lg">Quick Actions</CardTitle>
+                  <CardHeader className="px-4 sm:px-6">
+                    <CardTitle className="text-base sm:text-lg">Quick Actions</CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-3">
-                    <Button className="w-full justify-start">
-                      <Download className="h-4 w-4 mr-2" />
+                  <CardContent className="space-y-3 px-4 sm:px-6">
+                    <Button className="w-full justify-start text-sm">
+                      <Download className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
                       Pitch Template
                     </Button>
-                    <Button variant="outline" className="w-full justify-start">
-                      <Calculator className="h-4 w-4 mr-2" />
+                    <Button variant="outline" className="w-full justify-start text-sm">
+                      <Calculator className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
                       Budget Calculator
                     </Button>
-                    <Button variant="outline" className="w-full justify-start">
-                      <Video className="h-4 w-4 mr-2" />
+                    <Button variant="outline" className="w-full justify-start text-sm">
+                      <Video className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
                       Training Videos
                     </Button>
                   </CardContent>
                 </Card>
 
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-lg flex items-center">
-                      <PieChart className="h-4 w-4 mr-2 text-primary" />
-                      Industry Stats
+                <Card className="border-0 shadow-lg bg-card/80 backdrop-blur-sm">
+                  <CardHeader className="pb-3 px-4 sm:px-6">
+                    <CardTitle className="text-sm sm:text-base flex items-center">
+                      <TrendingUp className="h-4 w-4 mr-2 text-primary" />
+                      Funding Trends
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      <div className="text-center p-3 bg-muted/30 rounded-lg">
-                        <div className="text-xl font-bold text-primary">₹2,500Cr</div>
-                        <div className="text-xs text-muted-foreground">Available Funding</div>
-                      </div>
-                      <div className="text-center p-3 bg-muted/30 rounded-lg">
-                        <div className="text-xl font-bold text-primary">68%</div>
-                        <div className="text-xs text-muted-foreground">Success Rate</div>
-                      </div>
+                  <CardContent className="space-y-3 sm:space-y-4 px-4 sm:px-6">
+                    <div className="text-center">
+                      <div className="text-xl sm:text-2xl font-bold text-primary">₹2.5 Cr</div>
+                      <p className="text-xs text-muted-foreground">Avg. Funding Amount</p>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-xl sm:text-2xl font-bold text-primary">45 Days</div>
+                      <p className="text-xs text-muted-foreground">Avg. Processing Time</p>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-xl sm:text-2xl font-bold text-primary">85%</div>
+                      <p className="text-xs text-muted-foreground">Success Rate</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -264,79 +359,82 @@ export default function FundingPage() {
           </TabsContent>
 
           {/* Funding Sources Tab */}
-          <TabsContent value="sources" className="mt-6">
-            <div className="space-y-6">
+          <TabsContent value="sources" className="mt-4 sm:mt-6">
+            <div className="space-y-4 sm:space-y-6">
               {fundingSources.map((source) => (
                 <Card key={source.id} className="hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex-1">
-                        <div className="flex items-center space-x-3 mb-2">
-                          <h3 className="text-xl font-semibold">{source.name}</h3>
-                          <Badge variant={source.type === 'Government' ? 'default' : 'secondary'}>
+                  <CardContent className="p-4 sm:p-6">
+                    <div className="flex flex-col sm:flex-row items-start justify-between mb-4 space-y-3 sm:space-y-0">
+                      <div className="flex-1 w-full">
+                        <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 mb-2">
+                          <h3 className="text-lg sm:text-xl font-semibold">{source.name}</h3>
+                          <Badge variant={source.type === 'Government' ? 'default' : 'secondary'} className="self-start sm:self-auto">
                             {source.type}
                           </Badge>
                         </div>
-                        <p className="text-muted-foreground mb-3">{source.description}</p>
+                        <p className="text-sm sm:text-base text-muted-foreground mb-3">{source.description}</p>
                       </div>
-                      <div className="text-right">
-                        <div className="text-2xl font-bold text-primary">{source.maxAmount}</div>
-                        <div className="text-sm text-muted-foreground">Max Funding</div>
+                      <div className="text-left sm:text-right w-full sm:w-auto">
+                        <div className="text-xl sm:text-2xl font-bold text-primary">{source.maxAmount}</div>
+                        <div className="text-xs sm:text-sm text-muted-foreground">Max Funding</div>
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
                       <div>
-                        <h4 className="font-semibold mb-3 flex items-center">
-                          <CheckCircle className="h-4 w-4 mr-2 text-primary" />
+                        <h4 className="font-semibold mb-3 flex items-center text-sm sm:text-base">
+                          <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 mr-2 text-primary" />
                           Requirements
                         </h4>
-                        <ul className="space-y-1 text-sm text-muted-foreground">
-                          {source.requirements.map((req, index) => (
-                            <li key={index} className="flex items-start space-x-2">
-                              <span className="text-primary">•</span>
-                              <span>{req}</span>
+                        <ul className="space-y-1 text-xs sm:text-sm text-muted-foreground">
+                          {source.requirements.map((req, idx) => (
+                            <li key={idx} className="flex items-start">
+                              <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 mr-2 flex-shrink-0"></div>
+                              {req}
                             </li>
                           ))}
                         </ul>
                       </div>
-
                       <div>
-                        <h4 className="font-semibold mb-3 flex items-center">
-                          <Clock className="h-4 w-4 mr-2 text-primary" />
-                          Details
+                        <h4 className="font-semibold mb-3 flex items-center text-sm sm:text-base">
+                          <Clock className="h-3 w-3 sm:h-4 sm:w-4 mr-2 text-primary" />
+                          Timeline
                         </h4>
-                        <div className="space-y-2 text-sm">
+                        <div className="space-y-2 text-xs sm:text-sm text-muted-foreground">
                           <div className="flex justify-between">
                             <span>Timeline:</span>
-                            <span className="font-medium">{source.timeline}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span>Success Rate:</span>
-                            <span className="font-medium text-primary">{source.successRate}%</span>
+                            <span className="font-medium">{typeof source.timeline === 'string' ? source.timeline : `${source.timeline.application} - ${source.timeline.decision}`}</span>
                           </div>
                         </div>
-                        <Progress value={source.successRate} className="mt-2" />
                       </div>
-
                       <div>
-                        <h4 className="font-semibold mb-3 flex items-center">
-                          <Phone className="h-4 w-4 mr-2 text-primary" />
-                          Contact
+                        <h4 className="font-semibold mb-3 flex items-center text-sm sm:text-base">
+                          <Award className="h-3 w-3 sm:h-4 sm:w-4 mr-2 text-primary" />
+                          Success Rate
                         </h4>
-                        <div className="space-y-2 text-sm">
-                          {source.contactInfo.email && (
-                            <div className="flex items-center space-x-2">
-                              <Mail className="h-3 w-3 text-muted-foreground" />
-                              <span className="text-primary">{source.contactInfo.email}</span>
-                            </div>
-                          )}
-                          {source.contactInfo.phone && (
-                            <div className="flex items-center space-x-2">
-                              <Phone className="h-3 w-3 text-muted-foreground" />
-                              <span>{source.contactInfo.phone}</span>
-                            </div>
-                          )}
+                        <div className="text-center">
+                          <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">{source.successRate}</div>
+                          <div className="w-full bg-muted rounded-full h-2">
+                            <div 
+                              className="bg-primary h-2 rounded-full transition-all duration-1000" 
+                              style={{ width: source.successRate }}
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {source.contactInfo && (
+                      <div className="mt-4 sm:mt-6 pt-4 border-t border-border">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 text-xs sm:text-sm text-muted-foreground">
+                          <div className="flex items-center space-x-2">
+                            <Mail className="h-3 w-3 text-muted-foreground" />
+                            <span>{source.contactInfo.email}</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Phone className="h-3 w-3 text-muted-foreground" />
+                            <span>{source.contactInfo.phone}</span>
+                          </div>
                           {source.contactInfo.website && (
                             <div className="flex items-center space-x-2">
                               <Globe className="h-3 w-3 text-muted-foreground" />
@@ -347,15 +445,15 @@ export default function FundingPage() {
                           )}
                         </div>
                       </div>
-                    </div>
+                    )}
 
-                    <div className="flex space-x-3 mt-6 pt-4 border-t border-border">
-                      <Button className="flex-1">
-                        <ExternalLink className="h-4 w-4 mr-2" />
+                    <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 mt-4 sm:mt-6 pt-4 border-t border-border">
+                      <Button className="flex-1 text-sm">
+                        <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
                         Apply Now
                       </Button>
-                      <Button variant="outline">
-                        <Download className="h-4 w-4 mr-2" />
+                      <Button variant="outline" className="text-sm">
+                        <Download className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
                         Download Info
                       </Button>
                     </div>
@@ -366,16 +464,16 @@ export default function FundingPage() {
           </TabsContent>
 
           {/* Calculator Tab */}
-          <TabsContent value="calculator" className="mt-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <TabsContent value="calculator" className="mt-4 sm:mt-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
               <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Calculator className="h-5 w-5 mr-2 text-primary" />
+                <CardHeader className="px-4 sm:px-6">
+                  <CardTitle className="flex items-center text-lg sm:text-xl">
+                    <Calculator className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-primary" />
                     Budget Calculator
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 px-4 sm:px-6">
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Total Budget (₹)</label>
                     <Input
@@ -383,6 +481,7 @@ export default function FundingPage() {
                       placeholder="Enter total budget"
                       value={budgetAmount}
                       onChange={(e) => setBudgetAmount(e.target.value)}
+                      className="text-sm"
                     />
                   </div>
                   <Button onClick={calculateBudget} className="w-full">
@@ -659,10 +758,37 @@ export default function FundingPage() {
                     <Download className="h-4 w-4 mr-2" />
                     Budget Sheet
                   </Button>
-                  <Button variant="outline" className="w-full justify-start">
-                    <Download className="h-4 w-4 mr-2" />
-                    Legal Templates
+                  <Button variant="outline" className="w-full justify-start" onClick={calculateBudget}>
+                    <Calculator className="h-4 w-4 mr-2" />
+                    Calculate Breakdown
                   </Button>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="px-4 sm:px-6">
+                  <CardTitle className="flex items-center text-lg sm:text-xl">
+                    <PieChart className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-primary" />
+                    Budget Breakdown
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="px-4 sm:px-6">
+                  <div className="space-y-3 sm:space-y-4">
+                    {budgetBreakdown.map((item) => (
+                      <div key={item.category} className="flex items-center justify-between">
+                        <span className="text-xs sm:text-sm">{item.category}</span>
+                        <div className="flex items-center space-x-2">
+                          <div className="text-xs sm:text-sm font-medium">{item.percentage}</div>
+                          <div className="w-16 sm:w-20 bg-muted rounded-full h-2">
+                            <div 
+                              className="bg-primary h-2 rounded-full" 
+                              style={{ width: item.percentage }}
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </CardContent>
               </Card>
 

@@ -12,12 +12,14 @@ import {
   Home, 
   Users, 
   Briefcase, 
-  MessageCircle, 
+  Film, 
   Bell,
   User,
   Settings,
   LogOut,
-  Search
+  Search,
+  DollarSign,
+  Newspaper
 } from "lucide-react";
 import { SearchDropdown } from "./search-dropdown";
 
@@ -27,9 +29,11 @@ export function MobileMenu() {
 
   const navItems = [
     { href: "/", label: "Home", icon: Home },
+    { href: "/news", label: "News", icon: Newspaper },
     { href: "/network", label: "Network", icon: Users },
     { href: "/jobs", label: "Jobs", icon: Briefcase },
-    { href: "/messaging", label: "Messaging", icon: MessageCircle },
+    { href: "/funding", label: "Funding", icon: DollarSign },
+    { href: "/events", label: "Events", icon: Film },
   ];
 
   const profileItems = [
@@ -79,9 +83,9 @@ export function MobileMenu() {
                     >
                       <Icon className="h-4 w-4 mr-3" />
                       {item.label}
-                      {item.label === "Messaging" && (
-                        <Badge className="ml-auto h-5 w-5 rounded-full p-0 text-xs">
-                          3
+                      {item.label === "Events" && (
+                        <Badge className="ml-auto h-5 w-5 rounded-full p-0 text-xs bg-red-500 text-white animate-pulse">
+                          Live
                         </Badge>
                       )}
                       {item.label === "Network" && (
