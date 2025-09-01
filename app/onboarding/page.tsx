@@ -503,7 +503,7 @@ const OnboardingPage = () => {
                 <Button
                   onClick={handleComplete}
                   disabled={isLoading}
-                  className="flex items-center space-x-2"
+                  className="flex items-center space-x-2 bg-primary hover:bg-primary/90 !text-black"
                 >
                   {isLoading ? (
                     <>
@@ -520,10 +520,11 @@ const OnboardingPage = () => {
               ) : (
                 <Button
                   onClick={handleNext}
-                  className="flex items-center space-x-2"
+                  className="flex items-center space-x-2 bg-primary hover:bg-primary/90 text-black"
+                  style={{ color: 'black' }}
                 >
-                  <span>Next</span>
-                  <ArrowRight className="h-4 w-4" />
+                  <span style={{ color: 'black' }}>Next</span>
+                  <ArrowRight className="h-4 w-4" style={{ color: 'black' }} />
                 </Button>
               )}
             </div>

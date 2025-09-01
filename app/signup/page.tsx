@@ -775,9 +775,9 @@ const SignUpPage = () => {
         <div className="text-center">
           <Link href="/" className="inline-flex items-center space-x-3 hover:opacity-80 transition-opacity">
             <img 
-              src="/logo.png" 
+              src="/24_crafts_logo.png" 
               alt="24 Crafts" 
-              className="h-12 w-auto object-contain"
+              className="h-32 w-auto object-contain"
             />
             <span className="text-2xl font-bold text-white">24 Crafts</span>
           </Link>

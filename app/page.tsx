@@ -19,12 +19,12 @@ import {
   Camera, 
   Film, 
   X, 
-  Plus, 
+  Plus,
   Briefcase, 
   Users, 
   Calendar, 
-  Bell, 
-  Settings, 
+  Bell,
+  Settings,
   HelpCircle,
   Play,
   Star,
@@ -40,8 +40,13 @@ import {
   Crown,
   Zap,
   Target,
+  Video,
+  FileText,
+  Link as LinkIcon,
+  Globe,
   Lightbulb,
-  Search
+  Search,
+  Loader2
 } from 'lucide-react';
 import Link from 'next/link';
 import FeedPost from '@/components/features/feed/feed-post';
@@ -93,6 +98,19 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState('login');
   const [loginData, setLoginData] = useState({ email: '', password: '' });
+  
+  // Share Update Modal State
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [shareData, setShareData] = useState({
+    content: '',
+    postType: 'update',
+    hashtags: '',
+    media: [] as string[],
+    privacy: 'public',
+    location: '',
+    project: ''
+  });
+  const [isSharing, setIsSharing] = useState(false);
 
   // FORCE modal on every visit - no access without authentication
   useEffect(() => {
@@ -164,6 +182,31 @@ export default function HomePage() {
     }, 2000);
   };
 
+  const handleShareUpdate = () => {
+    setShowShareModal(true);
+  };
+
+  const handleShareSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSharing(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      setIsSharing(false);
+      setShowShareModal(false);
+      setShareData({
+        content: '',
+        postType: 'update',
+        hashtags: '',
+        media: [],
+        privacy: 'public',
+        location: '',
+        project: ''
+      });
+      alert('Post shared successfully!');
+    }, 2000);
+  };
+
   return (
     <>
       <div className={`min-h-screen bg-gradient-to-br from-background via-background to-muted/20 ${showAuthModal ? 'blur-sm' : ''}`}>
@@ -213,9 +256,9 @@ export default function HomePage() {
                       <div className="flex items-center justify-between">
                         <span>Projects</span>
                         <span className="font-medium text-primary">23</span>
-                      </div>
                     </div>
                   </div>
+                </div>
                 </CardContent>
               </Card>
 
@@ -356,13 +399,19 @@ export default function HomePage() {
                         <p className="text-sm sm:text-base text-muted-foreground">Discover new opportunities and connect with industry professionals.</p>
                       </div>
                                               <div className="flex sm:hidden">
-                          <Button className="bg-primary hover:bg-primary/90 w-full">
+                    <Button
+                            className="bg-primary hover:bg-primary/90 w-full text-black"
+                            onClick={handleShareUpdate}
+                          >
                             <Plus className="h-4 w-4 mr-2" />
                             Share Update
                       </Button>
                         </div>
                         <div className="hidden sm:flex">
-                          <Button className="bg-primary hover:bg-primary/90">
+                          <Button 
+                            className="bg-primary hover:bg-primary/90 text-black"
+                            onClick={handleShareUpdate}
+                          >
                             <Plus className="h-4 w-4 mr-2" />
                             Share Update
                     </Button>
@@ -398,7 +447,7 @@ export default function HomePage() {
                           <Badge variant="outline" className="text-xs">
                             {topic.category}
                           </Badge>
-                        </div>
+                    </div>
                       </div>
                       <div className={`text-xs px-2 py-1 rounded ${
                         topic.trending === 'up' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
@@ -611,7 +660,7 @@ export default function HomePage() {
                       </Link>
                     </div>
 
-                    <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isLoading}>
+                    <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-black" disabled={isLoading}>
                       {isLoading ? "Signing in..." : "Sign In"}
                     </Button>
                   </form>
@@ -707,10 +756,10 @@ export default function HomePage() {
                           className="pl-10 pr-10 border-border/50 focus:border-primary"
                           required
                 />
-                <Button
+              <Button
                           type="button"
                   variant="ghost"
-                          size="sm"
+                size="sm"
                           className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                           onClick={() => setShowPassword(!showPassword)}
                         >
@@ -719,7 +768,7 @@ export default function HomePage() {
                           ) : (
                             <Eye className="h-4 w-4" />
                           )}
-                </Button>
+              </Button>
               </div>
                     </div>
 
@@ -734,10 +783,10 @@ export default function HomePage() {
                           className="pl-10 pr-10 border-border/50 focus:border-primary"
                           required
                 />
-                <Button
+              <Button
                           type="button"
                   variant="ghost"
-                  size="sm"
+                size="sm"
                           className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                           onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                         >
@@ -746,9 +795,9 @@ export default function HomePage() {
                           ) : (
                             <Eye className="h-4 w-4" />
                           )}
-                </Button>
+              </Button>
               </div>
-                    </div>
+            </div>
 
                     <div className="flex items-center space-x-2">
                       <Checkbox id="terms" required />
@@ -764,12 +813,12 @@ export default function HomePage() {
                       </Label>
                     </div>
 
-                    <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isLoading}>
+                    <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-black" disabled={isLoading}>
                       {isLoading ? "Creating account..." : "Create Account"}
                 </Button>
                   </form>
 
-                  <div className="relative">
+              <div className="relative">
                     <div className="absolute inset-0 flex items-center">
                       <Separator className="w-full" />
                     </div>
@@ -810,19 +859,498 @@ export default function HomePage() {
 
                   {/* Skip Button */}
                   <div className="text-center mt-4">
-                    <Button
-                      variant="ghost"
+                <Button
+                  variant="ghost"
                       onClick={() => setShowAuthModal(false)}
                       className="text-muted-foreground hover:text-foreground text-sm"
-                    >
+                >
                       Skip for now
-                    </Button>
+                </Button>
           </div>
                 </TabsContent>
               </Tabs>
             </CardContent>
           </Card>
-    </div>
+              </div>
+            )}
+
+      {/* Share Update Modal */}
+      {showShareModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 overflow-hidden">
+          <div className="w-full max-w-4xl h-full max-h-[95vh] flex flex-col">
+            <Card className="border-0 shadow-2xl bg-card/95 backdrop-blur-sm flex flex-col h-full">
+              <CardHeader className="flex-shrink-0 flex items-center justify-between border-b border-border p-4">
+                <CardTitle className="flex items-center space-x-2">
+                  <Film className="h-5 w-5 text-primary" />
+                  <span>Share Update</span>
+                </CardTitle>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowShareModal(false)}
+                  className="h-8 w-8 p-0"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </CardHeader>
+              
+              <div className="flex-1 overflow-y-auto">
+                <CardContent className="p-6">
+                <form onSubmit={handleShareSubmit} className="space-y-6">
+                  {/* Post Type Selection */}
+                  <div className="space-y-3">
+                    <Label className="text-sm font-medium">Post Type</Label>
+                    <div className="grid grid-cols-2 gap-3">
+                      {[
+                        { value: 'update', label: 'General Update', icon: MessageCircle, desc: 'Share industry insights or personal updates' },
+                        { value: 'showreel', label: 'Showreel/Work', icon: Film, desc: 'Showcase your latest creative work' },
+                        { value: 'project', label: 'Project News', icon: Briefcase, desc: 'Announce new projects or collaborations' },
+                        { value: 'achievement', label: 'Achievement', icon: Award, desc: 'Celebrate awards, recognition, or milestones' },
+                        { value: 'casting', label: 'Casting Call', icon: Users, desc: 'Post casting opportunities or auditions' },
+                        { value: 'event', label: 'Event', icon: Calendar, desc: 'Promote industry events or screenings' }
+                      ].map((type) => {
+                        const Icon = type.icon;
+                        const isSelected = shareData.postType === type.value;
+                        return (
+                          <Button
+                            key={type.value}
+                            type="button"
+                            variant={isSelected ? "secondary" : "outline"}
+                            className={`justify-start h-auto p-4 flex-col items-start space-y-1 ${isSelected ? 'bg-primary border-primary' : 'hover:bg-muted/50'}`}
+                            onClick={() => setShareData({ ...shareData, postType: type.value })}
+                          >
+                            <div className="flex items-center space-x-2 w-full">
+                              <Icon className={`h-5 w-5 ${isSelected ? 'text-black' : 'text-primary'}`} />
+                              <span className={`font-medium text-sm ${isSelected ? 'text-black' : ''}`}>{type.label}</span>
+                            </div>
+                            <p className={`text-xs text-left ${isSelected ? 'text-black/80' : 'text-muted-foreground'}`}>
+                              {type.desc}
+                            </p>
+                          </Button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="space-y-3">
+                    <Label htmlFor="content" className="text-sm font-medium">
+                      {shareData.postType === 'casting' ? 'Casting Details' : 
+                       shareData.postType === 'event' ? 'Event Description' :
+                       shareData.postType === 'achievement' ? 'Achievement Details' :
+                       shareData.postType === 'project' ? 'Project Announcement' :
+                       shareData.postType === 'showreel' ? 'Work Description' :
+                       'What\'s happening?'}
+                    </Label>
+                    <div className="relative">
+                      <textarea
+                        id="content"
+                        value={shareData.content}
+                        onChange={(e) => setShareData({ ...shareData, content: e.target.value })}
+                        placeholder={
+                          shareData.postType === 'casting' ? 'Describe the role, requirements, audition details, and application process...' :
+                          shareData.postType === 'event' ? 'Share event details, date, venue, and what attendees can expect...' :
+                          shareData.postType === 'achievement' ? 'Share your accomplishment, award, recognition, or milestone...' :
+                          shareData.postType === 'project' ? 'Announce your new project, collaboration, or production update...' :
+                          shareData.postType === 'showreel' ? 'Describe your creative work, techniques used, and project background...' :
+                          'Share your latest work, project updates, industry insights, or achievements...'
+                        }
+                        className="w-full p-4 border rounded-lg bg-background border-border focus:border-primary resize-none text-sm"
+                        rows={5}
+                        maxLength={2000}
+                      />
+                      <div className="absolute bottom-3 right-3 text-xs text-muted-foreground">
+                        {shareData.content.length}/2000
+                      </div>
+                    </div>
+                    
+                    {/* Media Upload Options */}
+                    <div className="flex items-center space-x-4 p-3 bg-muted/30 rounded-lg">
+                      <Button type="button" variant="ghost" size="sm" className="flex items-center space-x-2">
+                        <Video className="h-4 w-4 text-primary" />
+                        <span className="text-sm">Add Video</span>
+                      </Button>
+                      <Button type="button" variant="ghost" size="sm" className="flex items-center space-x-2">
+                        <Camera className="h-4 w-4 text-primary" />
+                        <span className="text-sm">Add Photos</span>
+                      </Button>
+                      <Button type="button" variant="ghost" size="sm" className="flex items-center space-x-2">
+                        <FileText className="h-4 w-4 text-primary" />
+                        <span className="text-sm">Add Document</span>
+                      </Button>
+                      <Button type="button" variant="ghost" size="sm" className="flex items-center space-x-2">
+                        <LinkIcon className="h-4 w-4 text-primary" />
+                        <span className="text-sm">Add Link</span>
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Dynamic Post Type Specific Fields */}
+                  {shareData.postType === 'casting' && (
+                    <div className="space-y-4 p-4 bg-muted/20 rounded-lg border border-primary/20">
+                      <h3 className="font-semibold text-primary flex items-center">
+                        <Users className="h-4 w-4 mr-2" />
+                        Casting Call Details
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <Label className="text-sm font-medium">Role/Character</Label>
+                          <Input placeholder="e.g., Lead Actor, Supporting Actress" className="mt-1" />
+                        </div>
+                        <div>
+                          <Label className="text-sm font-medium">Age Range</Label>
+                          <Input placeholder="e.g., 25-35 years" className="mt-1" />
+                        </div>
+                        <div>
+                          <Label className="text-sm font-medium">Audition Date</Label>
+                          <Input type="date" className="mt-1" />
+                        </div>
+                        <div>
+                          <Label className="text-sm font-medium">Application Deadline</Label>
+                          <Input type="date" className="mt-1" />
+                        </div>
+                      </div>
+                      <div>
+                        <Label className="text-sm font-medium">Requirements</Label>
+                        <textarea 
+                          placeholder="Experience, skills, physical requirements, etc."
+                          className="w-full p-3 border rounded-md bg-background border-border focus:border-primary resize-none mt-1"
+                          rows={3}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {shareData.postType === 'event' && (
+                    <div className="space-y-4 p-4 bg-muted/20 rounded-lg border border-primary/20">
+                      <h3 className="font-semibold text-primary flex items-center">
+                        <Calendar className="h-4 w-4 mr-2" />
+                        Event Details
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <Label className="text-sm font-medium">Event Name</Label>
+                          <Input placeholder="e.g., Film Premiere, Workshop" className="mt-1" />
+                        </div>
+                        <div>
+                          <Label className="text-sm font-medium">Event Type</Label>
+                          <select className="w-full p-2 border rounded-md bg-background border-border focus:border-primary mt-1">
+                            <option>Premiere</option>
+                            <option>Workshop</option>
+                            <option>Networking</option>
+                            <option>Festival</option>
+                            <option>Screening</option>
+                            <option>Awards</option>
+                          </select>
+                        </div>
+                        <div>
+                          <Label className="text-sm font-medium">Date & Time</Label>
+                          <Input type="datetime-local" className="mt-1" />
+                        </div>
+                        <div>
+                          <Label className="text-sm font-medium">Venue</Label>
+                          <Input placeholder="Theater, studio, or venue name" className="mt-1" />
+                        </div>
+                      </div>
+                      <div>
+                        <Label className="text-sm font-medium">Ticket Info</Label>
+                        <Input placeholder="Free, ₹500, Registration required, etc." className="mt-1" />
+                      </div>
+                    </div>
+                  )}
+
+                  {shareData.postType === 'achievement' && (
+                    <div className="space-y-4 p-4 bg-muted/20 rounded-lg border border-primary/20">
+                      <h3 className="font-semibold text-primary flex items-center">
+                        <Award className="h-4 w-4 mr-2" />
+                        Achievement Details
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <Label className="text-sm font-medium">Achievement Type</Label>
+                          <select className="w-full p-2 border rounded-md bg-background border-border focus:border-primary mt-1">
+                            <option>Award Won</option>
+                            <option>Film Completed</option>
+                            <option>Recognition</option>
+                            <option>Milestone</option>
+                            <option>Certification</option>
+                            <option>Collaboration</option>
+                          </select>
+                        </div>
+                        <div>
+                          <Label className="text-sm font-medium">Date</Label>
+                          <Input type="date" className="mt-1" />
+                        </div>
+                        <div>
+                          <Label className="text-sm font-medium">Organization/Festival</Label>
+                          <Input placeholder="e.g., Cannes, IFFI, Local Film Society" className="mt-1" />
+                        </div>
+                        <div>
+                          <Label className="text-sm font-medium">Category</Label>
+                          <Input placeholder="e.g., Best Director, Best Cinematography" className="mt-1" />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {shareData.postType === 'project' && (
+                    <div className="space-y-4 p-4 bg-muted/20 rounded-lg border border-primary/20">
+                      <h3 className="font-semibold text-primary flex items-center">
+                        <Briefcase className="h-4 w-4 mr-2" />
+                        Project Information
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <Label className="text-sm font-medium">Project Status</Label>
+                          <select className="w-full p-2 border rounded-md bg-background border-border focus:border-primary mt-1">
+                            <option>Pre-Production</option>
+                            <option>In Production</option>
+                            <option>Post-Production</option>
+                            <option>Completed</option>
+                            <option>Released</option>
+                            <option>Seeking Funding</option>
+                          </select>
+                        </div>
+                        <div>
+                          <Label className="text-sm font-medium">Genre</Label>
+                          <Input placeholder="e.g., Drama, Documentary, Thriller" className="mt-1" />
+                        </div>
+                        <div>
+                          <Label className="text-sm font-medium">Budget Range</Label>
+                          <select className="w-full p-2 border rounded-md bg-background border-border focus:border-primary mt-1">
+                            <option>Under ₹1 Lakh</option>
+                            <option>₹1-5 Lakhs</option>
+                            <option>₹5-25 Lakhs</option>
+                            <option>₹25 Lakhs - ₹1 Crore</option>
+                            <option>₹1-5 Crores</option>
+                            <option>₹5+ Crores</option>
+                          </select>
+                        </div>
+                        <div>
+                          <Label className="text-sm font-medium">Looking For</Label>
+                          <Input placeholder="e.g., Investors, Cast, Crew, Distribution" className="mt-1" />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {shareData.postType === 'showreel' && (
+                    <div className="space-y-4 p-4 bg-muted/20 rounded-lg border border-primary/20">
+                      <h3 className="font-semibold text-primary flex items-center">
+                        <Film className="h-4 w-4 mr-2" />
+                        Work Showcase
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <Label className="text-sm font-medium">Work Type</Label>
+                          <select className="w-full p-2 border rounded-md bg-background border-border focus:border-primary mt-1">
+                            <option>Short Film</option>
+                            <option>Feature Film</option>
+                            <option>Documentary</option>
+                            <option>Music Video</option>
+                            <option>Commercial</option>
+                            <option>Web Series</option>
+                            <option>Animation</option>
+                          </select>
+                        </div>
+                        <div>
+                          <Label className="text-sm font-medium">Your Role</Label>
+                          <Input placeholder="e.g., Director, Cinematographer, Editor" className="mt-1" />
+                        </div>
+                        <div>
+                          <Label className="text-sm font-medium">Duration</Label>
+                          <Input placeholder="e.g., 15 minutes, 2 hours" className="mt-1" />
+                        </div>
+                        <div>
+                          <Label className="text-sm font-medium">Release Year</Label>
+                          <Input type="number" placeholder="2024" min="1900" max="2030" className="mt-1" />
+                        </div>
+                      </div>
+                      <div>
+                        <Label className="text-sm font-medium">Equipment/Software Used</Label>
+                        <Input placeholder="e.g., RED Camera, DaVinci Resolve, After Effects" className="mt-1" />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Hashtags */}
+                  <div className="space-y-3">
+                    <Label htmlFor="hashtags" className="text-sm font-medium">Hashtags</Label>
+                    <Input
+                      id="hashtags"
+                      value={shareData.hashtags}
+                      onChange={(e) => setShareData({ ...shareData, hashtags: e.target.value })}
+                      placeholder="#filmmaking #cinematography #networking"
+                      className="border-border/50 focus:border-primary"
+                    />
+                    <div className="flex flex-wrap gap-2">
+                      {['#filmmaking', '#cinematography', '#directing', '#casting', '#production', '#vfx', '#editing', '#screenwriting', '#postproduction', '#documentary'].map((tag) => (
+                        <Button
+                          key={tag}
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          className="h-7 px-3 text-xs hover:bg-primary hover:text-black"
+                          onClick={() => {
+                            const currentTags = shareData.hashtags.split(' ').filter(t => t.trim());
+                            if (!currentTags.includes(tag)) {
+                              setShareData({ ...shareData, hashtags: [...currentTags, tag].join(' ') });
+                            }
+                          }}
+                        >
+                          {tag}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Advanced Options */}
+                  <div className="space-y-3 border-t border-border pt-4">
+                    <Label className="text-sm font-medium">Advanced Options</Label>
+                    
+                    {/* Schedule Post */}
+                    <div className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+                      <div className="flex items-center space-x-3">
+                        <Clock className="h-4 w-4 text-primary" />
+                        <div>
+                          <p className="text-sm font-medium">Schedule Post</p>
+                          <p className="text-xs text-muted-foreground">Post at optimal engagement time</p>
+                        </div>
+                      </div>
+                      <Checkbox />
+                    </div>
+
+                    {/* Tag Collaborators */}
+                    <div className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+                      <div className="flex items-center space-x-3">
+                        <Users className="h-4 w-4 text-primary" />
+                        <div>
+                          <p className="text-sm font-medium">Tag Collaborators</p>
+                          <p className="text-xs text-muted-foreground">Mention team members or partners</p>
+                        </div>
+                      </div>
+                      <Button type="button" variant="ghost" size="sm" className="text-primary">
+                        Add People
+                      </Button>
+                    </div>
+
+                    {/* Cross-post to other platforms */}
+                    <div className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+                      <div className="flex items-center space-x-3">
+                        <Share2 className="h-4 w-4 text-primary" />
+                        <div>
+                          <p className="text-sm font-medium">Cross-post</p>
+                          <p className="text-xs text-muted-foreground">Share to LinkedIn, Twitter, Instagram</p>
+                        </div>
+                      </div>
+                      <Checkbox />
+                    </div>
+
+                    {/* Enable Comments */}
+                    <div className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+                      <div className="flex items-center space-x-3">
+                        <MessageCircle className="h-4 w-4 text-primary" />
+                        <div>
+                          <p className="text-sm font-medium">Allow Comments</p>
+                          <p className="text-xs text-muted-foreground">Let others engage with your post</p>
+                        </div>
+                      </div>
+                      <Checkbox defaultChecked />
+                    </div>
+                  </div>
+
+                  {/* Location & Project Details */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="location" className="text-sm font-medium">Location (optional)</Label>
+                      <Input
+                        id="location"
+                        value={shareData.location}
+                        onChange={(e) => setShareData({ ...shareData, location: e.target.value })}
+                        placeholder="Film location, studio, or city"
+                        className="border-border/50 focus:border-primary"
+                      />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="project" className="text-sm font-medium">Project (optional)</Label>
+                      <Input
+                        id="project"
+                        value={shareData.project || ''}
+                        onChange={(e) => setShareData({ ...shareData, project: e.target.value })}
+                        placeholder="Project name or production"
+                        className="border-border/50 focus:border-primary"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Audience Targeting */}
+                  <div className="space-y-3">
+                    <Label className="text-sm font-medium">Target Audience</Label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {[
+                        { value: 'all', label: 'All Professionals', icon: Globe, desc: 'Visible to all film industry professionals' },
+                        { value: 'connections', label: 'My Network', icon: Users, desc: 'Only your connections and followers' },
+                        { value: 'role-specific', label: 'Role-Specific', icon: Target, desc: 'Target specific film industry roles' },
+                        { value: 'private', label: 'Private', icon: Lock, desc: 'Only visible to you' }
+                      ].map((audience) => {
+                        const Icon = audience.icon;
+                        const isSelected = shareData.privacy === audience.value;
+                        return (
+                          <Button
+                            key={audience.value}
+                            type="button"
+                            variant={isSelected ? "secondary" : "outline"}
+                            className={`justify-start h-auto p-3 flex-col items-start space-y-1 ${isSelected ? 'bg-primary border-primary' : 'hover:bg-muted/50'}`}
+                            onClick={() => setShareData({ ...shareData, privacy: audience.value })}
+                          >
+                            <div className="flex items-center space-x-2 w-full">
+                              <Icon className={`h-4 w-4 ${isSelected ? 'text-black' : 'text-primary'}`} />
+                              <span className={`font-medium text-sm ${isSelected ? 'text-black' : ''}`}>{audience.label}</span>
+                            </div>
+                            <p className={`text-xs text-left ${isSelected ? 'text-black/80' : 'text-muted-foreground'}`}>
+                              {audience.desc}
+                            </p>
+                          </Button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex justify-end space-x-3 pt-4 border-t border-border">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setShowShareModal(false)}
+                    >
+                  Cancel
+                </Button>
+                    <Button
+                      type="submit"
+                      className="bg-primary hover:bg-primary/90"
+                      style={{ color: 'black' }}
+                      disabled={isSharing || !shareData.content.trim()}
+                    >
+                      {isSharing ? (
+                        <>
+                          <Loader2 className="h-4 w-4 animate-spin mr-2" style={{ color: 'black' }} />
+                          <span style={{ color: 'black' }}>Sharing...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Share2 className="h-4 w-4 mr-2" style={{ color: 'black' }} />
+                          <span style={{ color: 'black' }}>Share Update</span>
+                        </>
+                      )}
+                </Button>
+              </div>
+                </form>
+                </CardContent>
+              </div>
+            </Card>
+            </div>
+          </div>
       )}
     </>
   );

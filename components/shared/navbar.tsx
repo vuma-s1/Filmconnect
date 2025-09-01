@@ -18,7 +18,8 @@ import {
   LogIn,
   UserPlus,
   Crown,
-  Sparkles
+  Sparkles,
+  TrendingUp
 } from "lucide-react";
 import { NotificationsDropdown } from "./notifications-dropdown";
 import { SearchDropdown } from "./search-dropdown";
@@ -44,11 +45,11 @@ export function Navbar() {
 
   const navItems = [
     { href: "/", label: "Home", icon: Home, badge: null },
+    { href: "/news", label: "News", icon: Sparkles, badge: null },
     { href: "/network", label: "Network", icon: Users, badge: "New" },
     { href: "/jobs", label: "Jobs", icon: Briefcase, badge: null },
-    { href: "/messaging", label: "Messages", icon: MessageCircle, badge: "3" },
+    { href: "/funding", label: "Funding", icon: TrendingUp, badge: null },
     { href: "/events", label: "Events", icon: Film, badge: "Live" },
-    { href: "/learning", label: "Learn", icon: Camera, badge: null },
   ];
 
   return (
@@ -61,7 +62,7 @@ export function Navbar() {
             <Link href="/" className="flex items-center space-x-3 group">
               <div className="relative flex items-center">
                 <img 
-                  src="/logo.png" 
+                  src="/24_crafts_logo.png" 
                   alt="24 Crafts" 
                   className="h-16 w-auto object-contain group-hover:scale-105 transition-transform duration-300 max-w-[180px]"
                   onError={(e) => {
