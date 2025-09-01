@@ -32,7 +32,13 @@ export function Navbar() {
 
   // Don't show navbar on auth pages and onboarding
   const isAuthPage = pathname === '/login' || pathname === '/signup' || pathname === '/onboarding';
-  if (isAuthPage) {
+  
+  // Check if user is authenticated
+  const isAuthenticated = typeof window !== 'undefined' ? localStorage.getItem('isAuthenticated') === 'true' : false;
+  const hasCompletedOnboarding = typeof window !== 'undefined' ? localStorage.getItem('onboardingCompleted') === 'true' : false;
+  
+  // Show navbar if authenticated and completed onboarding, or if not on auth pages
+  if (isAuthPage && (!isAuthenticated || !hasCompletedOnboarding)) {
     return null;
   }
 
@@ -53,21 +59,15 @@ export function Navbar() {
           <div className="flex items-center space-x-4">
             <MobileMenu />
             <Link href="/" className="flex items-center space-x-3 group">
-              <div className="relative">
-                <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300">
-                  <Film className="h-6 w-6 text-white" />
-                </div>
-                <div className="absolute -top-1 -right-1">
-                  <Sparkles className="h-4 w-4 text-yellow-400" />
-                </div>
-              </div>
-              <div className="flex flex-col">
-                <span className="font-bold text-lg sm:text-xl bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
-                  24 Crafts
-                </span>
-                <span className="text-xs text-muted-foreground -mt-1 hidden sm:block">
-                  Cinema Network
-                </span>
+              <div className="relative flex items-center">
+                <img 
+                  src="/logo.png" 
+                  alt="24 Crafts" 
+                  className="h-16 w-auto object-contain group-hover:scale-105 transition-transform duration-300 max-w-[180px]"
+                  onError={(e) => {
+                    console.error('Logo failed to load:', e);
+                  }}
+                />
               </div>
             </Link>
           </div>

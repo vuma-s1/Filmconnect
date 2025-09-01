@@ -40,7 +40,8 @@ import {
   Crown,
   Zap,
   Target,
-  Lightbulb
+  Lightbulb,
+  Search
 } from 'lucide-react';
 import Link from 'next/link';
 import FeedPost from '@/components/features/feed/feed-post';
@@ -101,11 +102,21 @@ export default function HomePage() {
       const isOnboarding = window.location.pathname === '/onboarding';
       const hasCompletedOnboarding = localStorage.getItem('onboardingCompleted') === 'true';
       
-      console.log('Auth Debug:', { isAuthenticated, isOnboarding, hasCompletedOnboarding, showAuthModal });
+      console.log('Auth Debug:', { 
+        isAuthenticated, 
+        isOnboarding, 
+        hasCompletedOnboarding, 
+        showAuthModal,
+        currentPath: window.location.pathname 
+      });
       
       // Hide modal only if fully authenticated and not on onboarding
       if (isAuthenticated && hasCompletedOnboarding && !isOnboarding) {
         setShowAuthModal(false);
+      } else if (isAuthenticated && !hasCompletedOnboarding && !isOnboarding) {
+        // User is authenticated but hasn't completed onboarding - redirect to onboarding
+        console.log('User authenticated but not completed onboarding, redirecting...');
+        window.location.href = '/onboarding';
       } else {
         setShowAuthModal(true);
       }
@@ -114,6 +125,7 @@ export default function HomePage() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Login attempt with:', loginData);
     setIsLoading(true);
     
     // Validate form data
@@ -123,14 +135,22 @@ export default function HomePage() {
       return;
     }
     
+    console.log('Login validation passed, processing...');
+    
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
+      console.log('Setting authentication state...');
       // Set authentication state
       localStorage.setItem('isAuthenticated', 'true');
+      // Clear any existing onboarding completion
+      localStorage.removeItem('onboardingCompleted');
+      // Hide the modal immediately to prevent it from showing again
+      setShowAuthModal(false);
+      console.log('Redirecting to onboarding...');
       // Redirect to 4-step process after login
       window.location.href = '/onboarding';
-    }, 2000);
+    }, 1000);
   };
 
   const handleSignup = async (e: React.FormEvent) => {
@@ -234,26 +254,62 @@ export default function HomePage() {
                     Quick Actions
                   </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-2 p-4 sm:p-6">
-                  <Button variant="outline" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors text-sm">
+              <CardContent className="space-y-3 p-4 sm:p-6">
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors text-sm h-10"
+                    onClick={() => alert('Create Post feature coming soon!')}
+                  >
                   <Plus className="h-4 w-4 mr-2" />
                   Create Post
                 </Button>
-                  <Button variant="outline" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors text-sm">
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors text-sm h-10"
+                    onClick={() => window.location.href = '/jobs'}
+                  >
                   <Briefcase className="h-4 w-4 mr-2" />
                   Post a Job
                 </Button>
-                  <Button variant="outline" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors text-sm">
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors text-sm h-10"
+                    onClick={() => window.location.href = '/network'}
+                  >
                   <Users className="h-4 w-4 mr-2" />
                   Find Connections
                 </Button>
-                  <Button variant="outline" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors text-sm">
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors text-sm h-10"
+                    onClick={() => window.location.href = '/events'}
+                  >
                   <Calendar className="h-4 w-4 mr-2" />
                   Create Event
                 </Button>
-                  <Button variant="outline" className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors text-sm">
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors text-sm h-10"
+                    onClick={() => alert('Upload Showreel feature coming soon!')}
+                  >
                     <Film className="h-4 w-4 mr-2" />
                     Upload Showreel
+                </Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors text-sm h-10"
+                    onClick={() => window.location.href = '/jobs'}
+                  >
+                    <Search className="h-4 w-4 mr-2" />
+                    Find Work
+                </Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors text-sm h-10"
+                    onClick={() => alert('Awards section coming soon!')}
+                  >
+                    <Award className="h-4 w-4 mr-2" />
+                    View Awards
                 </Button>
               </CardContent>
             </Card>

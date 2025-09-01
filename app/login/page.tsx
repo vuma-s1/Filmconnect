@@ -48,9 +48,11 @@ export default function LoginPage() {
       <Card className="w-full max-w-md border-0 shadow-2xl bg-card/95 backdrop-blur-sm">
         <CardHeader className="space-y-1 text-center">
           <div className="flex items-center justify-center mb-4">
-            <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg">
-              <Film className="h-6 w-6 text-white" />
-            </div>
+            <img 
+              src="/logo.png" 
+              alt="24 Crafts" 
+              className="h-12 w-auto object-contain"
+            />
           </div>
           <CardTitle className="text-2xl bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
             Welcome Back
