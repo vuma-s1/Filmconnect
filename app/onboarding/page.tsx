@@ -503,27 +503,29 @@ const OnboardingPage = () => {
                 <Button
                   onClick={handleComplete}
                   disabled={isLoading}
-                  className="flex items-center space-x-2 bg-primary hover:bg-primary/90 !text-black"
+                  className="flex items-center space-x-2 bg-primary hover:bg-primary/90"
+                  style={{ color: 'black' }}
                 >
                   {isLoading ? (
                     <>
-                      <Loader2 className="h-4 w-4 animate-spin !text-black" />
-                      <span className="!text-black">Completing Setup...</span>
+                      <Loader2 className="h-4 w-4 animate-spin" style={{ color: 'black' }} />
+                      <span style={{ color: 'black' }}>Completing Setup...</span>
                     </>
                   ) : (
                     <>
-                      <span className="!text-black">Complete Setup</span>
-                      <ArrowRight className="h-4 w-4 !text-black" />
+                      <span style={{ color: 'black' }}>Complete Setup</span>
+                      <ArrowRight className="h-4 w-4" style={{ color: 'black' }} />
                     </>
                   )}
                 </Button>
               ) : (
                 <Button
                   onClick={handleNext}
-                  className="flex items-center space-x-2 bg-primary hover:bg-primary/90 !text-black"
+                  className="flex items-center space-x-2 bg-primary hover:bg-primary/90"
+                  style={{ color: 'black' }}
                 >
-                  <span className="!text-black">Next</span>
-                  <ArrowRight className="h-4 w-4 !text-black" />
+                  <span style={{ color: 'black' }}>Next</span>
+                  <ArrowRight className="h-4 w-4" style={{ color: 'black' }} />
                 </Button>
               )}
             </div>
