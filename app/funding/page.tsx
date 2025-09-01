@@ -130,6 +130,8 @@ const budgetBreakdown = [
   { category: 'Marketing & Distribution', percentage: '10%' }
 ];
 
+
+
 export default function FundingPage() {
   const [selectedTab, setSelectedTab] = useState('digital-rights');
   const [budgetAmount, setBudgetAmount] = useState('');
