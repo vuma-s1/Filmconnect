@@ -12,7 +12,9 @@ import {
   ChevronRight,
   Users,
   Calendar,
-  Hash
+  Hash,
+  BookOpen,
+  Sparkles
 } from "lucide-react";
 import { mockUsers } from '@/data/mock-data';
 
@@ -36,11 +38,11 @@ export function MobileRightSidebar() {
     { id: '4', name: 'Alex Rodriguez', role: 'Sound Designer', profilePictureUrl: mockUsers[0].profilePictureUrl }
   ];
 
-  // Mock data for upcoming events
-  const upcomingEvents = [
-    { id: '1', title: 'Film Industry Networking', date: 'Dec 15', attendees: 45 },
-    { id: '2', title: 'Cinematography Workshop', date: 'Dec 20', attendees: 23 },
-    { id: '3', title: 'Screenwriting Masterclass', date: 'Dec 25', attendees: 67 }
+  // Mock data for featured courses
+  const featuredCourses = [
+    { id: '1', title: 'Advanced Cinematography', instructor: 'Roger Deakins', students: 1247 },
+    { id: '2', title: 'Screenwriting Fundamentals', instructor: 'Aaron Sorkin', students: 2156 },
+    { id: '3', title: 'Film Editing Masterclass', instructor: 'Thelma Schoonmaker', students: 1893 }
   ];
 
   return (
@@ -104,50 +106,53 @@ export function MobileRightSidebar() {
             </CardContent>
           </Card>
 
-          {/* Upcoming Events */}
+          {/* Featured Courses */}
           <Card>
             <CardHeader>
               <CardTitle className="text-base flex items-center">
-                <Calendar className="h-4 w-4 mr-2" />
-                Upcoming Events
+                <BookOpen className="h-4 w-4 mr-2" />
+                Featured Courses
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              {upcomingEvents.map((event) => (
-                <div key={event.id} className="flex items-center justify-between">
+              {featuredCourses.map((course) => (
+                <div key={course.id} className="flex items-center justify-between">
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium truncate">{event.title}</p>
-                    <p className="text-xs text-muted-foreground">{event.date} • {event.attendees} attending</p>
+                    <p className="text-sm font-medium truncate">{course.title}</p>
+                    <p className="text-xs text-muted-foreground">{course.instructor} • {course.students} students</p>
                   </div>
                   <Button variant="outline" size="sm">
-                    Join
+                    Enroll
                   </Button>
                 </div>
               ))}
               <Button variant="ghost" className="w-full text-sm">
-                View all events
+                View all courses
                 <ChevronRight className="h-3 w-3 ml-1" />
               </Button>
             </CardContent>
           </Card>
 
-          {/* Quick Stats */}
+          {/* AI Studio Stats */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Your Network</CardTitle>
+              <CardTitle className="text-base flex items-center">
+                <Sparkles className="h-4 w-4 mr-2" />
+                AI Studio Stats
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-sm">Total Connections</span>
-                <span className="font-medium">847</span>
+                <span className="text-sm">AI Agents Used</span>
+                <span className="font-medium">12</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm">Profile Views</span>
-                <span className="font-medium">1,240</span>
+                <span className="text-sm">Projects Processed</span>
+                <span className="font-medium">47</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm">Posts This Week</span>
-                <span className="font-medium">3</span>
+                <span className="text-sm">Success Rate</span>
+                <span className="font-medium">98%</span>
               </div>
             </CardContent>
           </Card>

@@ -19,7 +19,9 @@ import {
   LogOut,
   Search,
   DollarSign,
-  Newspaper
+  Newspaper,
+  BookOpen,
+  Sparkles
 } from "lucide-react";
 import { SearchDropdown } from "./search-dropdown";
 
@@ -30,10 +32,10 @@ export function MobileMenu() {
   const navItems = [
     { href: "/", label: "Home", icon: Home },
     { href: "/news", label: "News", icon: Newspaper },
-    { href: "/network", label: "Network", icon: Users },
+    { href: "/ai-studio", label: "AI Studio", icon: Sparkles },
     { href: "/jobs", label: "Jobs", icon: Briefcase },
     { href: "/funding", label: "Funding", icon: DollarSign },
-    { href: "/events", label: "Events", icon: Film },
+    { href: "/learning", label: "Learn", icon: BookOpen },
   ];
 
   const profileItems = [
@@ -83,14 +85,14 @@ export function MobileMenu() {
                     >
                       <Icon className="h-4 w-4 mr-3" />
                       {item.label}
-                      {item.label === "Events" && (
-                        <Badge className="ml-auto h-5 w-5 rounded-full p-0 text-xs bg-red-500 text-white animate-pulse">
-                          Live
+                      {item.label === "Learn" && (
+                        <Badge className="ml-auto h-5 w-5 rounded-full p-0 text-xs bg-primary text-black">
+                          New
                         </Badge>
                       )}
-                      {item.label === "Network" && (
-                        <Badge className="ml-auto h-5 w-5 rounded-full p-0 text-xs">
-                          5
+                      {item.label === "AI Studio" && (
+                        <Badge className="ml-auto h-5 w-5 rounded-full p-0 text-xs bg-primary text-black">
+                          New
                         </Badge>
                       )}
                     </Button>

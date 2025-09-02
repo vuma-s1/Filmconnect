@@ -46,7 +46,8 @@ import {
   Globe,
   Lightbulb,
   Search,
-  Loader2
+  Loader2,
+  BookOpen
 } from 'lucide-react';
 import Link from 'next/link';
 import FeedPost from '@/components/features/feed/feed-post';
@@ -54,18 +55,18 @@ import { mockPosts, mockUsers } from '@/data/mock-data';
 
 // Enhanced mock data for cinema industry
 const trendingTopics = [
-  { id: 1, topic: 'Film Festival Season', posts: 1240, trending: 'up', category: 'Events' },
+      { id: 1, topic: 'Cinematography Masterclass', posts: 1240, trending: 'up', category: 'Learning' },
   { id: 2, topic: 'Independent Cinema', posts: 890, trending: 'up', category: 'Industry' },
   { id: 3, topic: 'Streaming Platforms', posts: 567, trending: 'down', category: 'Technology' },
   { id: 4, topic: 'Film Awards 2024', posts: 2340, trending: 'up', category: 'Awards' },
   { id: 5, topic: 'Cinematography Trends', posts: 456, trending: 'up', category: 'Technical' }
 ];
 
-const upcomingEvents = [
-  { id: 1, title: 'Sundance Film Festival', date: 'Jan 25', attendees: 45000, type: 'Festival', location: 'Park City, UT' },
-  { id: 2, title: 'Cinematography Masterclass', date: 'Jan 28', attendees: 23, type: 'Workshop', location: 'Los Angeles, CA' },
-  { id: 3, title: 'Screenwriting Seminar', date: 'Feb 2', attendees: 67, type: 'Seminar', location: 'New York, NY' },
-  { id: 4, title: 'Film Industry Mixer', date: 'Feb 5', attendees: 120, type: 'Networking', location: 'London, UK' }
+const upcomingCourses = [
+  { id: 1, title: 'Advanced Cinematography Masterclass', instructor: 'Roger Deakins', duration: '8 hours', students: 1247, type: 'Masterclass', featured: true },
+  { id: 2, title: 'Screenwriting Fundamentals', instructor: 'Aaron Sorkin', duration: '12 hours', students: 2156, type: 'Course', featured: false },
+  { id: 3, title: 'Film Editing with Premiere Pro', instructor: 'Thelma Schoonmaker', duration: '10 hours', students: 1893, type: 'Workshop', featured: false },
+  { id: 4, title: 'Sound Design for Film', instructor: 'Ben Burtt', duration: '6 hours', students: 892, type: 'Course', featured: false }
 ];
 
   const recentActivity = [
@@ -80,14 +81,14 @@ const upcomingEvents = [
 const industryStats = [
   { label: 'Active Projects', value: '2,847', change: '+12%', icon: Film },
   { label: 'Job Opportunities', value: '156', change: '+8%', icon: Briefcase },
-  { label: 'Industry Events', value: '23', change: '+5%', icon: Calendar },
+  { label: 'Learning Courses', value: '150+', change: '+12%', icon: BookOpen },
   { label: 'New Connections', value: '1,234', change: '+15%', icon: Users }
 ];
 
 const premiumFeatures = [
   { title: 'Advanced Analytics', description: 'Track your profile views and engagement', icon: TrendingUp },
   { title: 'Priority Support', description: 'Get help when you need it most', icon: Crown },
-  { title: 'Exclusive Events', description: 'Access to premium networking events', icon: Sparkles },
+  { title: 'Premium Courses', description: 'Access to exclusive masterclasses and courses', icon: Sparkles },
   { title: 'Enhanced Search', description: 'Find the perfect collaborators', icon: Target }
 ];
 
@@ -317,18 +318,18 @@ export default function HomePage() {
                   <Button 
                     variant="outline" 
                     className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors text-sm h-10"
-                    onClick={() => window.location.href = '/network'}
+                    onClick={() => window.location.href = '/ai-studio'}
                   >
-                  <Users className="h-4 w-4 mr-2" />
-                  Find Connections
+                  <Sparkles className="h-4 w-4 mr-2" />
+                  AI Studio Tools
                 </Button>
                   <Button 
                     variant="outline" 
                     className="w-full justify-start hover:bg-primary hover:text-primary-foreground transition-colors text-sm h-10"
-                    onClick={() => window.location.href = '/events'}
+                    onClick={() => window.location.href = '/learning'}
                   >
-                  <Calendar className="h-4 w-4 mr-2" />
-                  Create Event
+                  <BookOpen className="h-4 w-4 mr-2" />
+                  Browse Courses
                 </Button>
                   <Button 
                     variant="outline" 
@@ -459,33 +460,33 @@ export default function HomePage() {
                 </CardContent>
               </Card>
 
-              {/* Upcoming Events */}
+              {/* Featured Courses */}
               <Card className="border-0 shadow-lg bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                   <CardTitle className="text-base flex items-center">
-                    <Calendar className="h-4 w-4 mr-2 text-primary" />
-                    Upcoming Events
+                    <BookOpen className="h-4 w-4 mr-2 text-primary" />
+                    Featured Courses
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  {upcomingEvents.map((event) => (
-                    <div key={event.id} className="flex items-start justify-between">
+                  {upcomingCourses.map((course) => (
+                    <div key={course.id} className="flex items-start justify-between">
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium truncate">{event.title}</p>
+                        <p className="text-sm font-medium truncate">{course.title}</p>
                         <div className="flex items-center space-x-2 text-xs text-muted-foreground">
-                          <MapPin className="h-3 w-3" />
-                          <span>{event.location}</span>
+                          <User className="h-3 w-3" />
+                          <span>{course.instructor}</span>
                         </div>
                         <div className="flex items-center space-x-2 text-xs text-muted-foreground">
                           <Clock className="h-3 w-3" />
-                          <span>{event.date} • {event.attendees} attending</span>
+                          <span>{course.duration} • {course.students} students</span>
                         </div>
                         <Badge variant="outline" className="text-xs mt-1">
-                          {event.type}
+                          {course.type}
                         </Badge>
                       </div>
                       <Button variant="outline" size="sm" className="ml-2">
-                        Join
+                        Enroll
                       </Button>
                   </div>
                 ))}
@@ -907,7 +908,7 @@ export default function HomePage() {
                         { value: 'project', label: 'Project News', icon: Briefcase, desc: 'Announce new projects or collaborations' },
                         { value: 'achievement', label: 'Achievement', icon: Award, desc: 'Celebrate awards, recognition, or milestones' },
                         { value: 'casting', label: 'Casting Call', icon: Users, desc: 'Post casting opportunities or auditions' },
-                        { value: 'event', label: 'Event', icon: Calendar, desc: 'Promote industry events or screenings' }
+                        { value: 'course', label: 'Course', icon: BookOpen, desc: 'Share learning resources or course announcements' }
                       ].map((type) => {
                         const Icon = type.icon;
                         const isSelected = shareData.postType === type.value;
@@ -936,7 +937,7 @@ export default function HomePage() {
                   <div className="space-y-3">
                     <Label htmlFor="content" className="text-sm font-medium">
                       {shareData.postType === 'casting' ? 'Casting Details' : 
-                       shareData.postType === 'event' ? 'Event Description' :
+                       shareData.postType === 'course' ? 'Course Description' :
                        shareData.postType === 'achievement' ? 'Achievement Details' :
                        shareData.postType === 'project' ? 'Project Announcement' :
                        shareData.postType === 'showreel' ? 'Work Description' :
@@ -949,7 +950,7 @@ export default function HomePage() {
                         onChange={(e) => setShareData({ ...shareData, content: e.target.value })}
                         placeholder={
                           shareData.postType === 'casting' ? 'Describe the role, requirements, audition details, and application process...' :
-                          shareData.postType === 'event' ? 'Share event details, date, venue, and what attendees can expect...' :
+                          shareData.postType === 'course' ? 'Share course details, learning objectives, and what students will gain...' :
                           shareData.postType === 'achievement' ? 'Share your accomplishment, award, recognition, or milestone...' :
                           shareData.postType === 'project' ? 'Announce your new project, collaboration, or production update...' :
                           shareData.postType === 'showreel' ? 'Describe your creative work, techniques used, and project background...' :

@@ -19,7 +19,8 @@ import {
   UserPlus,
   Crown,
   Sparkles,
-  TrendingUp
+  TrendingUp,
+  BookOpen
 } from "lucide-react";
 import { NotificationsDropdown } from "./notifications-dropdown";
 import { SearchDropdown } from "./search-dropdown";
@@ -46,10 +47,10 @@ export function Navbar() {
   const navItems = [
     { href: "/", label: "Home", icon: Home, badge: null },
     { href: "/news", label: "News", icon: Sparkles, badge: null },
-    { href: "/network", label: "Network", icon: Users, badge: "New" },
+    { href: "/ai-studio", label: "AI Studio", icon: Sparkles, badge: "New" },
     { href: "/jobs", label: "Jobs", icon: Briefcase, badge: null },
     { href: "/funding", label: "Funding", icon: TrendingUp, badge: null },
-    { href: "/events", label: "Events", icon: Film, badge: "Live" },
+    { href: "/learning", label: "Learn", icon: BookOpen, badge: "New" },
   ];
 
   return (

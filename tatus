@@ -1,0 +1,5 @@
+[33m541228c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Fix onboarding button text color: Use inline styles to force black text on yellow background for Next and Complete Setup buttons
+[33mbb510db[m Fix onboarding button colors: Ensure black text and icons on yellow background for Next and Complete Setup buttons
+[33m5523476[m Improve mobile layout and navigation: Fix funding page mobile alignment, reduce amount text sizes, reorder mobile nav with News in 2nd position, replace Messaging with Events
+[33m73be13f[m Enhanced Share Update modal with dynamic post type fields and improved scrolling
+[33m35be963[m Update branding and fix navigation - Replace Film icons with 24 Crafts logo in signup/login pages - Fix navbar authentication logic for proper navigation - Add click handlers to Quick Action buttons - Update page title to 24 Crafts.com - Add proper favicon and metadata - Fix white screen issues and improve mobile experience
