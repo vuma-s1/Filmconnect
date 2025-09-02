@@ -1,5 +1,5 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
+
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Bookmark, Clock, Star, Users, Zap } from "lucide-react";
@@ -91,7 +91,12 @@ export function LearningPathCard({
             <span>Progress</span>
             <span>{progress}%</span>
           </div>
-          <Progress value={progress} className="h-2" />
+          <div className="w-full bg-secondary rounded-full h-2 overflow-hidden">
+            <div 
+              className="h-full bg-primary transition-all" 
+              style={{ width: `${progress}%` }}
+            />
+          </div>
         </div>
         
         <div className="flex flex-wrap gap-2 mt-3">
