@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { ChevronRight, Home } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { ChevronRight, ArrowLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface BreadcrumbItem {
@@ -17,18 +17,24 @@ interface BreadcrumbNavProps {
 
 export function BreadcrumbNav({ items, className }: BreadcrumbNavProps) {
   const pathname = usePathname();
+  const router = useRouter();
   
   // Generate breadcrumbs from pathname if no items provided
   const breadcrumbItems = items || generateBreadcrumbs(pathname);
 
+  const handleBack = () => {
+    router.back();
+  };
+
   return (
     <nav className={cn("flex items-center space-x-1 text-sm text-muted-foreground", className)}>
-      <Link
-        href="/"
-        className="flex items-center hover:text-foreground transition-colors"
+      <button
+        onClick={handleBack}
+        className="flex items-center hover:text-foreground transition-colors p-1 rounded hover:bg-muted/50"
+        title="Go back"
       >
-        <Home className="h-4 w-4" />
-      </Link>
+        <ArrowLeft className="h-4 w-4" />
+      </button>
       
       {breadcrumbItems.map((item, index) => (
         <div key={index} className="flex items-center space-x-1">

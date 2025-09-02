@@ -6,7 +6,6 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-
 import { LearningPathCard } from '@/components/learning/LearningPathCard';
 import { 
   Search, 
@@ -268,8 +267,6 @@ const LearningPage = () => {
     bookmarked: favorites.length,
   }), [favorites, learningPaths]);
 
-
-
   // Learning pathways
   const pathways = [
     { id: 'all', label: 'All Pathways', icon: BookOpen, count: learningPaths.length },
@@ -289,8 +286,6 @@ const LearningPage = () => {
     { id: 'acting', label: 'Acting', icon: Mic, count: learningPaths.filter(p => p.tags.includes('Acting')).length },
     { id: 'production', label: 'Production', icon: Briefcase, count: learningPaths.filter(p => p.tags.includes('Production')).length }
   ];
-
-
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/10">
@@ -393,7 +388,7 @@ const LearningPage = () => {
         </div>
 
         {/* Search and Filters */}
-        <div className="mb-6 lg:mb-8">
+        <div className="mb-8 lg:mb-12">
           <div className="flex flex-col sm:flex-row gap-3 lg:gap-4">
             <div className="flex-1 relative">
               <Search className="absolute left-3 lg:left-4 top-1/2 transform -translate-y-1/2 h-4 w-4 lg:h-5 lg:w-5 text-muted-foreground" />
@@ -405,20 +400,71 @@ const LearningPage = () => {
               />
             </div>
             <div className="flex gap-2 lg:gap-4">
-                          <Button variant="outline" className="flex-1 sm:flex-none h-10 lg:h-12 px-4 lg:px-6 border-border/50 hover:border-primary/50 text-sm lg:text-base">
-              <Filter className="h-4 w-4 lg:h-5 lg:w-5 mr-2" />
-              <span className="hidden sm:inline">Filters</span>
-            </Button>
-            <Button className="flex-1 sm:flex-none bg-gradient-to-r from-primary to-primary/80 text-black font-bold h-10 lg:h-12 px-4 lg:px-6 shadow-lg hover:shadow-primary/25 transition-all duration-300 text-sm lg:text-base border border-primary/20">
-              <Crown className="h-4 w-4 lg:h-5 lg:w-5 mr-2 text-black" />
-              <span className="hidden sm:inline text-black font-bold">Premium</span>
-            </Button>
+              <Button variant="outline" className="flex-1 sm:flex-none h-10 lg:h-12 px-4 lg:px-6 border-border/50 hover:border-primary/50 text-sm lg:text-base">
+                <Filter className="h-4 w-4 lg:h-5 lg:w-5 mr-2" />
+                <span className="hidden sm:inline">Filters</span>
+              </Button>
+              <Button className="flex-1 sm:flex-none bg-gradient-to-r from-primary to-primary/80 text-black font-bold h-10 lg:h-12 px-4 lg:px-6 shadow-lg hover:shadow-primary/25 transition-all duration-300 text-sm lg:text-base border border-primary/20">
+                <Crown className="h-4 w-4 lg:h-5 lg:w-5 mr-2 text-black" />
+                <span className="hidden sm:inline text-black font-bold">Premium</span>
+              </Button>
             </div>
           </div>
         </div>
 
-        {/* Pathway Tabs */}
-        <div className="mb-6 lg:mb-8">
+        {/* Mobile: Icon-Based Tab System */}
+        <div className="lg:hidden mb-16">
+          <Tabs value={`${selectedPathway}-${selectedCategory}`} onValueChange={(value) => {
+            const [pathway, category] = value.split('-');
+            setSelectedPathway(pathway);
+            setSelectedCategory(category);
+          }}>
+            <TabsList className="flex w-full justify-center bg-transparent border-none p-0 gap-4">
+                             {/* All Paths Tab */}
+               <TabsTrigger 
+                 value="all-all" 
+                 className="flex flex-col items-center justify-center data-[state=active]:bg-primary data-[state=active]:shadow-lg transition-all duration-300 p-3 rounded-xl min-h-[60px] min-w-[60px] bg-card/50 border border-border/30 hover:border-primary/40 data-[state=active]:border-primary/50 [&[data-state=active]_*]:!text-black"
+               >
+                 <BookOpen className="h-6 w-6 text-white [&[data-state=active]]:!text-black" />
+               </TabsTrigger>
+               
+               {/* Long-Form Mastery Tab */}
+               <TabsTrigger 
+                 value="long-all" 
+                 className="flex flex-col items-center justify-center data-[state=active]:bg-primary data-[state=active]:shadow-lg transition-all duration-300 p-3 rounded-xl min-h-[60px] min-w-[60px] bg-card/50 border border-border/30 hover:border-primary/40 data-[state=active]:border-primary/50 [&[data-state=active]_*]:!text-black"
+               >
+                 <CalendarDays className="h-6 w-6 text-white [&[data-state=active]]:!text-black" />
+               </TabsTrigger>
+               
+               {/* Short-Form SOPs Tab */}
+               <TabsTrigger 
+                 value="short-all" 
+                 className="flex flex-col items-center justify-center data-[state=active]:bg-primary data-[state=active]:shadow-lg transition-all duration-300 p-3 rounded-xl min-h-[60px] min-w-[60px] bg-card/50 border border-border/30 hover:border-primary/40 data-[state=active]:border-primary/50 [&[data-state=active]_*]:!text-black"
+               >
+                 <Clock className="h-6 w-6 text-white [&[data-state=active]]:!text-black" />
+               </TabsTrigger>
+               
+               {/* Labour & Crew Tab */}
+               <TabsTrigger 
+                 value="crew-all" 
+                 className="flex flex-col items-center justify-center data-[state=active]:bg-primary data-[state=active]:shadow-lg transition-all duration-300 p-3 rounded-xl min-h-[60px] min-w-[60px] bg-card/50 border border-border/30 hover:border-primary/40 data-[state=active]:border-primary/50 [&[data-state=active]_*]:!text-black"
+               >
+                 <Users className="h-6 w-6 text-white [&[data-state=active]]:!text-black" />
+               </TabsTrigger>
+               
+               {/* AI-Powered Tab */}
+               <TabsTrigger 
+                 value="ai-all" 
+                 className="flex flex-col items-center justify-center data-[state=active]:bg-primary data-[state=active]:shadow-lg transition-all duration-300 p-3 rounded-xl min-h-[60px] min-w-[60px] bg-card/50 border border-border/30 hover:border-primary/40 data-[state=active]:border-primary/50 [&[data-state=active]_*]:!text-black"
+               >
+                 <Sparkles className="h-6 w-6 text-white [&[data-state=active]]:!text-black" />
+               </TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </div>
+
+        {/* Desktop: Original Pathway Tabs (unchanged) */}
+        <div className="hidden lg:block mb-12">
           <Tabs value={selectedPathway} onValueChange={setSelectedPathway}>
             <TabsList className="grid w-full grid-cols-2 sm:grid-cols-5 bg-card/50 border-border/50 p-1 gap-1 [&_[data-state=active]]:text-black [&_[data-state=active]]:!text-black">
               {pathways.map((pathway) => {
@@ -439,7 +485,7 @@ const LearningPage = () => {
         </div>
 
         {/* Category Tabs */}
-        <div className="mb-6 lg:mb-8">
+        <div className="mb-12">
           <Tabs value={selectedCategory} onValueChange={setSelectedCategory}>
             <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 bg-card/50 border-border/50 p-1 gap-1 [&_[data-state=active]]:text-black [&_[data-state=active]]:!text-black">
               {categories.map((category) => {
@@ -459,54 +505,8 @@ const LearningPage = () => {
           </Tabs>
         </div>
 
-        {/* Certification System */}
-        <div className="mb-8 lg:mb-12">
-          <div className="text-center mb-6">
-            <h2 className="text-2xl lg:text-3xl font-bold mb-3">Certification Tiers</h2>
-            <p className="text-muted-foreground">Progress through our industry-recognized certification system</p>
-          </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-            <Card className="text-center bg-gradient-to-br from-amber-900/20 to-amber-800/10 border-amber-700/30">
-              <CardContent className="p-4 lg:p-6">
-                <div className="h-12 w-12 lg:h-16 lg:w-16 rounded-xl bg-amber-600/20 flex items-center justify-center mx-auto mb-3">
-                  <span className="text-2xl lg:text-3xl">🟤</span>
-                </div>
-                <h3 className="text-lg font-bold mb-1">Bronze</h3>
-                <p className="text-xs lg:text-sm text-muted-foreground">Basic SOP Compliance</p>
-              </CardContent>
-            </Card>
-            <Card className="text-center bg-gradient-to-br from-gray-900/20 to-gray-800/10 border-gray-700/30">
-              <CardContent className="p-4 lg:p-6">
-                <div className="h-12 w-12 lg:h-16 lg:w-16 rounded-xl bg-gray-600/20 flex items-center justify-center mx-auto mb-3">
-                  <span className="text-2xl lg:text-3xl">⚪</span>
-                </div>
-                <h3 className="text-lg font-bold mb-1">Silver</h3>
-                <p className="text-xs lg:text-sm text-muted-foreground">Craft Intermediate</p>
-              </CardContent>
-            </Card>
-            <Card className="text-center bg-gradient-to-br from-yellow-900/20 to-yellow-800/10 border-yellow-700/30">
-              <CardContent className="p-4 lg:p-6">
-                <div className="h-12 w-12 lg:h-16 lg:w-16 rounded-xl bg-yellow-600/20 flex items-center justify-center mx-auto mb-3">
-                  <span className="text-2xl lg:text-3xl">🟡</span>
-                </div>
-                <h3 className="text-lg font-bold mb-1">Gold</h3>
-                <p className="text-xs lg:text-sm text-muted-foreground">Advanced + Supervisory</p>
-              </CardContent>
-            </Card>
-            <Card className="text-center bg-gradient-to-br from-blue-900/20 to-blue-800/10 border-blue-700/30">
-              <CardContent className="p-4 lg:p-6">
-                <div className="h-12 w-12 lg:h-16 lg:w-16 rounded-xl bg-blue-600/20 flex items-center justify-center mx-auto mb-3">
-                  <span className="text-2xl lg:text-3xl">🔵</span>
-                </div>
-                <h3 className="text-lg font-bold mb-1">Platinum</h3>
-                <p className="text-xs lg:text-sm text-muted-foreground">Mastery + Leadership</p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-
         {/* Learning Paths Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
+        <div className="mt-12 lg:mt-16 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
           {filteredLearningPaths.map((path) => (
             <LearningPathCard
               key={path.id}
@@ -540,4 +540,3 @@ const LearningPage = () => {
 };
 
 export default LearningPage;
-
