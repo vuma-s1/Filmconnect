@@ -1175,11 +1175,11 @@ const LearningPage = () => {
             </p>
             
             {/* Language Selector */}
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center mb-4">
               <Button
                 variant="outline"
                 onClick={() => setShowLanguageSelector(!showLanguageSelector)}
-                className="bg-background/80 backdrop-blur-sm border-primary/30 hover:border-primary/50"
+                className="bg-background/80 backdrop-blur-sm border-primary/30 hover:border-primary/50 h-10 px-4"
               >
                 <Globe className="h-4 w-4 mr-2" />
                 {selectedLanguage.flag} {selectedLanguage.name}
@@ -1357,7 +1357,7 @@ const LearningPage = () => {
         {/* Mobile Sidebar Overlay */}
         {sidebarOpen && (
           <div className="fixed inset-0 bg-black/50 z-40 lg:hidden" onClick={() => setSidebarOpen(false)}>
-            <div className="fixed left-0 top-0 h-full w-80 bg-card/95 backdrop-blur-md border-r border-border/50 z-50 p-4" onClick={(e) => e.stopPropagation()}>
+            <div className="fixed left-0 top-0 h-full w-80 bg-card/95 backdrop-blur-md border-r border-border/50 z-50 p-4 overflow-y-auto" onClick={(e) => e.stopPropagation()}>
               {/* Mobile Sidebar Header */}
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center space-x-3">
@@ -1430,53 +1430,53 @@ const LearningPage = () => {
               variant="ghost"
               size="sm"
               onClick={() => setSidebarOpen(true)}
-              className="w-full justify-start h-12 bg-card/50 border border-border/30 hover:border-primary/40"
+              className="w-full justify-start h-12 bg-card/50 border border-border/30 hover:border-primary/40 rounded-lg"
             >
               <Menu className="h-5 w-5 mr-3 text-primary" />
               <span className="text-sm font-medium">Open Learning Menu</span>
             </Button>
           </div>
 
-          {/* Stats Section */}
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-8 lg:mb-12">
-              <Card className="border-border/30 bg-card/50 backdrop-blur-sm">
-                <CardContent className="p-4 lg:p-6">
-                  <div className="h-8 w-8 lg:h-12 lg:w-12 rounded-xl bg-primary/20 flex items-center justify-center mx-auto mb-2 lg:mb-3">
-                    <BookOpen className="h-4 w-4 lg:h-6 lg:w-6 text-primary" />
-                  </div>
-                  <h3 className="text-lg lg:text-2xl font-bold mb-1">24</h3>
-                  <p className="text-muted-foreground text-xs lg:text-sm">Cinema Crafts</p>
-                </CardContent>
-              </Card>
-              <Card className="border-border/30 bg-card/50 backdrop-blur-sm">
-                <CardContent className="p-4 lg:p-6">
-                  <div className="h-8 w-8 lg:h-12 lg:w-12 rounded-xl bg-primary/20 flex items-center justify-center mx-auto mb-2 lg:mb-3">
-                    <Users className="h-4 w-4 lg:h-6 lg:w-6 text-primary" />
-                  </div>
-                  <h3 className="text-lg lg:text-2xl font-bold mb-1">50K+</h3>
-                  <p className="text-muted-foreground text-xs lg:text-sm">Active Learners</p>
-                </CardContent>
-              </Card>
-              <Card className="border-border/30 bg-card/50 backdrop-blur-sm">
-                <CardContent className="p-4 lg:p-6">
-                  <div className="h-8 w-8 lg:h-12 lg:w-12 rounded-xl bg-primary/20 flex items-center justify-center mx-auto mb-2 lg:mb-3">
-                    <Award className="h-4 w-4 lg:h-6 lg:w-6 text-primary" />
-                  </div>
-                  <h3 className="text-lg lg:text-2xl font-bold mb-1">100+</h3>
-                  <p className="text-muted-foreground text-xs lg:text-sm">Industry Experts</p>
-                </CardContent>
-              </Card>
-              <Card className="border-border/30 bg-card/50 backdrop-blur-sm">
-                <CardContent className="p-4 lg:p-6">
-                  <div className="h-8 w-8 lg:h-12 lg:w-12 rounded-xl bg-primary/20 flex items-center justify-center mx-auto mb-2 lg:mb-3">
-                    <CheckCircle className="h-4 w-4 lg:h-6 lg:w-6 text-primary" />
-                  </div>
-                  <h3 className="text-lg lg:text-2xl font-bold mb-1">95%</h3>
-                  <p className="text-muted-foreground text-xs lg:text-sm">Completion Rate</p>
-                </CardContent>
-              </Card>
-            </div>
+                      {/* Stats Section */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6 mb-8 lg:mb-12">
+                <Card className="border-border/30 bg-card/50 backdrop-blur-sm">
+                  <CardContent className="p-3 lg:p-6">
+                    <div className="h-8 w-8 lg:h-12 lg:w-12 rounded-xl bg-primary/20 flex items-center justify-center mx-auto mb-2 lg:mb-3">
+                      <BookOpen className="h-4 w-4 lg:h-6 lg:w-6 text-primary" />
+                    </div>
+                    <h3 className="text-lg lg:text-2xl font-bold mb-1">24</h3>
+                    <p className="text-muted-foreground text-xs lg:text-sm">Cinema Crafts</p>
+                  </CardContent>
+                </Card>
+                <Card className="border-border/30 bg-card/50 backdrop-blur-sm">
+                  <CardContent className="p-3 lg:p-6">
+                    <div className="h-8 w-8 lg:h-12 lg:w-12 rounded-xl bg-primary/20 flex items-center justify-center mx-auto mb-2 lg:mb-3">
+                      <Users className="h-4 w-4 lg:h-6 lg:w-6 text-primary" />
+                    </div>
+                    <h3 className="text-lg lg:text-2xl font-bold mb-1">50K+</h3>
+                    <p className="text-muted-foreground text-xs lg:text-sm">Active Learners</p>
+                  </CardContent>
+                </Card>
+                <Card className="border-border/30 bg-card/50 backdrop-blur-sm">
+                  <CardContent className="p-3 lg:p-6">
+                    <div className="h-8 w-8 lg:h-12 lg:w-12 rounded-xl bg-primary/20 flex items-center justify-center mx-auto mb-2 lg:mb-3">
+                      <Award className="h-4 w-4 lg:h-6 lg:w-6 text-primary" />
+                    </div>
+                    <h3 className="text-lg lg:text-2xl font-bold mb-1">100+</h3>
+                    <p className="text-muted-foreground text-xs lg:text-sm">Industry Experts</p>
+                  </CardContent>
+                </Card>
+                <Card className="border-border/30 bg-card/50 backdrop-blur-sm">
+                  <CardContent className="p-3 lg:p-6">
+                    <div className="h-8 w-8 lg:h-12 lg:w-12 rounded-xl bg-primary/20 flex items-center justify-center mx-auto mb-2 lg:mb-3">
+                      <CheckCircle className="h-4 w-4 lg:h-6 lg:w-6 text-primary" />
+                    </div>
+                    <h3 className="text-lg lg:text-2xl font-bold mb-1">95%</h3>
+                    <p className="text-muted-foreground text-xs lg:text-sm">Completion Rate</p>
+                  </CardContent>
+                </Card>
+              </div>
 
             {/* Search and Filter Section */}
             <div className="mb-8 lg:mb-12">
@@ -1491,11 +1491,11 @@ const LearningPage = () => {
                   />
                 </div>
                 <div className="flex gap-2 lg:gap-4">
-                  <Button variant="outline" className="flex-1 sm:flex-none h-10 lg:h-12 px-4 lg:px-6 border-border/50 hover:border-primary/50 text-sm lg:text-base">
+                  <Button variant="outline" className="flex-1 sm:flex-none h-10 lg:h-12 px-3 lg:px-6 border-border/50 hover:border-primary/50 text-sm lg:text-base">
                     <Filter className="h-4 w-4 lg:h-5 lg:w-5 mr-2" />
                     <span className="hidden sm:inline">Filters</span>
                   </Button>
-                  <Button className="flex-1 sm:flex-none bg-gradient-to-r from-primary to-primary/80 text-black font-bold h-10 lg:h-12 px-4 lg:px-6 shadow-lg hover:shadow-primary/25 transition-all duration-300 text-sm lg:text-base border border-primary/20">
+                  <Button className="flex-1 sm:flex-none bg-gradient-to-r from-primary to-primary/80 text-black font-bold h-10 lg:h-12 px-3 lg:px-6 shadow-lg hover:shadow-primary/25 transition-all duration-300 text-sm lg:text-base border border-primary/20">
                     <Crown className="h-4 w-4 lg:h-5 lg:w-5 mr-2 text-black" />
                     <span className="hidden sm:inline text-black font-bold">Premium</span>
                   </Button>
@@ -1506,54 +1506,54 @@ const LearningPage = () => {
             {/* Mobile: Enhanced Icon-Based Tab System */}
             <div className="lg:hidden mb-8">
               <Tabs value={selectedPathway} onValueChange={setSelectedPathway}>
-                <TabsList className="flex w-full justify-center bg-transparent border-none p-0 gap-3">
-                             {/* All Paths Tab */}
-               <TabsTrigger 
+                <TabsList className="flex w-full justify-center bg-transparent border-none p-0 gap-2">
+                  {/* All Paths Tab */}
+                  <TabsTrigger 
                     value="all" 
-                    className="flex flex-col items-center justify-center data-[state=active]:bg-primary data-[state=active]:shadow-lg transition-all duration-300 p-3 rounded-2xl min-h-[70px] min-w-[70px] bg-card/60 border border-border/40 hover:border-primary/50 data-[state=active]:border-primary/50 [&[data-state=active]_*]:!text-black backdrop-blur-sm"
-               >
-                    <BookOpen className="h-7 w-7 text-white [&[data-state=active]]:!text-black mb-1" />
+                    className="flex flex-col items-center justify-center data-[state=active]:bg-primary data-[state=active]:shadow-lg transition-all duration-300 p-2 rounded-xl min-h-[60px] min-w-[60px] bg-card/60 border border-border/40 hover:border-primary/50 data-[state=active]:border-primary/50 [&[data-state=active]_*]:!text-black backdrop-blur-sm"
+                  >
+                    <BookOpen className="h-5 w-5 text-white [&[data-state=active]]:!text-black mb-1" />
                     <span className="text-xs font-medium text-white [&[data-state=active]]:!text-black">All</span>
-               </TabsTrigger>
-               
-               {/* Long-Form Mastery Tab */}
-               <TabsTrigger 
+                  </TabsTrigger>
+                  
+                  {/* Long-Form Mastery Tab */}
+                  <TabsTrigger 
                     value="long" 
-                    className="flex flex-col items-center justify-center data-[state=active]:bg-primary data-[state=active]:shadow-lg transition-all duration-300 p-3 rounded-2xl min-h-[70px] min-w-[70px] bg-card/60 border border-border/40 hover:border-primary/50 data-[state=active]:border-primary/50 [&[data-state=active]_*]:!text-black backdrop-blur-sm"
-               >
-                    <CalendarDays className="h-7 w-7 text-white [&[data-state=active]]:!text-black mb-1" />
+                    className="flex flex-col items-center justify-center data-[state=active]:bg-primary data-[state=active]:shadow-lg transition-all duration-300 p-2 rounded-xl min-h-[60px] min-w-[60px] bg-card/60 border border-border/40 hover:border-primary/50 data-[state=active]:border-primary/50 [&[data-state=active]_*]:!text-black backdrop-blur-sm"
+                  >
+                    <CalendarDays className="h-5 w-5 text-white [&[data-state=active]]:!text-black mb-1" />
                     <span className="text-xs font-medium text-white [&[data-state=active]]:!text-black">Long</span>
-               </TabsTrigger>
-               
-               {/* Short-Form SOPs Tab */}
-               <TabsTrigger 
+                  </TabsTrigger>
+                  
+                  {/* Short-Form SOPs Tab */}
+                  <TabsTrigger 
                     value="short" 
-                    className="flex flex-col items-center justify-center data-[state=active]:bg-primary data-[state=active]:shadow-lg transition-all duration-300 p-3 rounded-2xl min-h-[70px] min-w-[70px] bg-card/60 border border-border/40 hover:border-primary/50 data-[state=active]:border-primary/50 [&[data-state=active]_*]:!text-black backdrop-blur-sm"
-               >
-                    <Clock className="h-7 w-7 text-white [&[data-state=active]]:!text-black mb-1" />
+                    className="flex flex-col items-center justify-center data-[state=active]:bg-primary data-[state=active]:shadow-lg transition-all duration-300 p-2 rounded-xl min-h-[60px] min-w-[60px] bg-card/60 border border-border/40 hover:border-primary/50 data-[state=active]:border-primary/50 [&[data-state=active]_*]:!text-black backdrop-blur-sm"
+                  >
+                    <Clock className="h-5 w-5 text-white [&[data-state=active]]:!text-black mb-1" />
                     <span className="text-xs font-medium text-white [&[data-state=active]]:!text-black">Short</span>
-               </TabsTrigger>
-               
-               {/* Labour & Crew Tab */}
-               <TabsTrigger 
+                  </TabsTrigger>
+                  
+                  {/* Labour & Crew Tab */}
+                  <TabsTrigger 
                     value="crew" 
-                    className="flex flex-col items-center justify-center data-[state=active]:bg-primary data-[state=active]:shadow-lg transition-all duration-300 p-3 rounded-2xl min-h-[70px] min-w-[70px] bg-card/60 border border-border/40 hover:border-primary/50 data-[state=active]:border-primary/50 [&[data-state=active]_*]:!text-black backdrop-blur-sm"
-               >
-                    <Users className="h-7 w-7 text-white [&[data-state=active]]:!text-black mb-1" />
+                    className="flex flex-col items-center justify-center data-[state=active]:bg-primary data-[state=active]:shadow-lg transition-all duration-300 p-2 rounded-xl min-h-[60px] min-w-[60px] bg-card/60 border border-border/40 hover:border-primary/50 data-[state=active]:border-primary/50 [&[data-state=active]_*]:!text-black backdrop-blur-sm"
+                  >
+                    <Users className="h-5 w-5 text-white [&[data-state=active]]:!text-black mb-1" />
                     <span className="text-xs font-medium text-white [&[data-state=active]]:!text-black">Crew</span>
-               </TabsTrigger>
-               
-               {/* AI-Powered Tab */}
-               <TabsTrigger 
+                  </TabsTrigger>
+                  
+                  {/* AI-Powered Tab */}
+                  <TabsTrigger 
                     value="ai" 
-                    className="flex flex-col items-center justify-center data-[state=active]:bg-primary data-[state=active]:shadow-lg transition-all duration-300 p-3 rounded-2xl min-h-[70px] min-w-[70px] bg-card/60 border border-border/40 hover:border-primary/50 data-[state=active]:border-primary/50 [&[data-state=active]_*]:!text-black backdrop-blur-sm"
-               >
-                    <Sparkles className="h-7 w-7 text-white [&[data-state=active]]:!text-black mb-1" />
+                    className="flex flex-col items-center justify-center data-[state=active]:bg-primary data-[state=active]:shadow-lg transition-all duration-300 p-2 rounded-xl min-h-[60px] min-w-[60px] bg-card/60 border border-border/40 hover:border-primary/50 data-[state=active]:border-primary/50 [&[data-state=active]_*]:!text-black backdrop-blur-sm"
+                  >
+                    <Sparkles className="h-5 w-5 text-white [&[data-state=active]]:!text-black mb-1" />
                     <span className="text-xs font-medium text-white [&[data-state=active]]:!text-black">AI</span>
-               </TabsTrigger>
-            </TabsList>
-          </Tabs>
-        </div>
+                  </TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </div>
 
             {/* Desktop: Pathway Tabs */}
         <div className="hidden lg:block mb-12">
@@ -1577,20 +1577,20 @@ const LearningPage = () => {
         </div>
 
         {/* Learning Paths Grid */}
-            {!selectedCraft && (
-              <div className="mt-8 lg:mt-16 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-8">
-          {filteredLearningPaths.map((path) => (
-            <LearningPathCard
-              key={path.id}
-              {...path}
-              isBookmarked={favorites.includes(path.id)}
-              isEnrolling={enrollingCourses.includes(path.id)}
-              onBookmark={() => toggleBookmark(path.id)}
-              onEnroll={() => handleEnroll(path.id)}
-            />
-          ))}
-        </div>
-            )}
+        {!selectedCraft && (
+          <div className="mt-8 lg:mt-16 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-8">
+            {filteredLearningPaths.map((path) => (
+              <LearningPathCard
+                key={path.id}
+                {...path}
+                isBookmarked={favorites.includes(path.id)}
+                isEnrolling={enrollingCourses.includes(path.id)}
+                onBookmark={() => toggleBookmark(path.id)}
+                onEnroll={() => handleEnroll(path.id)}
+              />
+            ))}
+          </div>
+        )}
 
             {filteredLearningPaths.length === 0 && !selectedCraft && (
           <div className="text-center py-16">
@@ -1606,38 +1606,40 @@ const LearningPage = () => {
             {selectedCraft && (
               <div className="mt-8 lg:mt-16">
                 {/* Back Button and Header */}
-                <div className="flex items-center justify-between mb-8">
-                  <div className="flex items-center space-x-4">
-            <Button 
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
+                    <Button 
                       variant="ghost"
                       size="sm"
                       onClick={() => setSelectedCraft(null)}
-                      className="hover:bg-primary/10"
+                      className="hover:bg-primary/10 self-start sm:self-auto"
                     >
                       <ArrowRight className="h-4 w-4 mr-2 rotate-180" />
                       Back to Learning Paths
-            </Button>
-                    <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center">
-                      {(() => {
-                        const category = categories.find(c => c.id === selectedCraft);
-                        if (category) {
-                          const Icon = category.icon;
-                          return <Icon className="h-6 w-6 text-black" />;
-                        }
-                        return <BookOpen className="h-6 w-6 text-black" />;
-                      })()}
-                    </div>
-                    <div>
-                      <h2 className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
-                        {categories.find(c => c.id === selectedCraft)?.label || 'Cinema Craft'}
-                      </h2>
-                      <p className="text-muted-foreground">Master the art of {categories.find(c => c.id === selectedCraft)?.label?.toLowerCase() || 'cinema'}</p>
+                    </Button>
+                    <div className="flex items-center space-x-3">
+                      <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center">
+                        {(() => {
+                          const category = categories.find(c => c.id === selectedCraft);
+                          if (category) {
+                            const Icon = category.icon;
+                            return <Icon className="h-6 w-6 text-black" />;
+                          }
+                          return <BookOpen className="h-6 w-6 text-black" />;
+                        })()}
+                      </div>
+                      <div>
+                        <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+                          {categories.find(c => c.id === selectedCraft)?.label || 'Cinema Craft'}
+                        </h2>
+                        <p className="text-muted-foreground text-sm sm:text-base">Master the art of {categories.find(c => c.id === selectedCraft)?.label?.toLowerCase() || 'cinema'}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Craft Learning Levels */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8 mb-12">
                   {/* Basic Level */}
                   <Card className="bg-gradient-to-br from-card to-card/50 border-border/50 hover:shadow-lg transition-all duration-300">
                     <CardHeader className="pb-4">
@@ -2210,7 +2212,7 @@ const LearningPage = () => {
                     <CardDescription>Your journey from beginner to corporate executive in {categories.find(c => c.id === selectedCraft)?.label?.toLowerCase() || 'cinema'}</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                       {(() => {
                         const craft = categories.find(c => c.id === selectedCraft);
                         if (!craft) return null;
@@ -2399,7 +2401,7 @@ const LearningPage = () => {
                     <CardDescription>Courses specifically designed for {categories.find(c => c.id === selectedCraft)?.label?.toLowerCase() || 'this craft'}</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {learningPaths
                         .filter(path => 
                           path.tags.some(tag => 

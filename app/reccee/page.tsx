@@ -1,9 +1,26 @@
 import React from 'react';
 import { MapPin, Camera, Users, Shield, Clock, DollarSign, Globe, ChartBar, Rocket, Calendar } from 'lucide-react';
+import Head from 'next/head';
 
 export default function RecceePage() {
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+      </Head>
+      <div className="min-h-screen bg-background touch-pan-y">
+      {/* Mobile Navigation Indicator */}
+      <div className="lg:hidden fixed top-16 left-0 right-0 z-40 bg-background/95 backdrop-blur-sm border-b border-border/50 shadow-sm">
+        <div className="px-4 py-3">
+          <div className="flex items-center justify-center">
+            <MapPin className="w-5 h-5 text-primary mr-2" />
+            <span className="text-sm font-medium text-white">Recce & Studio Maps</span>
+          </div>
+        </div>
+      </div>
                     {/* Hero Section */}
        <section className="relative overflow-hidden text-white">
          {/* Background Image */}
@@ -17,26 +34,26 @@ export default function RecceePage() {
          {/* Dark Overlay for Text Readability */}
          <div className="absolute inset-0 bg-black/40"></div>
          
-         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-32">
+         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-16 sm:py-20 lg:py-32 pb-8 sm:pb-0">
            <div className="text-center">
-             <div className="inline-flex items-center px-3 sm:px-4 py-2 rounded-full bg-primary text-black backdrop-blur-sm border border-primary mb-6 sm:mb-8">
-               <MapPin className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-black" />
+             <div className="inline-flex items-center px-2 sm:px-4 py-1.5 sm:py-2 rounded-full bg-primary text-black backdrop-blur-sm border border-primary mb-4 sm:mb-8">
+               <MapPin className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 text-black" />
                <span className="text-xs sm:text-sm font-medium text-black">AI-Powered Studio Intelligence</span>
              </div>
-             <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 leading-tight text-white">
+             <h1 className="text-2xl sm:text-4xl md:text-6xl font-bold mb-3 sm:mb-6 leading-tight text-white">
                Recce & Studio Maps
              </h1>
-             <p className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 text-muted-foreground max-w-3xl mx-auto px-4">
+             <p className="text-sm sm:text-xl md:text-2xl mb-4 sm:mb-8 text-muted-foreground max-w-3xl mx-auto px-4">
                Plan shoots smarter with AI-powered reconnaissance and studio mapping. 
                Walk the set before you step on it.
              </p>
-             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
-               <button className="bg-primary text-black px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg hover:bg-primary/90 transition-all duration-300 transform hover:scale-105 shadow-lg">
-                 <Rocket className="w-4 h-4 sm:w-5 sm:h-5 mr-2 inline" />
+             <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center px-4">
+               <button className="bg-primary text-black px-3 sm:px-8 py-2.5 sm:py-4 rounded-lg font-semibold text-xs sm:text-lg hover:bg-primary/90 active:bg-primary/80 transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg min-h-[36px] sm:min-h-[56px]">
+                 <Rocket className="w-2.5 h-2.5 sm:w-5 sm:h-5 mr-1 sm:mr-2 inline" />
                  Start Virtual Recce
                </button>
-               <button className="border-2 border-primary text-primary px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg hover:bg-primary hover:text-black transition-all duration-300 transform hover:scale-105">
-                 <Calendar className="w-4 h-4 sm:w-5 sm:h-5 mr-2 inline" />
+               <button className="border-2 border-primary text-primary px-3 sm:px-8 py-2.5 sm:py-4 rounded-lg font-semibold text-xs sm:text-lg hover:bg-primary hover:text-black active:bg-primary/90 active:text-black transition-all duration-300 transform hover:scale-105 active:scale-95 min-h-[36px] sm:min-h-[56px]">
+                 <Calendar className="w-2.5 h-2.5 sm:w-5 sm:h-5 mr-1 sm:mr-2 inline" />
                  View Demo
                </button>
              </div>
@@ -47,52 +64,52 @@ export default function RecceePage() {
                          {/* What is Recce Section */}
        <section className="py-16 sm:py-20 bg-muted/50">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-12 sm:mb-16">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
+                        <div className="text-center mb-8 sm:mb-16">
+                <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-6">
                   What is Recce?
                 </h2>
-                <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
+                <p className="text-sm sm:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
                   Recce (short for Reconnaissance) is the essential process of surveying and analyzing 
                   shooting locations or studios before production begins.
                 </p>
               </div>
            
-           <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
-             <div className="space-y-4 sm:space-y-6">
-                              <div className="flex items-start space-x-3 sm:space-x-4">
-                  <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-lg flex items-center justify-center">
-                    <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-black" />
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 md:gap-12 items-center">
+             <div className="space-y-3 sm:space-y-6">
+                              <div className="flex items-start space-x-2 sm:space-x-4">
+                  <div className="flex-shrink-0 w-8 h-8 sm:w-12 sm:h-12 bg-primary rounded-lg flex items-center justify-center">
+                    <MapPin className="w-4 h-4 sm:w-6 sm:h-6 text-black" />
                   </div>
                   <div>
-                    <h3 className="text-lg sm:text-xl font-semibold text-white mb-2">Digital Scout</h3>
-                    <p className="text-sm sm:text-base text-muted-foreground">Think of it as your digital scout that goes ahead of your crew to ensure everything is ready for the perfect shot.</p>
+                    <h3 className="text-base sm:text-xl font-semibold text-white mb-1 sm:mb-2">Digital Scout</h3>
+                    <p className="text-xs sm:text-base text-muted-foreground">Think of it as your digital scout that goes ahead of your crew to ensure everything is ready for the perfect shot.</p>
                   </div>
                 </div>
                 
-                <div className="flex items-start space-x-3 sm:space-x-4">
-                  <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-lg flex items-center justify-center">
-                    <ChartBar className="w-5 h-5 sm:w-6 sm:h-6 text-black" />
+                <div className="flex items-start space-x-2 sm:space-x-4">
+                  <div className="flex-shrink-0 w-8 h-8 sm:w-12 sm:h-12 bg-primary rounded-lg flex items-center justify-center">
+                    <ChartBar className="w-4 h-4 sm:w-6 sm:h-6 text-black" />
                   </div>
                   <div>
-                    <h3 className="text-lg sm:text-xl font-semibold text-white mb-2">AI-Powered Analysis</h3>
-                    <p className="text-sm sm:text-base text-muted-foreground">AI Studio transforms traditional recce into a smart, digital process with intelligent insights and recommendations.</p>
+                    <h3 className="text-base sm:text-xl font-semibold text-white mb-1 sm:mb-2">AI-Powered Analysis</h3>
+                    <p className="text-xs sm:text-base text-muted-foreground">AI Studio transforms traditional recce into a smart, digital process with intelligent insights and recommendations.</p>
                   </div>
                 </div>
              </div>
              
                           <div className="relative">
-                <div className="bg-muted rounded-2xl p-6 sm:p-8 shadow-xl">
-                  <div className="grid grid-cols-3 gap-3 sm:gap-4">
-                    <div className="bg-primary rounded-lg p-3 sm:p-4 text-center shadow-md">
-                      <MapPin className="w-6 h-6 sm:w-8 sm:h-8 text-black mx-auto mb-2" />
+                <div className="bg-muted rounded-2xl p-4 sm:p-8 shadow-xl">
+                  <div className="grid grid-cols-3 gap-2 sm:gap-4">
+                    <div className="bg-primary rounded-lg p-2 sm:p-4 text-center shadow-md">
+                      <MapPin className="w-5 h-5 sm:w-8 sm:h-8 text-black mx-auto mb-1 sm:mb-2" />
                       <p className="text-xs sm:text-sm font-medium text-black">Studio Layouts</p>
                     </div>
-                    <div className="bg-primary rounded-lg p-3 sm:p-4 text-center shadow-md">
-                      <ChartBar className="w-6 h-6 sm:w-8 sm:h-8 text-black mx-auto mb-2" />
+                    <div className="bg-primary rounded-lg p-2 sm:p-4 text-center shadow-md">
+                      <ChartBar className="w-5 h-5 sm:w-8 sm:h-8 text-black mx-auto mb-1 sm:mb-2" />
                       <p className="text-xs sm:text-sm font-medium text-black">Location Data</p>
                     </div>
-                    <div className="bg-primary rounded-lg p-3 sm:p-4 text-center shadow-md">
-                      <Rocket className="w-6 h-6 sm:w-8 sm:h-8 text-black mx-auto mb-2" />
+                    <div className="bg-primary rounded-lg p-2 sm:p-4 text-center shadow-md">
+                      <Rocket className="w-5 h-5 sm:w-8 sm:h-8 text-black mx-auto mb-1 sm:mb-2" />
                       <p className="text-xs sm:text-sm font-medium text-black">AI Analysis</p>
                     </div>
                   </div>
@@ -103,7 +120,7 @@ export default function RecceePage() {
        </section>
 
              {/* Core Features Section */}
-       <section className="py-16 sm:py-20 bg-background">
+       <section className="py-20 sm:py-20 bg-background">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
            <div className="text-center mb-12 sm:mb-16">
              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
@@ -114,7 +131,7 @@ export default function RecceePage() {
              </p>
            </div>
            
-           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
              {/* Digital Studio Maps */}
              <div className="bg-muted/50 rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-border">
                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-primary rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
@@ -185,7 +202,7 @@ export default function RecceePage() {
        </section>
 
        {/* Equipment Database Section */}
-       <section className="py-16 sm:py-20 bg-muted/50">
+       <section className="py-20 sm:py-20 bg-muted/50">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
            <div className="text-center mb-12 sm:mb-16">
              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
@@ -196,7 +213,7 @@ export default function RecceePage() {
              </p>
            </div>
            
-           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
              {/* Camera Equipment */}
              <div className="bg-background rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-border">
                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-primary rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
@@ -289,7 +306,7 @@ export default function RecceePage() {
        </section>
 
             {/* How It Works Section */}
-      <section className="py-20 bg-muted/50">
+      <section className="py-24 sm:py-20 bg-muted/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                        <div className="text-center mb-16">
                <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
@@ -355,7 +372,7 @@ export default function RecceePage() {
        </section>
 
        {/* Technical Specifications Section */}
-       <section className="py-16 sm:py-20 bg-background">
+       <section className="py-20 sm:py-20 bg-background">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
            <div className="text-center mb-12 sm:mb-16">
              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
@@ -463,7 +480,7 @@ export default function RecceePage() {
        </section>
 
       {/* Benefits Section */}
-      <section className="py-20 bg-background">
+      <section className="py-24 sm:py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
@@ -527,7 +544,7 @@ export default function RecceePage() {
        </section>
 
        {/* Industry-Specific Guides Section */}
-       <section className="py-16 sm:py-20 bg-muted/50">
+       <section className="py-20 sm:py-20 bg-muted/50">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
            <div className="text-center mb-12 sm:mb-16">
              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
@@ -631,7 +648,7 @@ export default function RecceePage() {
        </section>
 
                          {/* Studio Showcase Section */}
-       <section className="py-20 bg-muted/50">
+       <section className="py-24 sm:py-20 bg-muted/50">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-16">
                <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
@@ -695,7 +712,7 @@ export default function RecceePage() {
        </section>
 
        {/* Professional Tools Section */}
-       <section className="py-16 sm:py-20 bg-background">
+       <section className="py-20 sm:py-20 bg-background">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
            <div className="text-center mb-12 sm:mb-16">
              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
@@ -777,7 +794,7 @@ export default function RecceePage() {
        </section>
 
              {/* CTA Section */}
-       <section className="py-20 bg-background text-white">
+       <section className="py-24 sm:py-20 bg-background text-white">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
              Ready to Transform Your Pre-Production?
@@ -842,6 +859,7 @@ export default function RecceePage() {
              </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 }

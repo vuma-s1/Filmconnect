@@ -42,12 +42,12 @@ export function UserMenu() {
       {/* Profile Icon - Clickable to go directly to profile */}
       <Link href="/profile" className="group">
         <div className="relative">
-          <Avatar className="h-8 w-8 hover:ring-2 hover:ring-primary/30 transition-all duration-200 cursor-pointer group-hover:scale-105">
+          <Avatar className="h-8 w-8 hover:ring-2 hover:ring-primary/30 cursor-pointer group-hover:scale-105">
             <AvatarImage src="/placeholder-avatar.jpg" alt="Profile" />
             <AvatarFallback className="bg-primary/20 text-primary font-semibold">JD</AvatarFallback>
           </Avatar>
           {/* Hover indicator */}
-          <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 bg-primary text-black text-[8px] px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200 font-medium shadow-sm">
+          <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 bg-primary text-black text-[8px] px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 font-medium shadow-sm">
             Profile
           </div>
         </div>

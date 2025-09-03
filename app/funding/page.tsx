@@ -157,27 +157,27 @@ export default function FundingPage() {
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-center mt-4 sm:mt-6 gap-2 sm:gap-4 px-2 sm:px-0">
-          <Badge className="bg-primary text-black px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-base w-full sm:w-auto text-center">
-            <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+          <Badge className="bg-primary text-black px-3 sm:px-4 py-2 sm:py-2 text-xs sm:text-base w-full sm:w-auto text-center">
+            <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 mr-2 sm:mr-2" />
             ₹500+ Cr Funded
           </Badge>
-          <Badge className="bg-black text-primary px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-base w-full sm:w-auto text-center">
-            <Users className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+          <Badge className="bg-black text-primary px-3 sm:px-4 py-2 sm:py-2 text-xs sm:text-base w-full sm:w-auto text-center">
+            <Users className="h-3 w-3 sm:h-4 sm:w-4 mr-2 sm:mr-2" />
             1000+ Projects
           </Badge>
-          <Badge className="bg-primary text-black px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-base w-full sm:w-auto text-center">
-            <Award className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+          <Badge className="bg-primary text-black px-3 sm:px-4 py-2 sm:py-2 text-xs sm:text-base w-full sm:w-auto text-center">
+            <Award className="h-3 w-3 sm:h-4 sm:w-4 mr-2 sm:mr-2" />
             85% Success Rate
           </Badge>
         </div>
 
         <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full mt-6 sm:mt-8">
           <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-1 h-auto p-1">
-            <TabsTrigger value="digital-rights" className="text-xs sm:text-sm px-1 sm:px-3 py-2 whitespace-nowrap">Digital Rights</TabsTrigger>
-            <TabsTrigger value="sources" className="text-xs sm:text-sm px-1 sm:px-3 py-2 whitespace-nowrap">Sources</TabsTrigger>
-            <TabsTrigger value="calculator" className="text-xs sm:text-sm px-1 sm:px-3 py-2 whitespace-nowrap">Calculator</TabsTrigger>
-            <TabsTrigger value="resources" className="text-xs sm:text-sm px-1 sm:px-3 py-2 whitespace-nowrap">Resources</TabsTrigger>
-            <TabsTrigger value="overview" className="text-xs sm:text-sm px-1 sm:px-3 py-2 col-span-2 sm:col-span-1 whitespace-nowrap">Overview</TabsTrigger>
+            <TabsTrigger value="digital-rights" className="text-xs sm:text-sm px-2 sm:px-3 py-2.5 sm:py-2 whitespace-nowrap">Digital Rights</TabsTrigger>
+            <TabsTrigger value="sources" className="text-xs sm:text-sm px-2 sm:px-3 py-2.5 sm:py-2 whitespace-nowrap">Sources</TabsTrigger>
+            <TabsTrigger value="calculator" className="text-xs sm:text-sm px-2 sm:px-3 py-2.5 sm:py-2 whitespace-nowrap">Calculator</TabsTrigger>
+            <TabsTrigger value="resources" className="text-xs sm:text-sm px-2 sm:px-3 py-2.5 sm:py-2 whitespace-nowrap">Resources</TabsTrigger>
+            <TabsTrigger value="overview" className="text-xs sm:text-sm px-2 sm:px-3 py-2.5 sm:py-2 col-span-2 sm:col-span-1 whitespace-nowrap">Overview</TabsTrigger>
           </TabsList>
 
           {/* Digital Rights Tab */}
@@ -193,19 +193,19 @@ export default function FundingPage() {
                   </CardHeader>
                   <CardContent className="space-y-4 px-4 sm:px-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                      <div className="p-3 sm:p-4 bg-primary/10 rounded-lg border border-primary/20">
+                      <div className="p-4 sm:p-4 bg-primary/10 rounded-lg border border-primary/20">
                         <h4 className="font-semibold text-primary mb-2 text-sm sm:text-base">OTT Platform Rights</h4>
                         <p className="text-xs sm:text-sm text-gray-300">Secure distribution deals with major streaming platforms</p>
                       </div>
-                      <div className="p-3 sm:p-4 bg-primary/10 rounded-lg border border-primary/20">
+                      <div className="p-4 sm:p-4 bg-primary/10 rounded-lg border border-primary/20">
                         <h4 className="font-semibold text-primary mb-2 text-sm sm:text-base">International Sales</h4>
                         <p className="text-xs sm:text-sm text-gray-300">Global distribution and international market access</p>
                       </div>
-                      <div className="p-3 sm:p-4 bg-primary/10 rounded-lg border border-primary/20">
+                      <div className="p-4 sm:p-4 bg-primary/10 rounded-lg border border-primary/20">
                         <h4 className="font-semibold text-primary mb-2 text-sm sm:text-base">Theatrical Rights</h4>
                         <p className="text-xs sm:text-sm text-gray-300">Cinema chain partnerships and theatrical releases</p>
                       </div>
-                      <div className="p-3 sm:p-4 bg-primary/10 rounded-lg border border-primary/20">
+                      <div className="p-4 sm:p-4 bg-primary/10 rounded-lg border border-primary/20">
                         <h4 className="font-semibold text-primary mb-2 text-sm sm:text-base">Satellite Rights</h4>
                         <p className="text-xs sm:text-sm text-gray-300">Television broadcast rights and satellite partnerships</p>
                       </div>
@@ -242,7 +242,7 @@ export default function FundingPage() {
                       Funding Trends
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-3 sm:space-y-4 px-4 sm:px-6">
+                  <CardContent className="space-y-4 sm:space-y-4 px-4 sm:px-6">
                     <div className="text-center">
                       <div className="text-xl sm:text-2xl font-bold text-primary">₹2.5 Cr</div>
                       <p className="text-xs text-muted-foreground">Avg. Funding Amount</p>
@@ -274,7 +274,7 @@ export default function FundingPage() {
                   </CardHeader>
                   <CardContent className="px-4 sm:px-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
-                      <div className="space-y-3 sm:space-y-4">
+                      <div className="space-y-4 sm:space-y-4">
                         {[
                           { step: 1, title: 'Project Development', desc: 'Script, budget, team assembly' },
                           { step: 2, title: 'Market Research', desc: 'Audience analysis, revenue projections' },
@@ -291,7 +291,7 @@ export default function FundingPage() {
                           </div>
                         ))}
                       </div>
-                      <div className="space-y-3 sm:space-y-4">
+                      <div className="space-y-4 sm:space-y-4">
                         {[
                           { step: 4, title: 'Investor Outreach', desc: 'Targeted approach, networking' },
                           { step: 5, title: 'Due Diligence', desc: 'Legal documentation, contracts' },
@@ -341,7 +341,7 @@ export default function FundingPage() {
                       Funding Trends
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-3 sm:space-y-4 px-4 sm:px-6">
+                  <CardContent className="space-y-4 sm:space-y-4 px-4 sm:px-6">
                     <div className="text-center">
                       <div className="text-xl sm:text-2xl font-bold text-primary">₹2.5 Cr</div>
                       <p className="text-xs text-muted-foreground">Avg. Funding Amount</p>
@@ -368,7 +368,7 @@ export default function FundingPage() {
                   <CardContent className="p-4 sm:p-6">
                     <div className="flex flex-col sm:flex-row items-start justify-between mb-4 space-y-3 sm:space-y-0">
                       <div className="flex-1 w-full">
-                        <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 mb-2">
+                        <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 mb-3">
                           <h3 className="text-lg sm:text-xl font-semibold">{source.name}</h3>
                           <Badge variant={source.type === 'Government' ? 'default' : 'secondary'} className="self-start sm:self-auto">
                             {source.type}
@@ -388,7 +388,7 @@ export default function FundingPage() {
                           <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 mr-2 text-primary" />
                           Requirements
                         </h4>
-                        <ul className="space-y-1 text-xs sm:text-sm text-muted-foreground">
+                        <ul className="space-y-2 text-xs sm:text-sm text-muted-foreground">
                           {source.requirements.map((req, idx) => (
                             <li key={idx} className="flex items-start">
                               <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 mr-2 flex-shrink-0"></div>
@@ -428,7 +428,7 @@ export default function FundingPage() {
 
                     {source.contactInfo && (
                       <div className="mt-4 sm:mt-6 pt-4 border-t border-border">
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 text-xs sm:text-sm text-muted-foreground">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 text-xs sm:text-sm text-muted-foreground">
                           <div className="flex items-center space-x-2">
                             <Mail className="h-3 w-3 text-muted-foreground" />
                             <span>{source.contactInfo.email}</span>
@@ -449,12 +449,12 @@ export default function FundingPage() {
                       </div>
                     )}
 
-                    <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 mt-4 sm:mt-6 pt-4 border-t border-border">
-                      <Button className="flex-1 text-sm">
+                    <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3 mt-4 sm:mt-6 pt-4 border-t border-border">
+                      <Button className="flex-1 text-sm h-10 sm:h-auto">
                         <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
                         Apply Now
                       </Button>
-                      <Button variant="outline" className="text-sm">
+                      <Button variant="outline" className="text-sm h-10 sm:h-auto">
                         <Download className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
                         Download Info
                       </Button>
@@ -483,10 +483,10 @@ export default function FundingPage() {
                       placeholder="Enter total budget"
                       value={budgetAmount}
                       onChange={(e) => setBudgetAmount(e.target.value)}
-                      className="text-sm"
+                      className="text-sm h-10"
                     />
                   </div>
-                  <Button onClick={calculateBudget} className="w-full">
+                  <Button onClick={calculateBudget} className="w-full h-10">
                     Calculate Breakdown
                   </Button>
                 </CardContent>
@@ -745,7 +745,7 @@ export default function FundingPage() {
 
           {/* Resources Tab */}
           <TabsContent value="resources" className="mt-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
               <Card>
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center">
@@ -777,11 +777,11 @@ export default function FundingPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="px-4 sm:px-6">
-                  <div className="space-y-3 sm:space-y-4">
+                  <div className="space-y-4 sm:space-y-4">
                     {budgetBreakdown.map((item) => (
                       <div key={item.category} className="flex items-center justify-between">
                         <span className="text-xs sm:text-sm">{item.category}</span>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center space-x-3">
                           <div className="text-xs sm:text-sm font-medium">{item.percentage}</div>
                           <div className="w-16 sm:w-20 bg-muted rounded-full h-2">
                             <div 

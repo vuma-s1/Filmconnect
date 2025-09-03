@@ -68,7 +68,7 @@ export function Navbar() {
                 <img 
                   src="/24_crafts_logo.png" 
                   alt="24 Crafts" 
-                  className="h-12 w-auto sm:h-16 object-contain group-hover:scale-105 transition-transform duration-300 max-w-[140px] sm:max-w-[180px]"
+                  className="h-12 w-auto sm:h-16 object-contain group-hover:scale-105 max-w-[140px] sm:max-w-[180px]"
                   onError={(e) => {
                     console.error('Logo failed to load:', e);
                   }}
@@ -92,7 +92,7 @@ export function Navbar() {
                   <Button
                     variant={isActive ? "primary" : "ghost"}
                     size="sm"
-                    className={`relative flex items-center space-x-2 transition-all duration-200 ${
+                    className={`relative flex items-center space-x-2 ${
                       isActive 
                         ? "shadow-md !text-black" 
                         : "hover:bg-muted/50"

@@ -21,7 +21,8 @@ import {
   DollarSign,
   Newspaper,
   BookOpen,
-  Sparkles
+  Sparkles,
+  MapPin
 } from "lucide-react";
 import { SearchDropdown } from "./search-dropdown";
 
@@ -33,6 +34,7 @@ export function MobileMenu() {
     { href: "/", label: "Home", icon: Home },
     { href: "/news", label: "News", icon: Newspaper },
     { href: "/ai-studio", label: "AI Studio", icon: Sparkles },
+    { href: "/reccee", label: "Reccee", icon: MapPin },
     { href: "/jobs", label: "Jobs", icon: Briefcase },
     { href: "/funding", label: "Funding", icon: DollarSign },
     { href: "/learning", label: "Learn", icon: BookOpen },
@@ -92,6 +94,11 @@ export function MobileMenu() {
                         </Badge>
                       )}
                       {item.label === "AI Studio" && (
+                        <Badge className="ml-auto h-4 w-4 sm:h-4 sm:w-4 lg:h-5 lg:w-5 rounded-full p-0 text-[8px] sm:text-[8px] lg:text-xs bg-primary text-black">
+                          New
+                        </Badge>
+                      )}
+                      {item.label === "Reccee" && (
                         <Badge className="ml-auto h-4 w-4 sm:h-4 sm:w-4 lg:h-5 lg:w-5 rounded-full p-0 text-[8px] sm:text-[8px] lg:text-xs bg-primary text-black">
                           New
                         </Badge>
