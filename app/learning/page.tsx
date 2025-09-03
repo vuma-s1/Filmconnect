@@ -1143,8 +1143,20 @@ const LearningPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/10">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-background">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,193,7,0.1),transparent_50%)]" />
+      <div className="relative overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img 
+            src="/About Section - Behind The Scenes.png" 
+            alt="Professional studio environment with dramatic lighting and modern production setup" 
+            className="w-full h-full object-cover opacity-70"
+          />
+        </div>
+        {/* Dark Overlay for Text Readability */}
+        <div className="absolute inset-0 bg-black/50"></div>
+        {/* Subtle Radial Gradient Overlay */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,193,7,0.15),transparent_60%)]" />
+        
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
           <div className="text-center">
             <div className="flex items-center justify-center mb-4 gap-3">

@@ -20,7 +20,8 @@ import {
   Crown,
   Sparkles,
   TrendingUp,
-  BookOpen
+  BookOpen,
+  MapPin
 } from "lucide-react";
 import { NotificationsDropdown } from "./notifications-dropdown";
 import { SearchDropdown } from "./search-dropdown";
@@ -28,6 +29,7 @@ import { MobileMenu } from "./mobile-menu";
 import { UserMenu } from "./user-menu";
 import { MobileLeftSidebar } from "./mobile-left-sidebar";
 import { MobileRightSidebar } from "./mobile-right-sidebar";
+
 
 export function Navbar() {
   const pathname = usePathname();
@@ -48,6 +50,7 @@ export function Navbar() {
     { href: "/", label: "Home", icon: Home, badge: null },
     { href: "/news", label: "News", icon: Sparkles, badge: null },
     { href: "/ai-studio", label: "AI Studio", icon: Sparkles, badge: "New" },
+    { href: "/reccee", label: "Reccee", icon: MapPin, badge: "New" },
     { href: "/jobs", label: "Jobs", icon: Briefcase, badge: null },
     { href: "/funding", label: "Funding", icon: TrendingUp, badge: null },
     { href: "/learning", label: "Learn", icon: BookOpen, badge: "New" },

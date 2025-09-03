@@ -881,9 +881,11 @@ export default function AIStudioPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">AI Studio</h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
             Discover powerful AI tools to enhance your filmmaking workflow
           </p>
+          
+
         </div>
 
         <div className="flex flex-col md:flex-row gap-8">
