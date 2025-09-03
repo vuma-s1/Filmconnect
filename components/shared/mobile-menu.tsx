@@ -47,33 +47,33 @@ export function MobileMenu() {
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="sm" className="md:hidden">
-          <Menu className="h-5 w-5" />
+        <Button variant="ghost" size="sm" className="md:hidden p-2 h-9 w-9">
+          <Menu className="h-4 w-4" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="w-80">
+      <SheetContent side="left" className="w-72 sm:w-80 p-0">
         <div className="flex flex-col h-full">
           {/* Header */}
-          <div className="flex items-center space-x-3 p-4 border-b">
-            <Avatar className="h-10 w-10">
+          <div className="flex items-center space-x-2 sm:space-x-3 p-3 sm:p-4 border-b">
+            <Avatar className="h-8 w-8 sm:h-9 sm:w-9 lg:h-10 lg:w-10">
               <AvatarImage src="/placeholder-avatar.jpg" alt="Profile" />
-              <AvatarFallback>JD</AvatarFallback>
+              <AvatarFallback className="text-xs sm:text-xs lg:text-sm">JD</AvatarFallback>
             </Avatar>
             <div>
-              <p className="font-medium">John Doe</p>
-              <p className="text-sm text-muted-foreground">Film Director</p>
+              <p className="font-medium text-sm sm:text-sm lg:text-base">John Doe</p>
+              <p className="text-xs sm:text-xs lg:text-sm text-muted-foreground">Film Director</p>
             </div>
           </div>
 
           {/* Search Bar */}
-          <div className="p-4 border-b">
+          <div className="p-3 sm:p-4 border-b">
             <SearchDropdown />
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 p-4 space-y-2">
+          <nav className="flex-1 p-3 sm:p-4 space-y-1">
             <div className="space-y-1">
-              <h3 className="text-sm font-medium text-muted-foreground mb-3">Navigation</h3>
+              <h3 className="text-xs sm:text-xs lg:text-sm font-medium text-muted-foreground mb-2 sm:mb-2.5 lg:mb-3">Navigation</h3>
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = pathname === item.href;
@@ -81,17 +81,18 @@ export function MobileMenu() {
                   <Link key={item.href} href={item.href} onClick={() => setIsOpen(false)}>
                     <Button
                       variant={isActive ? "secondary" : "ghost"}
-                      className="w-full justify-start"
+                      size="sm"
+                      className="w-full justify-start h-8 sm:h-8 lg:h-9 text-xs sm:text-xs lg:text-sm"
                     >
-                      <Icon className="h-4 w-4 mr-3" />
+                      <Icon className="h-3 w-3 sm:h-3 sm:w-3 lg:h-4 lg:w-4 mr-2 sm:mr-2 lg:mr-3" />
                       {item.label}
                       {item.label === "Learn" && (
-                        <Badge className="ml-auto h-5 w-5 rounded-full p-0 text-xs bg-primary text-black">
+                        <Badge className="ml-auto h-4 w-4 sm:h-4 sm:w-4 lg:h-5 lg:w-5 rounded-full p-0 text-[8px] sm:text-[8px] lg:text-xs bg-primary text-black">
                           New
                         </Badge>
                       )}
                       {item.label === "AI Studio" && (
-                        <Badge className="ml-auto h-5 w-5 rounded-full p-0 text-xs bg-primary text-black">
+                        <Badge className="ml-auto h-4 w-4 sm:h-4 sm:w-4 lg:h-5 lg:w-5 rounded-full p-0 text-[8px] sm:text-[8px] lg:text-xs bg-primary text-black">
                           New
                         </Badge>
                       )}
@@ -101,14 +102,14 @@ export function MobileMenu() {
               })}
             </div>
 
-            <div className="space-y-1 pt-4 border-t">
-              <h3 className="text-sm font-medium text-muted-foreground mb-3">Account</h3>
+            <div className="space-y-1 pt-3 sm:pt-3.5 lg:pt-4 border-t">
+              <h3 className="text-xs sm:text-xs lg:text-sm font-medium text-muted-foreground mb-2 sm:mb-2.5 lg:mb-3">Account</h3>
               {profileItems.map((item) => {
                 const Icon = item.icon;
                 return (
                   <Link key={item.href} href={item.href} onClick={() => setIsOpen(false)}>
-                    <Button variant="ghost" className="w-full justify-start">
-                      <Icon className="h-4 w-4 mr-3" />
+                    <Button variant="ghost" size="sm" className="w-full justify-start h-8 sm:h-8 lg:h-9 text-xs sm:text-xs lg:text-sm">
+                      <Icon className="h-3 w-3 sm:h-3 sm:w-3 lg:h-4 lg:w-4 mr-2 sm:mr-2 lg:mr-3" />
                       {item.label}
                     </Button>
                   </Link>
@@ -118,8 +119,8 @@ export function MobileMenu() {
           </nav>
 
           {/* Footer */}
-          <div className="p-4 border-t">
-            <div className="flex items-center justify-between text-sm text-muted-foreground">
+          <div className="p-3 sm:p-4 border-t">
+            <div className="flex items-center justify-between text-xs sm:text-xs lg:text-sm text-muted-foreground">
               <span>24 Crafts v1.0</span>
               <span>© 2024</span>
             </div>

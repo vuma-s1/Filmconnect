@@ -55,17 +55,17 @@ export function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
-      <div className="container mx-auto px-4">
-        <div className="flex h-14 sm:h-16 items-center justify-between">
+      <div className="container mx-auto px-3 sm:px-4">
+        <div className="flex h-12 sm:h-14 lg:h-16 items-center justify-between">
           {/* Logo and Mobile Menu */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             <MobileMenu />
-            <Link href="/" className="flex items-center space-x-3 group">
+            <Link href="/" className="flex items-center space-x-2 sm:space-x-3 group">
               <div className="relative flex items-center">
                 <img 
                   src="/24_crafts_logo.png" 
                   alt="24 Crafts" 
-                  className="h-16 w-auto object-contain group-hover:scale-105 transition-transform duration-300 max-w-[180px]"
+                  className="h-12 w-auto sm:h-16 object-contain group-hover:scale-105 transition-transform duration-300 max-w-[140px] sm:max-w-[180px]"
                   onError={(e) => {
                     console.error('Logo failed to load:', e);
                   }}
@@ -127,9 +127,9 @@ export function Navbar() {
           </div>
 
           {/* Right Side Actions */}
-          <div className="flex items-center space-x-2 sm:space-x-3">
+          <div className="flex items-center space-x-1 sm:space-x-2 lg:space-x-3">
             {/* Mobile Sidebar Buttons - Only visible on mobile */}
-            <div className="flex items-center space-x-1 sm:space-x-2 md:hidden">
+            <div className="flex items-center space-x-1 md:hidden">
               <MobileLeftSidebar />
               <MobileRightSidebar />
             </div>

@@ -50,8 +50,6 @@ import {
   Facebook,
   Trophy,
   Medal,
-  Certificate,
-  Safety,
   Users,
   Handshake,
   Building,
@@ -62,8 +60,7 @@ import {
   AlertCircle,
   Lock,
   Unlock,
-  EyeOff,
-  EyeOn
+  EyeOff
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -183,43 +180,43 @@ export default function ProfilePage() {
         <BreadcrumbNav className="mb-6" />
 
         {/* Profile Header - Basic Identity Section */}
-        <Card className="mb-8">
-          <CardContent className="p-6 lg:p-8">
-            <div className="flex flex-col lg:flex-row items-start lg:items-center space-y-6 lg:space-y-0 lg:space-x-8">
+        <Card className="mb-6 sm:mb-8">
+          <CardContent className="p-4 sm:p-6 lg:p-8">
+            <div className="flex flex-col lg:flex-row items-start lg:items-center space-y-4 sm:space-y-6 lg:space-y-0 lg:space-x-8">
               {/* Profile Photo & Verification */}
               <div className="relative">
-                <Avatar className="h-32 w-32 lg:h-40 lg:w-40">
+                <Avatar className="h-24 w-24 sm:h-32 sm:w-32 lg:h-40 lg:w-40">
                   <AvatarImage src={profileData.profilePhoto} />
-                  <AvatarFallback className="text-4xl lg:text-5xl bg-primary/20">
+                  <AvatarFallback className="text-2xl sm:text-4xl lg:text-5xl bg-primary/20">
                     {profileData.fullName.split(' ').map(n => n[0]).join('')}
                   </AvatarFallback>
                 </Avatar>
                 {profileData.verification.kycVerified && (
-                  <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                    <CheckCircle className="h-5 w-5 text-black" />
+                  <div className="absolute -bottom-1 sm:-bottom-2 -right-1 sm:-right-2 w-6 h-6 sm:w-8 sm:h-8 bg-primary rounded-full flex items-center justify-center">
+                    <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-black" />
                   </div>
                 )}
               </div>
 
               {/* Basic Info */}
-              <div className="flex-1 space-y-4">
+              <div className="flex-1 space-y-3 sm:space-y-4">
                 <div>
-                  <h1 className="text-3xl lg:text-4xl font-bold text-white mb-2">
+                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-2">
                     {profileData.fullName}
                     {profileData.screenName !== profileData.fullName && (
-                      <span className="text-xl lg:text-2xl text-primary ml-3">
+                      <span className="text-lg sm:text-xl lg:text-2xl text-primary ml-2 sm:ml-3">
                         ({profileData.screenName})
                       </span>
                     )}
                   </h1>
-                  <p className="text-xl lg:text-2xl text-primary font-semibold mb-3">
+                  <p className="text-lg sm:text-xl lg:text-2xl text-primary font-semibold mb-2 sm:mb-3">
                     {profileData.primaryRole} • {profileData.yearsExperience} Years Experience
                   </p>
                   
                   {/* Languages */}
-                  <div className="flex items-center space-x-2 mb-3">
-                    <Languages className="h-5 w-5 text-muted-foreground" />
-                    <div className="flex flex-wrap gap-2">
+                  <div className="flex items-center space-x-2 mb-2 sm:mb-3">
+                    <Languages className="h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground" />
+                    <div className="flex flex-wrap gap-1 sm:gap-2">
                       {profileData.languages.map((lang) => (
                         <Badge key={lang} variant="outline" className="text-xs">
                           {lang}
@@ -229,34 +226,34 @@ export default function ProfilePage() {
                   </div>
 
                   {/* Location & Union */}
-                  <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+                  <div className="flex items-center space-x-3 sm:space-x-4 text-xs sm:text-sm text-muted-foreground">
                     <div className="flex items-center space-x-1">
-                      <MapPin className="h-4 w-4" />
+                      <MapPin className="h-3 w-3 sm:h-4 sm:w-4" />
                       <span>{profileData.location}</span>
                     </div>
                     <div className="flex items-center space-x-1">
-                      <Building className="h-4 w-4" />
+                      <Building className="h-3 w-3 sm:h-4 sm:w-4" />
                       <span>{profileData.unionMemberships.length} Unions</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex flex-wrap gap-3">
-                  <Button size="sm">
-                    <Edit className="h-4 w-4 mr-2" />
+                <div className="flex flex-wrap gap-2 sm:gap-3">
+                  <Button size="sm" className="h-8 sm:h-9 text-xs sm:text-sm">
+                    <Edit className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                     Edit Profile
                   </Button>
-                  <Button variant="outline" size="sm">
-                    <MessageCircle className="h-4 w-4 mr-2" />
+                  <Button variant="outline" size="sm" className="h-8 sm:h-9 text-xs sm:text-sm">
+                    <MessageCircle className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                     Message
                   </Button>
-                  <Button variant="outline" size="sm">
-                    <Share2 className="h-4 w-4 mr-2" />
+                  <Button variant="outline" size="sm" className="h-8 sm:h-9 text-xs sm:text-sm">
+                    <Share2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                     Share
                   </Button>
-                  <Button variant="outline" size="sm">
-                    <Download className="h-4 w-4 mr-2" />
+                  <Button variant="outline" size="sm" className="h-8 sm:h-9 text-xs sm:text-sm">
+                    <Download className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                     Press Kit
                   </Button>
                 </div>
@@ -266,85 +263,85 @@ export default function ProfilePage() {
         </Card>
 
         {/* Main Profile Content with Tabs */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
           {/* Left Sidebar - Quick Stats & Navigation */}
-          <div className="lg:col-span-1 space-y-6">
+          <div className="lg:col-span-1 space-y-4 sm:space-y-6">
             {/* Profile Stats */}
             <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <TrendingUp className="h-5 w-5" />
+              <CardHeader className="pb-3 sm:pb-4">
+                <CardTitle className="flex items-center space-x-2 text-sm sm:text-base">
+                  <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5" />
                   <span>Profile Stats</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-3 sm:space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm">Profile Views</span>
-                  <span className="font-medium">2,847</span>
+                  <span className="text-xs sm:text-sm">Profile Views</span>
+                  <span className="font-medium text-xs sm:text-sm">2,847</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm">Connections</span>
-                  <span className="font-medium">156</span>
+                  <span className="text-xs sm:text-sm">Connections</span>
+                  <span className="font-medium text-xs sm:text-sm">156</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm">Projects</span>
-                  <span className="font-medium">24</span>
+                  <span className="text-xs sm:text-sm">Projects</span>
+                  <span className="font-medium text-xs sm:text-sm">24</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm">Awards</span>
-                  <span className="font-medium">{profileData.awards.length}</span>
+                  <span className="text-xs sm:text-sm">Awards</span>
+                  <span className="font-medium text-xs sm:text-sm">{profileData.awards.length}</span>
                 </div>
               </CardContent>
             </Card>
 
             {/* Verification Status */}
             <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Shield className="h-5 w-5" />
+              <CardHeader className="pb-3 sm:pb-4">
+                <CardTitle className="flex items-center space-x-2 text-sm sm:text-base">
+                  <Shield className="h-4 w-4 sm:h-5 sm:w-5" />
                   <span>Verification</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
+              <CardContent className="space-y-2 sm:space-y-3">
                 <div className="flex items-center space-x-2">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span className="text-sm">KYC Verified</span>
+                  <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-500" />
+                  <span className="text-xs sm:text-sm">KYC Verified</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span className="text-sm">Union Verified</span>
+                  <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-500" />
+                  <span className="text-xs sm:text-sm">Union Verified</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span className="text-sm">Award Verified</span>
+                  <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-500" />
+                  <span className="text-xs sm:text-sm">Award Verified</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Eye className="h-4 w-4 text-blue-500" />
-                  <span className="text-sm">Piracy Monitoring</span>
+                  <Eye className="h-3 w-3 sm:h-4 sm:w-4 text-blue-500" />
+                  <span className="text-xs sm:text-sm">Piracy Monitoring</span>
                 </div>
               </CardContent>
             </Card>
 
             {/* Quick Actions */}
             <Card>
-              <CardHeader>
-                <CardTitle>Quick Actions</CardTitle>
+              <CardHeader className="pb-3 sm:pb-4">
+                <CardTitle className="text-sm sm:text-base">Quick Actions</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <Button variant="outline" className="w-full justify-start">
-                  <Edit className="h-4 w-4 mr-2" />
+              <CardContent className="space-y-2 sm:space-y-3">
+                <Button variant="outline" size="sm" className="w-full justify-start h-8 sm:h-9 text-xs sm:text-sm">
+                  <Edit className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
                   Edit Profile
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
-                  <Share2 className="h-4 w-4 mr-2" />
+                <Button variant="outline" size="sm" className="w-full justify-start h-8 sm:h-9 text-xs sm:text-sm">
+                  <Share2 className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
                   Share Profile
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
-                  <MessageCircle className="h-4 w-4 mr-2" />
+                <Button variant="outline" size="sm" className="w-full justify-start h-8 sm:h-9 text-xs sm:text-sm">
+                  <MessageCircle className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
                   Send Message
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
-                  <UserPlus className="h-4 w-4 mr-2" />
+                <Button variant="outline" size="sm" className="w-full justify-start h-8 sm:h-9 text-xs sm:text-sm">
+                  <UserPlus className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
                   Connect
                 </Button>
               </CardContent>
@@ -353,20 +350,20 @@ export default function ProfilePage() {
 
           {/* Main Content - Tabbed Sections */}
           <div className="lg:col-span-3">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-              <TabsList className="grid w-full grid-cols-6 lg:grid-cols-12 gap-2">
-                <TabsTrigger value="identity" className="text-xs">Identity</TabsTrigger>
-                <TabsTrigger value="career" className="text-xs">Career</TabsTrigger>
-                <TabsTrigger value="filmography" className="text-xs">Filmography</TabsTrigger>
-                <TabsTrigger value="awards" className="text-xs">Awards</TabsTrigger>
-                <TabsTrigger value="portfolio" className="text-xs">Portfolio</TabsTrigger>
-                <TabsTrigger value="learning" className="text-xs">Learning</TabsTrigger>
-                <TabsTrigger value="network" className="text-xs">Network</TabsTrigger>
-                <TabsTrigger value="goals" className="text-xs">Goals</TabsTrigger>
-                <TabsTrigger value="verification" className="text-xs">Verification</TabsTrigger>
-                <TabsTrigger value="public" className="text-xs">Public</TabsTrigger>
-                <TabsTrigger value="actor" className="text-xs">Actor</TabsTrigger>
-                <TabsTrigger value="crew" className="text-xs">Crew</TabsTrigger>
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4 sm:space-y-6">
+              <TabsList className="grid w-full grid-cols-4 sm:grid-cols-6 lg:grid-cols-12 gap-1 sm:gap-2 h-auto">
+                <TabsTrigger value="identity" className="text-[10px] sm:text-xs h-8 sm:h-9">Identity</TabsTrigger>
+                <TabsTrigger value="career" className="text-[10px] sm:text-xs h-8 sm:h-9">Career</TabsTrigger>
+                <TabsTrigger value="filmography" className="text-[10px] sm:text-xs h-8 sm:h-9">Filmography</TabsTrigger>
+                <TabsTrigger value="awards" className="text-[10px] sm:text-xs h-8 sm:h-9">Awards</TabsTrigger>
+                <TabsTrigger value="portfolio" className="text-[10px] sm:text-xs h-8 sm:h-9">Portfolio</TabsTrigger>
+                <TabsTrigger value="learning" className="text-[10px] sm:text-xs h-8 sm:h-9">Learning</TabsTrigger>
+                <TabsTrigger value="network" className="text-[10px] sm:text-xs h-8 sm:h-9">Network</TabsTrigger>
+                <TabsTrigger value="goals" className="text-[10px] sm:text-xs h-8 sm:h-9">Goals</TabsTrigger>
+                <TabsTrigger value="verification" className="text-[10px] sm:text-xs h-8 sm:h-9">Verification</TabsTrigger>
+                <TabsTrigger value="public" className="text-[10px] sm:text-xs h-8 sm:h-9">Public</TabsTrigger>
+                <TabsTrigger value="actor" className="text-[10px] sm:text-xs h-8 sm:h-9">Actor</TabsTrigger>
+                <TabsTrigger value="crew" className="text-[10px] sm:text-xs h-8 sm:h-9">Crew</TabsTrigger>
               </TabsList>
 
               {/* Identity Tab */}
@@ -833,7 +830,7 @@ export default function ProfilePage() {
                       <div className="space-y-4">
                         <h3 className="font-semibold text-lg">Safety Training</h3>
                         <div className="bg-muted rounded-lg p-6 text-center">
-                          <Safety className="h-12 w-12 mx-auto text-muted-foreground mb-2" />
+                          <Shield className="h-12 w-12 mx-auto text-muted-foreground mb-2" />
                           <p className="text-muted-foreground">SOP & Safety Status</p>
                         </div>
                       </div>
