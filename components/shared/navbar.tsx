@@ -51,7 +51,7 @@ export function Navbar() {
     { href: "/news", label: "News", icon: Sparkles, badge: null },
     { href: "/ai-studio", label: "AI Studio", icon: Sparkles, badge: "New" },
     { href: "/reccee", label: "Reccee", icon: MapPin, badge: "New" },
-    { href: "/jobs", label: "Jobs", icon: Briefcase, badge: null },
+    { href: "/cast-crew", label: "Cast & Crew", icon: Users, badge: null },
     { href: "/funding", label: "Funding", icon: TrendingUp, badge: null },
     { href: "/learning", label: "Learn", icon: BookOpen, badge: "New" },
   ];

@@ -38,24 +38,114 @@ export interface Credit {
   awards?: string[];
 }
 
-export interface JobPosting {
+// Cast & Crew Profile Types
+export interface CastCrewProfile {
+  id: string;
+  name: string;
+  username: string;
+  profilePictureUrl: string;
+  role: 'Actor' | 'Director' | 'Cinematographer' | 'Writer' | 'Producer' | 'Editor' | 'Sound Designer' | 'VFX Artist' | 'Costume Designer' | 'Makeup Artist' | 'Stunt Coordinator' | 'Music Director' | 'Lighting Technician' | 'Grip' | 'Production Manager' | 'Casting Director' | 'Script Supervisor' | 'Art Director' | 'Set Designer' | 'Catering Manager' | 'Transport Coordinator' | 'Security Head' | 'Publicity Manager' | 'Distribution Manager' | 'Theatre Manager' | 'Animator' | 'Daily Wage Worker';
+  craft: string; // Specific craft within role
+  category: 'Cast' | 'Crew';
+  subcategory: string; // Lead Actor, Supporting, Comedian, etc. for Cast | Department for Crew
+  languages: string[]; // Telugu, Tamil, Hindi, Malayalam, Kannada, English
+  experience: string; // 5+ years, 10+ years, etc.
+  experienceLevel: 'Entry' | 'Mid' | 'Senior' | 'Veteran';
+  location: string;
+  bio: string;
+  isVerified: boolean;
+  isAvailable: boolean;
+  availabilityStatus: 'Available' | 'Busy' | 'On Project' | 'Not Available';
+  rating: number;
+  reviews: number;
+  profileViews: number;
+  connections: number;
+  joinedDate: string;
+  website?: string;
+  phone?: string;
+  email: string;
+  isOnline: boolean;
+  lastSeen: string;
+  skills: string[];
+  tools: string[]; // Software, equipment
+  awards: Award[];
+  filmography: FilmCredit[];
+  portfolio: PortfolioItem[];
+  showreel?: string;
+  manager?: string;
+  agency?: string;
+  union?: string;
+  contactInfo: ContactInfo;
+  socialMedia: SocialMedia;
+  aiStudioBadges: AIStudioBadge[];
+  endorsements: Endorsement[];
+}
+
+export interface Award {
+  id: string;
+  name: string;
+  category: string;
+  year: number;
+  film?: string;
+  organization: string;
+  level: 'National' | 'State' | 'Guild' | 'Festival' | 'Industry';
+}
+
+export interface FilmCredit {
   id: string;
   title: string;
+  year: number;
+  role: string;
+  genre: string;
+  director: string;
   productionHouse: string;
-  location: string;
-  roleRequired: string;
+  budget?: string;
+  boxOffice?: string;
+  posterUrl?: string;
+  isVerified: boolean;
+  awards?: string[];
+}
+
+export interface PortfolioItem {
+  id: string;
+  type: 'image' | 'video' | 'audio' | 'document';
+  title: string;
   description: string;
-  responsibilities: string[];
-  requiredSkills: string[];
-  jobType: 'Full-time' | 'Freelance' | 'Short Film';
-  salary?: string;
-  postedDate: string;
-  applications: number;
-  deadline: string;
-  contactEmail: string;
-  experienceLevel: 'Entry' | 'Mid' | 'Senior';
-  isUrgent: boolean;
-  benefits?: string[];
+  url: string;
+  thumbnailUrl?: string;
+  category: string;
+  year?: number;
+}
+
+export interface ContactInfo {
+  preferredMethod: 'email' | 'phone' | 'whatsapp' | 'platform';
+  responseTime: string;
+  workingHours: string;
+  timezone: string;
+}
+
+export interface SocialMedia {
+  instagram?: string;
+  twitter?: string;
+  linkedin?: string;
+  youtube?: string;
+  imdb?: string;
+}
+
+export interface AIStudioBadge {
+  id: string;
+  name: string;
+  level: 'Bronze' | 'Silver' | 'Gold';
+  category: string;
+  earnedDate: string;
+}
+
+export interface Endorsement {
+  id: string;
+  endorser: User;
+  message: string;
+  skill: string;
+  timestamp: string;
 }
 
 export interface Post {
@@ -119,7 +209,7 @@ export interface ProjectReel {
 
 export interface Notification {
   id: string;
-  type: 'connection_request' | 'job_application' | 'message' | 'like' | 'comment' | 'job_match';
+  type: 'connection_request' | 'message' | 'like' | 'comment' | 'profile_view' | 'endorsement';
   title: string;
   message: string;
   timestamp: string;
@@ -137,13 +227,4 @@ export interface ConnectionRequest {
   status: 'pending' | 'accepted' | 'rejected';
 }
 
-export interface JobApplication {
-  id: string;
-  jobId: string;
-  applicant: User;
-  coverLetter: string;
-  resumeUrl?: string;
-  portfolioUrl?: string;
-  timestamp: string;
-  status: 'pending' | 'reviewed' | 'shortlisted' | 'rejected' | 'hired';
-}
+// Removed JobApplication interface - no longer needed
